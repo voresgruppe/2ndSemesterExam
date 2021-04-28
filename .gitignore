@@ -135,3 +135,4 @@ hs_err_pid*
 # Custom ignores
 
 config.csv
+/data/database.settings
