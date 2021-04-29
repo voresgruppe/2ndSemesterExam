@@ -11,10 +11,19 @@ import java.util.Properties;
 
 public class DatabaseConnector {
 
+    private static DatabaseConnector Instance = null;
+
     private static final String PROP_FILE = "data/database.settings";
     SQLServerDataSource dataSource;
 
-    public DatabaseConnector() {
+    public static DatabaseConnector getInstance(){
+        if(Instance == null)
+            Instance = new DatabaseConnector();
+
+        return Instance;
+    }
+
+    private DatabaseConnector() {
         Properties databaseProperties = new Properties();
         try {
             databaseProperties.load(new FileInputStream(new File(PROP_FILE)));
