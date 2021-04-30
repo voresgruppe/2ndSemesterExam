@@ -24,5 +24,9 @@ public class UserManager {
         return userRepository.loadUsers();
     }
 
+    public ObservableList<User> getUsersWithoutAdmins(){
+        return userRepository.loadUsersWithoutAdmins();
+    }
+
 
 }

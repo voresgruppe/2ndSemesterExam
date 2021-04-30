@@ -72,7 +72,11 @@ public class LoginViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        usernameField.setText("test");
-        passwordField.setText("test");
+        setTestLogin();
+    }
+
+    private void setTestLogin(){
+        usernameField.setText("testAdmin");
+        passwordField.setText("testAdmin");
     }
 }

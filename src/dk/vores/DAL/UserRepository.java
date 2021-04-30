@@ -44,7 +44,7 @@ public class UserRepository {
     }
 
     public int login(String username, String password){
-        try {
+        try(Connection connection = db.getConnection()){
             String query = "SELECT [id], [password] FROM [User] AS u WHERE username=?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
@@ -65,13 +65,33 @@ public class UserRepository {
     public ObservableList<User> loadUsers(){
         try(Connection connection = db.getConnection()){
             ObservableList<User> users = FXCollections.observableArrayList();
-            String query = "SELECT * FROM Users ORDER BY id";
+            String query = "SELECT * FROM [User] ORDER BY [id]";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next()) {
                 boolean isAdmin = (resultSet.getInt("isAdmin") == 1);
                 User u = new User(resultSet.getInt("id"),resultSet.getString("username"),resultSet.getString("password"),isAdmin);
                 users.add(u);
+            }
+            return users;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
+    }
+
+    public ObservableList<User> loadUsersWithoutAdmins(){
+        try(Connection connection = db.getConnection()){
+            ObservableList<User> users = FXCollections.observableArrayList();
+            String query = "SELECT * FROM [User] ORDER BY [id]";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while(resultSet.next()) {
+                boolean isAdmin = (resultSet.getInt("isAdmin") == 1);
+                User u = new User(resultSet.getInt("id"),resultSet.getString("username"),resultSet.getString("password"),isAdmin);
+                if(!u.isAdmin()) {
+                    users.add(u);
+                }
             }
             return users;
         } catch (SQLException throwables) {

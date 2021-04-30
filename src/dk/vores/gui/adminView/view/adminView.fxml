@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="dk.vores.gui.adminView.AdminViewController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.vores.gui.adminView.AdminViewController">
+   <children>
+      <TableView fx:id="tblUsers" layoutX="1693.0" layoutY="194.0" prefHeight="200.0" prefWidth="300.0" AnchorPane.bottomAnchor="150.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+        <columns>
+          <TableColumn fx:id="tcID" prefWidth="50.0" text="ID" />
+          <TableColumn fx:id="tcUsername" prefWidth="125.0" text="Username" />
+            <TableColumn fx:id="tcPassword" prefWidth="125.0" text="Password" />
+        </columns>
+      </TableView>
+   </children>
 </AnchorPane>
