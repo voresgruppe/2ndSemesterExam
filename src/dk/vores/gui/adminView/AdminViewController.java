@@ -3,10 +3,17 @@ package dk.vores.gui.adminView;
 import dk.vores.BLL.UserManager;
 import dk.vores.be.User;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -42,7 +49,29 @@ public class AdminViewController implements Initializable {
 
     private void administratorsListener() {
         tblUsers.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> selectedUser = newValue);
+
+        tblUsers.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
+                openChangeView(selectedUser);
+            }
+        });
     }
+
+    private void openChangeView(User selectedUser){
+        try {
+            FXMLLoader loader = new FXMLLoader(ChangeViewController.class.getResource("view/changeView.fxml"));
+            Parent mainLayout = loader.load();
+            ChangeViewController cvc = loader.getController();
+            cvc.setClickedUser(selectedUser);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(mainLayout));
+            stage.setTitle("Design the view for: " + selectedUser.getUsername());
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
