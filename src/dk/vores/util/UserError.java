@@ -10,4 +10,12 @@ public class UserError {
         a.setContentText(error);
         a.show();
     }
+
+    public static Alert showWarning(String header, String text){
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        a.setTitle("Confirmation");
+        a.setHeaderText(header);
+        a.setContentText(text);
+        return a;
+    }
 }

@@ -4,14 +4,12 @@ import dk.vores.be.User;
 import dk.vores.util.UserError;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.Optional;
 
 public class ChangeViewController {
 
@@ -64,6 +62,11 @@ public class ChangeViewController {
     }
 
     public void removeLayout(ActionEvent actionEvent) {
+        String header = "Are you sure you want to delete " + currentUser.getUsername() + "'s current view?";
+        Optional<ButtonType> result = UserError.showWarning(header,"Click OK to continue").showAndWait();
+        if(result.get() == ButtonType.OK){
+            //delete from database
+        }
     }
 
     private boolean showErrorstoUser(){
