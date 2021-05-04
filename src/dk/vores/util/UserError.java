@@ -13,7 +13,7 @@ public class UserError {
 
     public static Alert showWarning(String header, String text){
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-        a.setTitle("Confirmation");
+        a.setTitle("Please confirm...");
         a.setHeaderText(header);
         a.setContentText(text);
         return a;

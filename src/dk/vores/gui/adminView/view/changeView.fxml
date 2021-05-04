@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.vores.gui.adminView.ChangeViewController">
+<BorderPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/15" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.vores.gui.adminView.ChangeViewController">
    <top>
       <Label fx:id="lblWhoToChange" text="Change the view for: " textAlignment="CENTER" BorderPane.alignment="CENTER">
          <font>
@@ -23,12 +23,17 @@
          <children>
             <HBox prefHeight="25.0" prefWidth="200.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefWidth="225.0" text="Start X (%):" textAlignment="RIGHT" />
+                  <Label alignment="CENTER_RIGHT" prefWidth="262.0" text="Start X (%):" textAlignment="RIGHT" />
                   <TextField fx:id="startX">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </TextField>
+                  <Label text="*">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
                <padding>
                   <Insets top="10.0" />
@@ -36,12 +41,17 @@
             </HBox>
             <HBox prefHeight="25.0" prefWidth="200.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefWidth="225.0" text="End X (%):" textAlignment="RIGHT" />
+                  <Label alignment="CENTER_RIGHT" prefWidth="262.0" text="End X (%):" textAlignment="RIGHT" />
                   <TextField fx:id="endX">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </TextField>
+                  <Label text="*">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
                <padding>
                   <Insets top="10.0" />
@@ -49,12 +59,17 @@
             </HBox>
             <HBox prefHeight="25.0" prefWidth="200.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefWidth="225.0" text="Start Y (%):" textAlignment="RIGHT" />
+                  <Label alignment="CENTER_RIGHT" prefWidth="262.0" text="Start Y (%):" textAlignment="RIGHT" />
                   <TextField fx:id="startY">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </TextField>
+                  <Label text="*">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
                <padding>
                   <Insets top="10.0" />
@@ -62,12 +77,17 @@
             </HBox>
             <HBox prefHeight="25.0" prefWidth="200.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefWidth="225.0" text="End Y (%):" textAlignment="RIGHT" />
+                  <Label alignment="CENTER_RIGHT" prefWidth="262.0" text="End Y (%):" textAlignment="RIGHT" />
                   <TextField fx:id="endY">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </TextField>
+                  <Label text="*">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
                <padding>
                   <Insets top="10.0" />
@@ -75,7 +95,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefWidth="225.0" text="Type: " />
+                  <Label alignment="CENTER_RIGHT" prefWidth="262.0" text="Type: " />
                   <ChoiceBox fx:id="choiceType" prefWidth="150.0">
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -88,8 +108,8 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="302.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefWidth="225.0" text="Source:" textAlignment="RIGHT" />
-                  <TextField fx:id="txtfieldSourcePath" prefHeight="22.0" prefWidth="149.0">
+                  <Label alignment="CENTER_RIGHT" prefWidth="262.0" text="Source:" textAlignment="RIGHT" />
+                  <TextField fx:id="txtfieldSourcePath" prefHeight="22.0">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -99,6 +119,51 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Button>
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="150.0" prefHeight="25.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefWidth="262.0" text="New type: " />
+                  <ChoiceBox fx:id="choiceType1" prefWidth="150.0">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </ChoiceBox>
+                  <Label text="#">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="185.0" prefHeight="25.0" prefWidth="302.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefWidth="262.0" text="New source:" textAlignment="RIGHT">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="txtfieldSourcePath1" prefHeight="22.0">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Button focusTraversable="false" mnemonicParsing="false" onAction="#chooseSource1" text="Choose...">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Label text="#">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
                <padding>
                   <Insets top="10.0" />
@@ -115,7 +180,12 @@
          <right>
             <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" onAction="#save" text="Save" />
+                  <Button mnemonicParsing="false" onAction="#updateTypeSource" text="Update">
+                     <HBox.margin>
+                        <Insets right="25.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#save" text="Add" />
                   <Button fx:id="btnClose" mnemonicParsing="false" onAction="#cancel" text="Cancel">
                      <HBox.margin>
                         <Insets left="25.0" />
@@ -130,13 +200,29 @@
          <left>
             <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button focusTraversable="false" mnemonicParsing="false" onAction="#removeLayout" text="Remove current layout" />
+                  <Button focusTraversable="false" mnemonicParsing="false" onAction="#removeLayout" text="Clear current layout" />
                </children>
                <BorderPane.margin>
                   <Insets bottom="16.0" left="16.0" />
                </BorderPane.margin>
             </HBox>
          </left>
+         <center>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="187.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="TOP_CENTER" text="* is only needed when adding">
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label alignment="TOP_CENTER" text="# is only needed when updating">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+         </center>
       </BorderPane>
    </bottom>
 </BorderPane>
