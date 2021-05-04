@@ -20,4 +20,7 @@ public class UserViewManager {
     public void updateTypeSourceFromUser(User u, String oldType, String oldSource, String newType, String newSource){
         uvRepo.updateTypeSourceFromUser(u,oldType,oldSource,newType,newSource);
     }
+    public void loadViewsFromUserID(int userID){
+        uvRepo.loadViewsFromUserID(userID);
+    }
 }

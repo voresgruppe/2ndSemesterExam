@@ -3,15 +3,37 @@ package dk.vores.DAL;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dk.vores.DAL.db.DatabaseConnector;
 import dk.vores.be.User;
+import dk.vores.be.UserView;
 import dk.vores.util.UserError;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserViewRepository {
 
     DatabaseConnector db;
+
+    public ObservableList<UserView> loadViewsFromUserID(int id){
+        try(Connection connection = db.getConnection()){
+            ObservableList<UserView> userViews = FXCollections.observableArrayList();
+            String query = "Select * from [UserView] where [userID] ='"+id+"'";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            while(resultSet.next()) {
+                boolean hasUserID = (resultSet.getInt("userID") == id);
+                if(hasUserID) {
+                    UserView uv = new UserView(resultSet.getInt("id"), resultSet.getInt("userID"), resultSet.getInt("startx"), resultSet.getInt("starty"), resultSet.getInt("endx"), resultSet.getInt("endy"), resultSet.getString("type"), resultSet.getString("source"));
+                    userViews.add(uv);
+                }
+            }
+            return userViews;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
+    }
+
 
     public void addViewToUser(User u, int startX, int startY, int endX, int endY, String type, String source){
         try(Connection connection = db.getConnection()){
