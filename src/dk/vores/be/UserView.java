@@ -1,5 +1,7 @@
 package dk.vores.be;
 
+import dk.vores.util.DataUtils;
+
 public class UserView {
     private int id;
     private int userID;
@@ -7,10 +9,11 @@ public class UserView {
     private int startY;
     private int endX;
     private int endY;
-    private String type;
+    private DataType type;
     private String source;
+    private DataUtils dataUtils = new DataUtils();
 
-    public UserView(int id, int userID, int startX, int startY, int endX, int endY, String type, String source) {
+    public UserView(int id, int userID, int startX, int startY, int endX, int endY, DataType type, String source) {
         this.id = id;
         this.userID = userID;
         this.startX = startX;
@@ -69,11 +72,11 @@ public class UserView {
         this.endY = endY;
     }
 
-    public String getType() {
+    public DataType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(DataType type) {
         this.type = type;
     }
 

@@ -2,6 +2,7 @@ package dk.vores.gui.adminView;
 
 import dk.vores.BLL.UserManager;
 import dk.vores.BLL.UserViewManager;
+import dk.vores.be.DataType;
 import dk.vores.be.User;
 import dk.vores.be.UserView;
 import javafx.collections.ObservableList;
@@ -85,7 +86,7 @@ draws userView as the user with the given id would currently see it
 
                 //midlertidig for at illustrere typer
                 userBlock.setFill(Color.WHITE);
-                if(current.getType().matches("barChart")){
+                if(current.getType().equals(DataType.BarChart)){
                     userBlock.setFill(Color.RED);
                 }
                 paneUserView.getChildren().add(userBlock);

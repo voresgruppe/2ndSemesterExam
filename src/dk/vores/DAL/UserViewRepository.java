@@ -4,6 +4,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dk.vores.DAL.db.DatabaseConnector;
 import dk.vores.be.User;
 import dk.vores.be.UserView;
+import dk.vores.util.DataUtils;
 import dk.vores.util.UserError;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +14,7 @@ import java.sql.*;
 public class UserViewRepository {
 
     DatabaseConnector db;
+    private DataUtils dataUtils = new DataUtils();
 
     public UserViewRepository() {
         this.db = DatabaseConnector.getInstance();
@@ -27,7 +29,7 @@ public class UserViewRepository {
             while(resultSet.next()) {
                 boolean hasUserID = (resultSet.getInt("userID") == id);
                 if(hasUserID) {
-                    UserView uv = new UserView(resultSet.getInt("id"), resultSet.getInt("userID"), resultSet.getInt("startx"), resultSet.getInt("starty"), resultSet.getInt("endx"), resultSet.getInt("endy"), resultSet.getString("type"), resultSet.getString("source"));
+                    UserView uv = new UserView(resultSet.getInt("id"), resultSet.getInt("userID"), resultSet.getInt("startx"), resultSet.getInt("starty"), resultSet.getInt("endx"), resultSet.getInt("endy"), dataUtils.typeFromString(resultSet.getString("type")), resultSet.getString("source"));
                     userViews.add(uv);
                 }
             }
