@@ -14,6 +14,10 @@ public class UserViewRepository {
 
     DatabaseConnector db;
 
+    public UserViewRepository() {
+        this.db = DatabaseConnector.getInstance();
+    }
+
     public ObservableList<UserView> loadViewsFromUserID(int id){
         try(Connection connection = db.getConnection()){
             ObservableList<UserView> userViews = FXCollections.observableArrayList();

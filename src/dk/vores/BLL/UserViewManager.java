@@ -2,6 +2,8 @@ package dk.vores.BLL;
 
 import dk.vores.DAL.UserViewRepository;
 import dk.vores.be.User;
+import dk.vores.be.UserView;
+import javafx.collections.ObservableList;
 
 public class UserViewManager {
     private UserViewRepository uvRepo;
@@ -20,7 +22,7 @@ public class UserViewManager {
     public void updateTypeSourceFromUser(User u, String oldType, String oldSource, String newType, String newSource){
         uvRepo.updateTypeSourceFromUser(u,oldType,oldSource,newType,newSource);
     }
-    public void loadViewsFromUserID(int userID){
-        uvRepo.loadViewsFromUserID(userID);
+    public ObservableList<UserView> loadViewsFromUserID(int userID){
+        return uvRepo.loadViewsFromUserID(userID);
     }
 }
