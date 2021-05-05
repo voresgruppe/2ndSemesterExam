@@ -20,6 +20,25 @@ public class UserViewRepository {
         this.db = DatabaseConnector.getInstance();
     }
 
+    public UserView loadViewFromID(int id){
+        try(Connection connection = db.getConnection()){
+            String query = "Select*from [UserView] WHERE [id] = '" + id +"'";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            UserView uv = null;
+            while(resultSet.next()) {
+                uv = new UserView(resultSet.getInt("id"), resultSet.getInt("userID"), resultSet.getInt("startx"), resultSet.getInt("starty"), resultSet.getInt("endx"), resultSet.getInt("endy"), dataUtils.typeFromString(resultSet.getString("type"), resultSet.getInt("id")), resultSet.getString("source"));
+            }
+            if(uv == null){
+                //TODO error
+            }
+            return uv;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return null;
+        }
+    }
+
     public ObservableList<UserView> loadViewsFromUserID(int id){
         try(Connection connection = db.getConnection()){
             ObservableList<UserView> userViews = FXCollections.observableArrayList();
@@ -29,7 +48,7 @@ public class UserViewRepository {
             while(resultSet.next()) {
                 boolean hasUserID = (resultSet.getInt("userID") == id);
                 if(hasUserID) {
-                    UserView uv = new UserView(resultSet.getInt("id"), resultSet.getInt("userID"), resultSet.getInt("startx"), resultSet.getInt("starty"), resultSet.getInt("endx"), resultSet.getInt("endy"), dataUtils.typeFromString(resultSet.getString("type")), resultSet.getString("source"));
+                    UserView uv = new UserView(resultSet.getInt("id"), resultSet.getInt("userID"), resultSet.getInt("startx"), resultSet.getInt("starty"), resultSet.getInt("endx"), resultSet.getInt("endy"), dataUtils.typeFromString(resultSet.getString("type"), resultSet.getInt("id")), resultSet.getString("source"));
                     userViews.add(uv);
                 }
             }
@@ -71,17 +90,14 @@ public class UserViewRepository {
 
     }
 
-    public void updateTypeSourceFromUser(User u, String oldType, String oldSource, String newType, String newSource){
+    public void updateTypeFromID(int uvID, String newType){
         try(Connection connection = db.getConnection()){
             String sql = "UPDATE [UserView] \n" +
-                    "SET [type] = ?, [source] = ? \n" +
-                    "WHERE [userID] = ? AND [type] = ? AND [source] = ?;";
+                    "SET [type] = ? \n" +
+                    "WHERE [id] = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,newType);
-            preparedStatement.setString(2,newSource);
-            preparedStatement.setInt(3,u.getId());
-            preparedStatement.setString(4,oldType);
-            preparedStatement.setString(5,oldSource);
+            preparedStatement.setInt(2,uvID);
             preparedStatement.executeQuery();
         } catch (SQLException throwables) {
             showDBError(throwables);

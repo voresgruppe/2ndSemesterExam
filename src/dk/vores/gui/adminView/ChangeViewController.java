@@ -144,14 +144,16 @@ public class ChangeViewController {
         }else return false;
     }
 
+
+    /*
+     jeg hgar ødelagt den  - Cecilie
+     */
     public void updateTypeSource(ActionEvent actionEvent) {
         if(!isTypeOrSourceBlankForAdd() && !isTypeOrSourceBlankForUpdate()){
-            String oldType = choiceType.getSelectionModel().getSelectedItem().toString();
-            String oldSource = txtfieldSourcePath.getText();
             String newType = choiceType1.getSelectionModel().getSelectedItem().toString();
             String newSource = txtfieldSourcePath1.getText();
 
-            uvMan.updateTypeSourceFromUser(currentUser,oldType,oldSource,newType,newSource);
+            //uvMan.updateTypeSourceFromUser(newType,newSource);
         }
     }
 

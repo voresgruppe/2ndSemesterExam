@@ -11,6 +11,10 @@ public class UserViewManager {
         uvRepo = new UserViewRepository();
     }
 
+    public UserView getViewFromID(int id){
+        return uvRepo.loadViewFromID(id);
+    }
+
     public void addViewToUser(User u, int startX, int startY, int endX, int endY, String type, String source){
         uvRepo.addViewToUser(u,startX,startY,endX,endY,type,source);
     }
@@ -19,8 +23,8 @@ public class UserViewManager {
         uvRepo.clearViewFromUser(u);
     }
 
-    public void updateTypeSourceFromUser(User u, String oldType, String oldSource, String newType, String newSource){
-        uvRepo.updateTypeSourceFromUser(u,oldType,oldSource,newType,newSource);
+    public void updateTypeFromID(int uvID, String newType){
+        uvRepo.updateTypeFromID(uvID,newType);
     }
     public ObservableList<UserView> loadViewsFromUserID(int userID){
         return uvRepo.loadViewsFromUserID(userID);
