@@ -10,8 +10,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Point2D;
-import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -19,20 +17,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class AdminViewController implements Initializable {
-    @FXML
-    private AnchorPane mainPane;
     @FXML
     private AnchorPane paneUserView;
     @FXML
@@ -63,7 +56,7 @@ public class AdminViewController implements Initializable {
     }
 
     public void initTableview(){
-        administratorsListener();
+        UserListener();
 
         tblUsers.setItems(uMan.getUsersWithoutAdmins());
         selectedUser = tblUsers.getItems().get(0);
@@ -76,6 +69,8 @@ draws userView as the user with the given id would currently see it
  */
     public void drawUserView() {
         ObservableList<UserView> usersViews = uvMan.loadViewsFromUserID(selectedUser.getId());
+        System.out.println("1");
+
         if (!usersViews.isEmpty()) {
             double height = paneUserView.getHeight();
             double width = paneUserView.getWidth();
@@ -105,18 +100,18 @@ draws userView as the user with the given id would currently see it
         }
     }
 
-    private void administratorsListener() {
+    private void UserListener() {
         tblUsers.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> selectedUser = newValue);
 
         tblUsers.setOnMouseClicked((MouseEvent event) -> {
+            if(selectedUser != null){
+                drawUserView();
+                System.out.println("2");
+            }
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
                 openChangeView(selectedUser);
             }
         });
-
-        if(selectedUser != null){
-            drawUserView();
-        }
     }
 
     private void openChangeView(User selectedUser){
