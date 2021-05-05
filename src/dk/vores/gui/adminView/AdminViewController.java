@@ -69,8 +69,6 @@ draws userView as the user with the given id would currently see it
  */
     public void drawUserView() {
         ObservableList<UserView> usersViews = uvMan.loadViewsFromUserID(selectedUser.getId());
-        System.out.println("1");
-
         if (!usersViews.isEmpty()) {
             double height = paneUserView.getHeight();
             double width = paneUserView.getWidth();
@@ -106,7 +104,6 @@ draws userView as the user with the given id would currently see it
         tblUsers.setOnMouseClicked((MouseEvent event) -> {
             if(selectedUser != null){
                 drawUserView();
-                System.out.println("2");
             }
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
                 openChangeView(selectedUser);
