@@ -1,7 +1,9 @@
 package dk.vores.gui.adminView;
 
+import dk.vores.BLL.DataManager;
 import dk.vores.BLL.UserManager;
 import dk.vores.BLL.UserViewManager;
+import dk.vores.be.DataExample;
 import dk.vores.be.DataType;
 import dk.vores.be.User;
 import dk.vores.be.UserView;
@@ -27,6 +29,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AdminViewController implements Initializable {
@@ -87,18 +90,36 @@ draws userView as the user with the given id would currently see it
                 if (width < current.getEndX()) {
                     width = current.getEndX();
                 }
-                Rectangle userBlock = viewUtils.createDraggableRectangle(current.getId(), current.getStartX(), current.getStartY(), current.getEndX() - current.getStartX(), current.getEndY() - current.getStartY());
 
+
+                Rectangle userBlock = viewUtils.createDraggableRectangle(current.getId(), current.getStartX(), current.getStartY(), current.getEndX() - current.getStartX(), current.getEndY() - current.getStartY());
                 userBlock.setStroke(Color.BLACK);
 
                 //midlertidig for at illustrere typer
                 userBlock.setFill(Color.WHITE);
                 if (current.getType().equals(DataType.BarChart)) {
-                    userBlock.setFill(Color.RED);
+                    if(current.getSource().matches("test")) {
+                        userBlock.setFill(Color.RED);
+                    }
+                    else{
+                        //Example
+                        AnchorPane pane = new AnchorPane();
+                        pane.setLayoutX(current.getStartX());
+                        pane.setLayoutY(current.getStartY());
+                        pane.setPrefWidth(current.getEndX() - current.getStartX());
+                        pane.setPrefHeight(current.getEndY() - current.getStartY());
+
+                        DataManager dMan = new DataManager();
+                        List<DataExample> data = dMan.getAllData(current.getSource());
+
+                        pane.getChildren().add(viewUtils.buildBarChart(data));
+                        paneUserView.getChildren().add(pane);
+
+                        //midlertidig
+                        userBlock.setVisible(false);
+                    }
                 }
                 paneUserView.getChildren().add(userBlock);
-
-
             }
             paneUserView.setMinHeight(height+10);
             paneUserView.setMinWidth(width+10);

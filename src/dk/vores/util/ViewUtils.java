@@ -1,14 +1,20 @@
 package dk.vores.util;
 
 import dk.vores.BLL.UserViewManager;
+import dk.vores.be.DataExample;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class ViewUtils {
     UserViewManager uvMan = new UserViewManager();
@@ -171,4 +177,33 @@ public class ViewUtils {
     }
 
     static class Wrapper<T> { T value ; }
+
+
+
+    public BarChart buildBarChart(List<DataExample> dataExamples) {
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("Product");
+
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("quantity Sold");
+
+        BarChart barChart = new BarChart(xAxis, yAxis);
+
+        XYChart.Series data = new XYChart.Series();
+        data.setName("Products Sold");
+
+        //provide data
+        for(DataExample dataExample: dataExamples){
+            data.getData().add(new XYChart.Data(dataExample.getDate().toString(),dataExample.getUnitsSold()));
+        }
+
+        data.getData().add(new XYChart.Data("Product A", 3000));
+        data.getData().add(new XYChart.Data("Product B", 1500));
+        data.getData().add(new XYChart.Data("Product C", 100));
+
+        barChart.getData().add(data);
+        barChart.setLegendVisible(false);
+
+        return barChart;
+    }
 }

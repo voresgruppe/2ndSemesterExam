@@ -56,10 +56,5 @@ public class DataUtils {
 
         stage.setScene(scene);
         stage.showAndWait();
-
-
-
-
-
     }
 }
