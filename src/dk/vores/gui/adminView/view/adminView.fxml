@@ -4,15 +4,15 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="mainPane" prefHeight="800.0" prefWidth="1167.0" styleClass="mainPane" stylesheets="@adminView.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.vores.gui.adminView.AdminViewController">
+<AnchorPane fx:id="mainPane" prefHeight="800.0" prefWidth="1172.0" styleClass="mainPane" stylesheets="@adminView.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.vores.gui.adminView.AdminViewController">
    <children>
-      <TableView fx:id="tblUsers" layoutX="1693.0" layoutY="194.0" prefHeight="200.0" prefWidth="300.0" AnchorPane.bottomAnchor="150.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+      <TableView fx:id="tblUsers" layoutX="1693.0" layoutY="194.0" prefHeight="200.0" prefWidth="300.0" styleClass="userList" stylesheets="@adminView.css" AnchorPane.bottomAnchor="150.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
         <columns>
-          <TableColumn fx:id="tcID" prefWidth="50.0" text="ID" />
+          <TableColumn fx:id="tcID" prefWidth="50.0" styleClass="userList" text="ID" />
           <TableColumn fx:id="tcUsername" prefWidth="125.0" text="Username" />
             <TableColumn fx:id="tcPassword" prefWidth="125.0" text="Password" />
         </columns>
       </TableView>
-      <AnchorPane fx:id="paneUserView" layoutX="36.0" layoutY="14.0" prefHeight="774.0" prefWidth="842.0" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="36.0" AnchorPane.rightAnchor="279.0" AnchorPane.topAnchor="14.0" />
+      <AnchorPane fx:id="paneUserView" layoutX="14.0" layoutY="14.0" prefHeight="774.0" prefWidth="842.0" styleClass="userView" stylesheets="@adminView.css" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="315.0" AnchorPane.topAnchor="15.0" />
    </children>
 </AnchorPane>
