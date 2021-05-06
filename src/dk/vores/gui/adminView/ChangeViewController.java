@@ -1,6 +1,7 @@
 package dk.vores.gui.adminView;
 
 import dk.vores.BLL.UserViewManager;
+import dk.vores.be.DataType;
 import dk.vores.be.User;
 import dk.vores.util.UserError;
 import javafx.collections.FXCollections;
@@ -38,8 +39,8 @@ public class ChangeViewController {
     public void setClickedUser(User currentUser){
         this.currentUser = currentUser;
         lblWhoToChange.setText("Add a view for: " + currentUser.getUsername());
-        String[] items = {"HTML", "CSV", "XML", "pieChart", "barChart"};
-        choiceType.setItems(FXCollections.observableArrayList(items));
+        choiceType.setItems(FXCollections.observableArrayList(DataType.values()));
+        choiceType.getSelectionModel().selectFirst();
     }
 
     public void chooseSource(ActionEvent actionEvent) {
