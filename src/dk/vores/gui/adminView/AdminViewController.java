@@ -7,12 +7,14 @@ import dk.vores.be.User;
 import dk.vores.be.UserView;
 import dk.vores.util.ViewUtils;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseButton;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AdminViewController implements Initializable {
+    public Button btnAddView;
     @FXML
     private AnchorPane paneUserView;
     @FXML
@@ -110,9 +113,7 @@ draws userView as the user with the given id would currently see it
             if(selectedUser != null){
                 newUserView();
             }
-            if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
-                openChangeView(selectedUser);
-            }
+
         });
     }
 
@@ -136,9 +137,12 @@ draws userView as the user with the given id would currently see it
         }
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         init();
+    }
+
+    public void addViewToUser(ActionEvent actionEvent) {
+        openChangeView(selectedUser);
     }
 }
