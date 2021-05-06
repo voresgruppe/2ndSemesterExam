@@ -120,7 +120,7 @@ public class UserViewRepository {
             preparedStatement.setInt(3,newEndX);
             preparedStatement.setInt(4,newEndY);
             preparedStatement.setInt(5,uvID);
-            System.out.println(preparedStatement.executeUpdate());
+            preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             showDBError(throwables);
         }
