@@ -119,11 +119,23 @@ draws userView as the user with the given id would currently see it
                         userBlock.setVisible(false);
                     }
                 }
+                else if (current.getType().equals(DataType.PieChart)) {
+                    userBlock.setFill(Color.BLUE);
+                }
+                else if (current.getType().equals(DataType.HTML)) {
+                    userBlock.setFill(Color.GREEN);
+                }
+                else if (current.getType().equals(DataType.Table)) {
+                    userBlock.setFill(Color.PINK);
+                }
                 paneUserView.getChildren().add(userBlock);
             }
-            paneUserView.setMinHeight(height+10);
-            paneUserView.setMinWidth(width+10);
+            paneUserView.setMinHeight(height);
+            paneUserView.setMinWidth(width);
         }
+
+
+
     }
 
     private void UserListener() {
@@ -137,7 +149,7 @@ draws userView as the user with the given id would currently see it
         });
     }
 
-    private void newUserView(){
+    public void newUserView(){
         paneUserView.getChildren().clear();
         drawUserView();
     }
@@ -148,6 +160,7 @@ draws userView as the user with the given id would currently see it
             Parent mainLayout = loader.load();
             ChangeViewController cvc = loader.getController();
             cvc.setClickedUser(selectedUser);
+            cvc.setAdminViewController(this);
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));
             stage.setTitle("Design the view for: " + selectedUser.getUsername());
