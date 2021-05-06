@@ -29,4 +29,8 @@ public class UserViewManager {
     public ObservableList<UserView> loadViewsFromUserID(int userID){
         return uvRepo.loadViewsFromUserID(userID);
     }
+
+    public void updatePositionFromID(int uvID, int newStartX, int newStartY, int newEndX, int newEndY){
+        uvRepo.updateViewPlacement(uvID, newStartX, newStartY, newEndX, newEndY);
+    }
 }
