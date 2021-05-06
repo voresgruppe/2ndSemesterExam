@@ -71,7 +71,7 @@ public class UserViewRepository {
             preparedStatement.setInt(5,585);
             preparedStatement.setString(6,type);
             preparedStatement.setString(7,source);
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
         } catch (SQLServerException throwables) {
 
         } catch (SQLException throwables) {

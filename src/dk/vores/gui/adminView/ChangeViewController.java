@@ -18,6 +18,7 @@ public class ChangeViewController {
 
     private User currentUser;
     private final UserViewManager uvMan = new UserViewManager();
+    private AdminViewController adminViewController;
 
     @FXML
     private Button btnClose;
@@ -26,13 +27,14 @@ public class ChangeViewController {
     @FXML
     private TextField txtfieldSourcePath;
     @FXML
-    private ChoiceBox choiceType;
+    private ChoiceBox<DataType> choiceType;
 
     public void setClickedUser(User currentUser){
         this.currentUser = currentUser;
         lblWhoToChange.setText("Add a view for: " + currentUser.getUsername());
         choiceType.setItems(FXCollections.observableArrayList(DataType.values()));
         choiceType.getSelectionModel().selectFirst();
+        txtfieldSourcePath.setText("test");
     }
 
     public void chooseSource(ActionEvent actionEvent) {
@@ -91,6 +93,11 @@ public class ChangeViewController {
             String source = txtfieldSourcePath.getText();
 
             uvMan.addViewToUser(currentUser,type,source);
+            adminViewController.newUserView();
         }
+    }
+
+    public void setAdminViewController(AdminViewController adminViewController) {
+        this.adminViewController = adminViewController;
     }
 }
