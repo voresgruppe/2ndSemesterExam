@@ -5,4 +5,5 @@ public enum DataType {
     PieChart,
     BarChart,
     HTML,
+    table
 }
