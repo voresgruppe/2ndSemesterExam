@@ -1,5 +1,6 @@
 package dk.vores.util;
 
+import dk.vores.BLL.UserViewManager;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.layout.Pane;
@@ -10,9 +11,10 @@ import javafx.scene.shape.Rectangle;
 import java.util.Arrays;
 
 public class ViewUtils {
+    UserViewManager uvMan = new UserViewManager();
 
-    public Rectangle createDraggableRectangle (double x, double y, double width, double height){
-        final double handleRadius = 10;
+    public Rectangle createDraggableRectangle (int uvID, double x, double y, double width, double height){
+        final double handleRadius = 7;
 
         Rectangle rect = new Rectangle(x, y, width, height);
 
@@ -72,6 +74,26 @@ public class ViewUtils {
                 mouseLocation.value = new Point2D(event.getSceneX(), event.getSceneY());
             }
         });
+        resizeHandleNW.setOnMouseReleased(event -> {
+            if (mouseLocation.value != null) {
+                double deltaX = event.getSceneX() - mouseLocation.value.getX();
+                double deltaY = event.getSceneY() - mouseLocation.value.getY();
+                double newX = rect.getX() + deltaX;
+                if (newX >= handleRadius
+                        && newX <= rect.getX() + rect.getWidth() - handleRadius) {
+                    rect.setX(newX);
+                    rect.setWidth(rect.getWidth() - deltaX);
+                }
+                double newY = rect.getY() + deltaY;
+                if (newY >= handleRadius
+                        && newY <= rect.getY() + rect.getHeight() - handleRadius) {
+                    rect.setY(newY);
+                    rect.setHeight(rect.getHeight() - deltaY);
+                }
+                mouseLocation.value = new Point2D(event.getSceneX(), event.getSceneY());
+                uvMan.updatePositionFromID(uvID, (int) rect.getX(), (int) rect.getY(), (int) (rect.getX()+ rect.getWidth()), (int) (rect.getY()+rect.getHeight()));
+            }
+        });
 
         resizeHandleSE.setOnMouseDragged(event -> {
             if (mouseLocation.value != null) {
@@ -90,6 +112,25 @@ public class ViewUtils {
                 mouseLocation.value = new Point2D(event.getSceneX(), event.getSceneY());
             }
         });
+        resizeHandleSE.setOnMouseReleased(event -> {
+            if (mouseLocation.value != null) {
+                double deltaX = event.getSceneX() - mouseLocation.value.getX();
+                double deltaY = event.getSceneY() - mouseLocation.value.getY();
+                double newMaxX = rect.getX() + rect.getWidth() + deltaX;
+                if (newMaxX >= rect.getX()
+                        && newMaxX <= rect.getParent().getBoundsInLocal().getWidth() - handleRadius) {
+                    rect.setWidth(rect.getWidth() + deltaX);
+                }
+                double newMaxY = rect.getY() + rect.getHeight() + deltaY;
+                if (newMaxY >= rect.getY()
+                        && newMaxY <= rect.getParent().getBoundsInLocal().getHeight() - handleRadius) {
+                    rect.setHeight(rect.getHeight() + deltaY);
+                }
+                mouseLocation.value = new Point2D(event.getSceneX(), event.getSceneY());
+                uvMan.updatePositionFromID(uvID, (int) rect.getX(), (int) rect.getY(), (int) (rect.getX()+ rect.getWidth()), (int) (rect.getY()+rect.getHeight()));
+            }
+        });
+
 
         moveHandle.setOnMouseDragged(event -> {
             if (mouseLocation.value != null) {

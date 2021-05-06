@@ -105,9 +105,7 @@ public class UserViewRepository {
             preparedStatement.setString(1,newType);
             preparedStatement.setInt(2,uvID);
             preparedStatement.executeQuery();
-        } catch (SQLServerException throwables) {
-            showDBError(throwables);
-        } catch (SQLException throwables) {
+        }catch (SQLException throwables) {
             showDBError(throwables);
         }
     }
@@ -120,9 +118,7 @@ public class UserViewRepository {
             ps.setString(2,source);
             ps.setInt(3,u.getId());
             ps.executeQuery();
-        } catch (SQLServerException throwables) {
-            showDBError(throwables);
-        } catch (SQLException throwables) {
+        }catch (SQLException throwables) {
             showDBError(throwables);
         }
     }
@@ -130,6 +126,23 @@ public class UserViewRepository {
     private void showDBError(SQLException throwables){
         String header = "Something went wrong..";
         UserError.showError(header, throwables.getMessage());
+    }
+
+    public void updateViewPlacement(int uvID, int newStartX, int newStartY, int newEndX, int newEndY){
+        try(Connection connection = db.getConnection()){
+            String sql = "UPDATE [UserView] \n" +
+                    "    SET [startX] = ?, [startY] = ?, [endX] = ?, [endY] = ? \n" +
+                    "WHERE [id] = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,newStartX);
+            preparedStatement.setInt(2,newStartY);
+            preparedStatement.setInt(3,newEndX);
+            preparedStatement.setInt(4,newEndY);
+            preparedStatement.setInt(5,uvID);
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            showDBError(throwables);
+        }
     }
 
 }

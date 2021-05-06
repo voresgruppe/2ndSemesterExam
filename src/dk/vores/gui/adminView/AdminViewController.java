@@ -87,8 +87,7 @@ draws userView as the user with the given id would currently see it
                 if (width < current.getEndX()) {
                     width = current.getEndX();
                 }
-                Rectangle userBlock = viewUtils.createDraggableRectangle(current.getStartX(), current.getStartY(), current.getEndX() - current.getStartX(), current.getEndY() - current.getStartY());
-                //Rectangle userBlock = new Rectangle(current.getStartX(), current.getStartY(), current.getEndX() - current.getStartX(), current.getEndY() - current.getStartY());
+                Rectangle userBlock = viewUtils.createDraggableRectangle(current.getId(), current.getStartX(), current.getStartY(), current.getEndX() - current.getStartX(), current.getEndY() - current.getStartY());
 
                 userBlock.setStroke(Color.BLACK);
 
@@ -101,8 +100,8 @@ draws userView as the user with the given id would currently see it
 
 
             }
-            paneUserView.setMinHeight(height);
-            paneUserView.setMinWidth(width);
+            paneUserView.setMinHeight(height+10);
+            paneUserView.setMinWidth(width+10);
         }
     }
 
