@@ -26,7 +26,12 @@ public class UserViewManager {
     public void updateTypeFromID(int uvID, String newType){
         uvRepo.updateTypeFromID(uvID,newType);
     }
+
     public ObservableList<UserView> loadViewsFromUserID(int userID){
         return uvRepo.loadViewsFromUserID(userID);
+    }
+
+    public void removeViewFromUser(User u, String type, String source){
+        uvRepo.removeViewFromUser(u,type,source);
     }
 }

@@ -19,10 +19,6 @@ public class ChangeViewController {
     private final UserViewManager uvMan = new UserViewManager();
 
     @FXML
-    private ChoiceBox choiceType1;
-    @FXML
-    private TextField txtfieldSourcePath1;
-    @FXML
     private TextField endY;
     @FXML
     private TextField startY;
@@ -42,17 +38,12 @@ public class ChangeViewController {
     public void setClickedUser(User currentUser){
         this.currentUser = currentUser;
         lblWhoToChange.setText("Add a view for: " + currentUser.getUsername());
-        String[] items = {"HTML", "CSV", "XML", "Pie chart", "Bar chart"};
+        String[] items = {"HTML", "CSV", "XML", "pieChart", "barChart"};
         choiceType.setItems(FXCollections.observableArrayList(items));
-        choiceType1.setItems(FXCollections.observableArrayList(items));
     }
 
     public void chooseSource(ActionEvent actionEvent) {
         saveFilePathInTxtfield(txtfieldSourcePath);
-    }
-
-    public void chooseSource1(ActionEvent actionEvent) {
-        saveFilePathInTxtfield(txtfieldSourcePath1);
     }
 
     private void saveFilePathInTxtfield(TextField field){
@@ -67,19 +58,6 @@ public class ChangeViewController {
             UserError.showError("Something went wrong...", e.getMessage());
         }
 
-    }
-
-    public void save(ActionEvent actionEvent) {
-        if(!showErrorstoUser()){
-            int startXvalue = Integer.parseInt(startX.getText());
-            int startYvalue = Integer.parseInt(startY.getText());
-            int endXvalue = Integer.parseInt(endX.getText());
-            int endYvalue = Integer.parseInt(endY.getText());
-            String type = choiceType.getSelectionModel().getSelectedItem().toString();
-            String source = txtfieldSourcePath.getText();
-
-            uvMan.addViewToUser(currentUser,startXvalue,startYvalue,endXvalue,endYvalue,type,source);
-        }
     }
 
     public void cancel(ActionEvent actionEvent) {
@@ -133,29 +111,22 @@ public class ChangeViewController {
         }else return false;
     }
 
-    private boolean isTypeOrSourceBlankForUpdate(){
-        String header = "Something went wrong...";
-        if(choiceType1.getItems().isEmpty()){
-            UserError.showError(header, "Please provide a type");
-            return true;
-        }else if(txtfieldSourcePath1.getText().isBlank()){
-            UserError.showError(header, "Please provide a source");
-            return true;
-        }else return false;
+    public void removeView(ActionEvent actionEvent) {
+        String type = choiceType.getSelectionModel().getSelectedItem().toString();
+        String source = txtfieldSourcePath.getText();
+        uvMan.removeViewFromUser(currentUser,type,source);
     }
 
+    public void addView(ActionEvent actionEvent) {
+        if(!showErrorstoUser()){
+            int startXvalue = Integer.parseInt(startX.getText());
+            int startYvalue = Integer.parseInt(startY.getText());
+            int endXvalue = Integer.parseInt(endX.getText());
+            int endYvalue = Integer.parseInt(endY.getText());
+            String type = choiceType.getSelectionModel().getSelectedItem().toString();
+            String source = txtfieldSourcePath.getText();
 
-    /*
-     jeg hgar ødelagt den  - Cecilie
-     */
-    public void updateTypeSource(ActionEvent actionEvent) {
-        if(!isTypeOrSourceBlankForAdd() && !isTypeOrSourceBlankForUpdate()){
-            String newType = choiceType1.getSelectionModel().getSelectedItem().toString();
-            String newSource = txtfieldSourcePath1.getText();
-
-            //uvMan.updateTypeSourceFromUser(newType,newSource);
+            uvMan.addViewToUser(currentUser,startXvalue,startYvalue,endXvalue,endYvalue,type,source);
         }
     }
-
-
 }

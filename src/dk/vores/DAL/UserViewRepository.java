@@ -73,17 +73,23 @@ public class UserViewRepository {
             preparedStatement.setString(6,type);
             preparedStatement.setString(7,source);
             preparedStatement.executeQuery();
+        } catch (SQLServerException throwables) {
+            System.out.println("server");
+            showDBError(throwables);
         } catch (SQLException throwables) {
+            System.out.println("sql");
             showDBError(throwables);
         }
     }
 
     public void clearViewFromUser(User u){
         try(Connection connection = db.getConnection()){
-            String sql = "DELETE FROM [UserView] WHERE [userID] = ?";
+            String sql = "DELETE FROM [UserView] WHERE [userID] = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,u.getId());
             preparedStatement.executeQuery();
+        } catch (SQLServerException throwables) {
+            showDBError(throwables);
         } catch (SQLException throwables) {
             showDBError(throwables);
         }
@@ -99,6 +105,23 @@ public class UserViewRepository {
             preparedStatement.setString(1,newType);
             preparedStatement.setInt(2,uvID);
             preparedStatement.executeQuery();
+        } catch (SQLServerException throwables) {
+            showDBError(throwables);
+        } catch (SQLException throwables) {
+            showDBError(throwables);
+        }
+    }
+
+    public void removeViewFromUser(User u, String type, String source){
+        try(Connection connection = db.getConnection()){
+            String sql = "DELETE FROM [UserView] WHERE [type] = ? AND [source] = ? AND [userID] = ?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1,type);
+            ps.setString(2,source);
+            ps.setInt(3,u.getId());
+            ps.executeQuery();
+        } catch (SQLServerException throwables) {
+            showDBError(throwables);
         } catch (SQLException throwables) {
             showDBError(throwables);
         }
