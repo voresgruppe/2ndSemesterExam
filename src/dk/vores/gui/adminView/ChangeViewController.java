@@ -20,14 +20,6 @@ public class ChangeViewController {
     private final UserViewManager uvMan = new UserViewManager();
 
     @FXML
-    private TextField endY;
-    @FXML
-    private TextField startY;
-    @FXML
-    private TextField endX;
-    @FXML
-    private TextField startX;
-    @FXML
     private Button btnClose;
     @FXML
     private Label lblWhoToChange;
@@ -76,33 +68,6 @@ public class ChangeViewController {
 
     private boolean showErrorstoUser(){
         String header = "Something went wrong...";
-        try {
-            int startXnum = Integer.parseInt(startX.getText());
-            int endXnum = Integer.parseInt(endX.getText());
-            int startYnum = Integer.parseInt(startY.getText());
-            int endYnum = Integer.parseInt(endY.getText());
-
-            if(startXnum > 100 || startXnum < 0){
-                UserError.showError(header,"Start X has to be more than 0 and less than 100");
-                return true;
-            }else if(endXnum > 100 || endXnum < 0){
-                UserError.showError(header,"End X has to be more than 0 and less than 100");
-                return true;
-            }else if(startYnum > 100 || startYnum < 0){
-                UserError.showError(header,"Start Y has to be more than 0 and less than 100");
-                return true;
-            }else if(endYnum > 100 || endYnum < 0){
-                UserError.showError(header,"End Y has to be more than 0 and less than 100");
-                return true;
-            }else return isTypeOrSourceBlankForAdd();
-        } catch (NumberFormatException e) {
-            UserError.showError(header,"Please provide numbers in Start/End X/Y");
-            return true;
-        }
-    }
-
-    private boolean isTypeOrSourceBlankForAdd(){
-        String header = "Something went wrong...";
         if(choiceType.getItems().isEmpty()){
             UserError.showError(header, "Please provide a type");
             return true;
@@ -112,6 +77,8 @@ public class ChangeViewController {
         }else return false;
     }
 
+
+
     public void removeView(ActionEvent actionEvent) {
         String type = choiceType.getSelectionModel().getSelectedItem().toString();
         String source = txtfieldSourcePath.getText();
@@ -120,10 +87,6 @@ public class ChangeViewController {
 
     public void addView(ActionEvent actionEvent) {
         if(!showErrorstoUser()){
-            int startXvalue = Integer.parseInt(startX.getText());
-            int startYvalue = Integer.parseInt(startY.getText());
-            int endXvalue = Integer.parseInt(endX.getText());
-            int endYvalue = Integer.parseInt(endY.getText());
             String type = choiceType.getSelectionModel().getSelectedItem().toString();
             String source = txtfieldSourcePath.getText();
 

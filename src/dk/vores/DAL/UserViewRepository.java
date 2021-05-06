@@ -59,7 +59,6 @@ public class UserViewRepository {
         }
     }
 
-
     public void addViewToUser(User u, String type, String source){
         try(Connection connection = db.getConnection()){
             String sql = "INSERT INTO [UserView] ([userID], [startX], [startY], [endX], [endY], [type], [source]) \n" +
