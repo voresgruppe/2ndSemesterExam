@@ -74,7 +74,7 @@ public class ViewUtils {
                 mouseLocation.value = new Point2D(event.getSceneX(), event.getSceneY());
             }
         });
-        resizeHandleNW.setOnDragDone(event -> {
+        resizeHandleNW.setOnMouseReleased(event -> {
             if (mouseLocation.value != null) {
                 double deltaX = event.getSceneX() - mouseLocation.value.getX();
                 double deltaY = event.getSceneY() - mouseLocation.value.getY();
@@ -91,7 +91,6 @@ public class ViewUtils {
                     rect.setHeight(rect.getHeight() - deltaY);
                 }
                 mouseLocation.value = new Point2D(event.getSceneX(), event.getSceneY());
-                System.out.println("1");
                 uvMan.updatePositionFromID(uvID, (int) rect.getX(), (int) rect.getY(), (int) (rect.getX()+ rect.getWidth()), (int) (rect.getY()+rect.getHeight()));
             }
         });
@@ -113,7 +112,7 @@ public class ViewUtils {
                 mouseLocation.value = new Point2D(event.getSceneX(), event.getSceneY());
             }
         });
-        resizeHandleSE.setOnDragDone(event -> {
+        resizeHandleSE.setOnMouseReleased(event -> {
             if (mouseLocation.value != null) {
                 double deltaX = event.getSceneX() - mouseLocation.value.getX();
                 double deltaY = event.getSceneY() - mouseLocation.value.getY();
