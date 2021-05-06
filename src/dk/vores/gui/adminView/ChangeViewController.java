@@ -126,7 +126,7 @@ public class ChangeViewController {
             String type = choiceType.getSelectionModel().getSelectedItem().toString();
             String source = txtfieldSourcePath.getText();
 
-            uvMan.addViewToUser(currentUser,startXvalue,startYvalue,endXvalue,endYvalue,type,source);
+            uvMan.addViewToUser(currentUser,type,source);
         }
     }
 }

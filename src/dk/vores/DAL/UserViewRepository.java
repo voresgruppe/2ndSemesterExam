@@ -60,16 +60,16 @@ public class UserViewRepository {
     }
 
 
-    public void addViewToUser(User u, int startX, int startY, int endX, int endY, String type, String source){
+    public void addViewToUser(User u, String type, String source){
         try(Connection connection = db.getConnection()){
             String sql = "INSERT INTO [UserView] ([userID], [startX], [startY], [endX], [endY], [type], [source]) \n" +
                     "VALUES (?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,u.getId());
-            preparedStatement.setInt(2,startX);
-            preparedStatement.setInt(3,startY);
-            preparedStatement.setInt(4,endX);
-            preparedStatement.setInt(5,endY);
+            preparedStatement.setInt(2,211);
+            preparedStatement.setInt(3,195);
+            preparedStatement.setInt(4,633);
+            preparedStatement.setInt(5,585);
             preparedStatement.setString(6,type);
             preparedStatement.setString(7,source);
             preparedStatement.executeQuery();

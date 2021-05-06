@@ -21,58 +21,6 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="25.0" prefWidth="200.0">
-               <children>
-                  <Label alignment="CENTER_RIGHT" prefWidth="262.0" text="Start X position (%):" textAlignment="RIGHT" />
-                  <TextField fx:id="startX">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-            </HBox>
-            <HBox prefHeight="25.0" prefWidth="200.0">
-               <children>
-                  <Label alignment="CENTER_RIGHT" prefWidth="262.0" text="End X position (%):" textAlignment="RIGHT" />
-                  <TextField fx:id="endX">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-            </HBox>
-            <HBox prefHeight="25.0" prefWidth="200.0">
-               <children>
-                  <Label alignment="CENTER_RIGHT" prefWidth="262.0" text="Start Y position (%):" textAlignment="RIGHT" />
-                  <TextField fx:id="startY">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-            </HBox>
-            <HBox prefHeight="25.0" prefWidth="200.0">
-               <children>
-                  <Label alignment="CENTER_RIGHT" prefWidth="262.0" text="End Y position (%):" textAlignment="RIGHT" />
-                  <TextField fx:id="endY">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-            </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0">
                <children>
                   <Label alignment="CENTER_RIGHT" prefWidth="262.0" text="Type: " />
@@ -81,11 +29,6 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </ChoiceBox>
-                  <Label text="*">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Label>
                </children>
                <padding>
                   <Insets top="10.0" />
@@ -104,11 +47,6 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Label text="*">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Label>
                </children>
                <padding>
                   <Insets top="10.0" />
@@ -153,15 +91,7 @@
             </HBox>
          </left>
          <center>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="187.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label alignment="TOP_CENTER" text="* is only needed when removing">
-                     <VBox.margin>
-                        <Insets top="15.0" />
-                     </VBox.margin>
-                  </Label>
-               </children>
-            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="187.0" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
    </bottom>
