@@ -159,6 +159,27 @@ public class ViewUtils {
 
         });
 
+        moveHandle.setOnMouseReleased(event -> {
+            if (mouseLocation.value != null) {
+                double deltaX = event.getSceneX() - mouseLocation.value.getX();
+                double deltaY = event.getSceneY() - mouseLocation.value.getY();
+                double newX = rect.getX() + deltaX;
+                double newMaxX = newX + rect.getWidth();
+                if (newX >= handleRadius
+                        && newMaxX <= rect.getParent().getBoundsInLocal().getWidth() - handleRadius) {
+                    rect.setX(newX);
+                }
+                double newY = rect.getY() + deltaY;
+                double newMaxY = newY + rect.getHeight();
+                if (newY >= handleRadius
+                        && newMaxY <= rect.getParent().getBoundsInLocal().getHeight() - handleRadius) {
+                    rect.setY(newY);
+                }
+                mouseLocation.value = new Point2D(event.getSceneX(), event.getSceneY());
+                uvMan.updatePositionFromID(uvID, (int) rect.getX(), (int) rect.getY(), (int) (rect.getX()+ rect.getWidth()), (int) (rect.getY()+rect.getHeight()));
+            }
+        });
+
         return rect;
     }
 
