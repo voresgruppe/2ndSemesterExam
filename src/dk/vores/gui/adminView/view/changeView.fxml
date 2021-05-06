@@ -12,7 +12,7 @@
 
 <BorderPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/15" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.vores.gui.adminView.ChangeViewController">
    <top>
-      <Label fx:id="lblWhoToChange" text="Change the view for: " textAlignment="CENTER" BorderPane.alignment="CENTER">
+      <Label fx:id="lblWhoToChange" text="Add a view for: " textAlignment="CENTER" BorderPane.alignment="CENTER">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

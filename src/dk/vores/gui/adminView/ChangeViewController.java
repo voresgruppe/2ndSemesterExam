@@ -41,7 +41,7 @@ public class ChangeViewController {
 
     public void setClickedUser(User currentUser){
         this.currentUser = currentUser;
-        lblWhoToChange.setText("Change the view for: " + currentUser.getUsername());
+        lblWhoToChange.setText("Add a view for: " + currentUser.getUsername());
         String[] items = {"HTML", "CSV", "XML", "Pie chart", "Bar chart"};
         choiceType.setItems(FXCollections.observableArrayList(items));
         choiceType1.setItems(FXCollections.observableArrayList(items));
