@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="mainPane" prefHeight="800.0" prefWidth="1167.0" styleClass="mainPane" stylesheets="@adminView.css" xmlns="http://javafx.com/javafx/15" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.vores.gui.adminView.AdminViewController">
+<AnchorPane fx:id="mainPane" prefHeight="800.0" prefWidth="1172.0" styleClass="mainPane" stylesheets="@adminView.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.vores.gui.adminView.AdminViewController">
    <children>
       <BorderPane prefHeight="800.0" prefWidth="1167.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
@@ -18,9 +18,9 @@
          <right>
             <VBox alignment="TOP_RIGHT" prefHeight="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tblUsers">
+                  <TableView fx:id="tblUsers" styleClass="userList" stylesheets="@adminView.css">
                     <columns>
-                      <TableColumn fx:id="tcID" prefWidth="50.0" text="ID" />
+                      <TableColumn fx:id="tcID" prefWidth="50.0" styleClass="userList" text="ID" />
                       <TableColumn fx:id="tcUsername" prefWidth="125.0" text="Username" />
                         <TableColumn fx:id="tcPassword" prefWidth="125.0" text="Password" />
                     </columns>
@@ -34,7 +34,7 @@
             </VBox>
          </right>
          <center>
-            <AnchorPane fx:id="paneUserView" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="paneUserView" BorderPane.alignment="CENTER" styleClass="userView" stylesheets="@adminView.css">
                <BorderPane.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </BorderPane.margin></AnchorPane>

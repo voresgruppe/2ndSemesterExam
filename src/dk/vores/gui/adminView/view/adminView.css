@@ -1,0 +1,28 @@
+.mainPane {
+    -fx-background-color: #d5d7d4;
+}
+
+.userView {
+    -fx-background-color: #edefec;
+    -fx-border-color: #96a496; -fx-border-width: 3px 3px 3px 3px;
+}
+
+.table-view.userList {
+    -fx-background-color: #96a496;
+    -fx-border-color: #66a274;
+    -fx-border-width: 3px 3px 3px 3px;
+}
+
+.table-view .column-header{
+    -fx-background-color:  #66a274
+}
+
+.table-view .column-header,
+.table-view .column-header-background .filler {
+    -fx-background-color:  #66a274;
+}
+.table-view .column-header .label{
+    -fx-text-fill: #edefec;
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+}
