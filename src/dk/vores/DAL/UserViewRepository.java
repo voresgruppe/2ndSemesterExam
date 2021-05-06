@@ -73,11 +73,9 @@ public class UserViewRepository {
             preparedStatement.setString(7,source);
             preparedStatement.executeQuery();
         } catch (SQLServerException throwables) {
-            System.out.println("server");
-            showDBError(throwables);
+
         } catch (SQLException throwables) {
-            System.out.println("sql");
-            showDBError(throwables);
+
         }
     }
 
@@ -88,11 +86,10 @@ public class UserViewRepository {
             preparedStatement.setInt(1,u.getId());
             preparedStatement.executeQuery();
         } catch (SQLServerException throwables) {
-            showDBError(throwables);
-        } catch (SQLException throwables) {
-            showDBError(throwables);
-        }
 
+        } catch (SQLException throwables) {
+
+        }
     }
 
     public void updateTypeFromID(int uvID, String newType){
@@ -118,7 +115,7 @@ public class UserViewRepository {
             ps.setInt(3,u.getId());
             ps.executeQuery();
         }catch (SQLException throwables) {
-            showDBError(throwables);
+
         }
     }
 
