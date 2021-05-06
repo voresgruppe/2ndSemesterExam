@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
@@ -23,6 +24,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AdminViewController implements Initializable {
@@ -36,6 +38,8 @@ public class AdminViewController implements Initializable {
     private TableColumn<User, String> tcUsername;
     @FXML
     private TableColumn<User, String> tcPassword;
+
+
     private User loggedAdmin;
     private User selectedUser;
     private UserManager uMan = new UserManager();
@@ -81,8 +85,9 @@ draws userView as the user with the given id would currently see it
                     width = current.getEndX();
                 }
                 Rectangle userBlock = viewUtils.createDraggableRectangle(current.getStartX(), current.getStartY(), current.getEndX() - current.getStartX(), current.getEndY() - current.getStartY());
-                userBlock.setStroke(Color.BLACK);
+                //Rectangle userBlock = new Rectangle(current.getStartX(), current.getStartY(), current.getEndX() - current.getStartX(), current.getEndY() - current.getStartY());
 
+                userBlock.setStroke(Color.BLACK);
 
                 //midlertidig for at illustrere typer
                 userBlock.setFill(Color.WHITE);
@@ -103,12 +108,17 @@ draws userView as the user with the given id would currently see it
 
         tblUsers.setOnMouseClicked((MouseEvent event) -> {
             if(selectedUser != null){
-                drawUserView();
+                newUserView();
             }
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
                 openChangeView(selectedUser);
             }
         });
+    }
+
+    private void newUserView(){
+        paneUserView.getChildren().clear();
+        drawUserView();
     }
 
     private void openChangeView(User selectedUser){

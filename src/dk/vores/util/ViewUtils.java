@@ -36,12 +36,14 @@ public class ViewUtils {
 
         // force circles to live in same parent as rectangle:
         rect.parentProperty().addListener((obs, oldParent, newParent) -> {
-            for (Circle c : Arrays.asList(resizeHandleNW, resizeHandleSE, moveHandle)) {
-                Pane currentParent = (Pane) c.getParent();
-                if (currentParent != null) {
-                    currentParent.getChildren().remove(c);
+            if (newParent != null) {
+                for (Circle c : Arrays.asList(resizeHandleNW, resizeHandleSE, moveHandle)) {
+                    Pane currentParent = (Pane)c.getParent();
+                    if (currentParent != null) {
+                        currentParent.getChildren().remove(c);
+                    }
+                    ((Pane)newParent).getChildren().add(c);
                 }
-                ((Pane) newParent).getChildren().add(c);
             }
         });
 
