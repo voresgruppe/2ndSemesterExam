@@ -53,6 +53,8 @@ public class AdminViewController implements Initializable {
     private UserViewManager uvMan = new UserViewManager();
     private ViewUtils viewUtils = new ViewUtils();
 
+    private AnchorPane selectedUserBlock = null;
+
     public User getLoggedAdmin() {
         return loggedAdmin;
     }
@@ -95,7 +97,15 @@ draws userView as the user with the given id would currently see it
 
                 AnchorPane userBlock = viewUtils.createDraggableAnchorPane(current.getId(), current.getStartX(), current.getStartY(), current.getEndX() - current.getStartX(), current.getEndY() - current.getStartY());
                 userBlock.setStyle("-fx-background-color: #f2c31d; -fx-border-color: black; -fx-border-width: 2px 2px 2px 2px; ");
-                
+                userBlock.setOnMouseClicked(event->{
+                    String markedStyle = "-fx-border-color: magenta; -fx-border-width: 4px 4px 4px 4px;";
+                    if(selectedUserBlock!= null && selectedUserBlock.getStyle().contains(markedStyle)){
+                        selectedUserBlock.setStyle(selectedUserBlock.getStyle().replace("-fx-border-color: magenta; -fx-border-width: 4px 4px 4px 4px;", ""));
+                    }
+                    selectedUserBlock = userBlock;
+                    selectedUserBlock.setStyle(selectedUserBlock.getStyle()+ "-fx-border-color: magenta; -fx-border-width: 4px 4px 4px 4px;");
+                });
+
 
                 if (current.getType().equals(DataType.BarChart)) {
                     if(current.getSource().matches("test")) {
