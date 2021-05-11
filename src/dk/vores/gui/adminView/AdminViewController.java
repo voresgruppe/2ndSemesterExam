@@ -22,6 +22,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -92,50 +93,39 @@ draws userView as the user with the given id would currently see it
                 }
 
 
-                Rectangle userBlock = viewUtils.createDraggableRectangle(current.getId(), current.getStartX(), current.getStartY(), current.getEndX() - current.getStartX(), current.getEndY() - current.getStartY());
-                userBlock.setStroke(Color.BLACK);
+                AnchorPane userBlock = viewUtils.createDraggableAnchorPane(current.getId(), current.getStartX(), current.getStartY(), current.getEndX() - current.getStartX(), current.getEndY() - current.getStartY());
+                userBlock.setStyle("-fx-background-color: #f2c31d; -fx-border-color: black; -fx-border-width: 2px 2px 2px 2px; ");
+                
 
-                //midlertidig for at illustrere typer
-                userBlock.setFill(Color.WHITE);
                 if (current.getType().equals(DataType.BarChart)) {
                     if(current.getSource().matches("test")) {
-                        userBlock.setFill(Color.RED);
+                        userBlock.setStyle(userBlock.getStyle() + "-fx-background-color: red;");
                     }
                     else{
-                        //Example
-                        AnchorPane pane = new AnchorPane();
-                        pane.setLayoutX(current.getStartX());
-                        pane.setLayoutY(current.getStartY());
-                        pane.setPrefWidth(current.getEndX() - current.getStartX());
-                        pane.setPrefHeight(current.getEndY() - current.getStartY());
-
                         DataManager dMan = new DataManager();
                         List<DataExample> data = dMan.getAllData(current.getSource());
 
-                        pane.getChildren().add(viewUtils.buildBarChart(data));
-                        paneUserView.getChildren().add(pane);
-
-                        //midlertidig
-                        userBlock.setVisible(false);
+                        userBlock.getChildren().add(viewUtils.buildBarChart(data));
                     }
                 }
                 else if (current.getType().equals(DataType.PieChart)) {
-                    userBlock.setFill(Color.BLUE);
+                    userBlock.setStyle(userBlock.getStyle() + "-fx-background-color: blue;");
                 }
                 else if (current.getType().equals(DataType.HTML)) {
-                    userBlock.setFill(Color.GREEN);
+                    userBlock.setStyle(userBlock.getStyle() + "-fx-background-color: green;");
                 }
                 else if (current.getType().equals(DataType.Table)) {
-                    userBlock.setFill(Color.PINK);
+                    userBlock.setStyle(userBlock.getStyle() + "-fx-background-color: pink;");
                 }
+                userBlock.setId(String.valueOf(current.getId()));
                 paneUserView.getChildren().add(userBlock);
+
+
             }
+
             paneUserView.setMinHeight(height);
             paneUserView.setMinWidth(width);
         }
-
-
-
     }
 
     private void UserListener() {
