@@ -29,9 +29,6 @@ public class UserViewRepository {
             while(resultSet.next()) {
                 uv = new UserView(resultSet.getInt("id"), resultSet.getInt("userID"), resultSet.getInt("startx"), resultSet.getInt("starty"), resultSet.getInt("endx"), resultSet.getInt("endy"), dataUtils.typeFromString(resultSet.getString("type"), resultSet.getInt("id")), resultSet.getString("source"));
             }
-            if(uv == null){
-                //TODO error
-            }
             return uv;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -72,10 +69,8 @@ public class UserViewRepository {
             preparedStatement.setString(6,type);
             preparedStatement.setString(7,source);
             preparedStatement.executeUpdate();
-        } catch (SQLServerException throwables) {
-
         } catch (SQLException throwables) {
-
+            showDBError(throwables);
         }
     }
 
@@ -84,11 +79,9 @@ public class UserViewRepository {
             String sql = "DELETE FROM [UserView] WHERE [userID] = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,u.getId());
-            preparedStatement.executeQuery();
-        } catch (SQLServerException throwables) {
-
+            preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
-
+            showDBError(throwables);
         }
     }
 
@@ -100,7 +93,7 @@ public class UserViewRepository {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,newType);
             preparedStatement.setInt(2,uvID);
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
         }catch (SQLException throwables) {
             showDBError(throwables);
         }
