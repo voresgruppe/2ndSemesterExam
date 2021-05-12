@@ -1,5 +1,6 @@
 package dk.vores.be;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class User {
@@ -58,6 +59,7 @@ public class User {
     public boolean isAdmin() {
         return isAdmin;
     }
+    public SimpleStringProperty getIsAdminProperty(){return new SimpleStringProperty(String.valueOf(isAdmin)); }
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;

@@ -211,8 +211,19 @@ draws userView as the user with the given id would currently see it
         }
     }
 
-    public void deleteUser(ActionEvent actionEvent) {
-        uMan.deleteUser(selectedUser);
-        initTableview();
+    public void manageUsers(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(ChangeViewController.class.getResource("view/manageUsersView.fxml"));
+            Parent mainLayout = loader.load();
+            ManageUsersController muc = loader.getController();
+            muc.setAdminViewController(this);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(mainLayout));
+            stage.setTitle("Manage users");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.vores.gui.adminView.ManageUsersController">
+   <center>
+      <TableView fx:id="tableView" prefHeight="308.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="tblID" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="tblUsername" prefWidth="216.0" text="Username" />
+            <TableColumn fx:id="tblPassword" minWidth="0.0" prefWidth="229.0" text="Password" />
+            <TableColumn fx:id="tblAdmin" minWidth="0.0" prefWidth="78.0" text="Admin" />
+        </columns>
+      </TableView>
+   </center>
+   <bottom>
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="25.0" prefWidth="580.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#deleteUser" text="Delete user">
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnCancel" cancelButton="true" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+   <top>
+      <Label text="Manage users" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="10.0" />
+         </BorderPane.margin>
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+   </top>
+</BorderPane>

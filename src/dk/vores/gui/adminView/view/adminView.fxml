@@ -49,7 +49,7 @@
                               </Button>
                            </right>
                            <bottom>
-                              <Button mnemonicParsing="false" onAction="#deleteUser" text="Delete user" BorderPane.alignment="CENTER">
+                              <Button mnemonicParsing="false" onAction="#manageUsers" text="Manage users" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font size="11.0" />
                                  </font>
