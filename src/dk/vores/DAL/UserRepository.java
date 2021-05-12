@@ -118,4 +118,28 @@ public class UserRepository {
         }
         return returnId;
     }
+
+
+    public void delete(User user) {
+        try (Connection connect = db.getConnection()){
+            int id = user.getId();
+            PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM [User] WHERE [id] = ?");
+            preparedStatement.setInt(1,id);
+            preparedStatement.executeUpdate();
+            removeViews(user);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private void removeViews(User user){
+        try (Connection connection = db.getConnection()){
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM [UserView] WHERE [userID] = ?");
+            preparedStatement.setInt(1,user.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
 }

@@ -48,6 +48,13 @@
                                  </font>
                               </Button>
                            </right>
+                           <bottom>
+                              <Button mnemonicParsing="false" onAction="#deleteUser" text="Delete user" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </Button>
+                           </bottom>
                         </BorderPane>
                      </children>
                   </HBox>

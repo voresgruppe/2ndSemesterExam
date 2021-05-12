@@ -210,4 +210,9 @@ draws userView as the user with the given id would currently see it
             e.printStackTrace();
         }
     }
+
+    public void deleteUser(ActionEvent actionEvent) {
+        uMan.deleteUser(selectedUser);
+        initTableview();
+    }
 }

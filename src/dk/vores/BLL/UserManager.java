@@ -32,4 +32,8 @@ public class UserManager {
         user.setId(userRepository.addUser(user));
     }
 
+    public void deleteUser(User user){
+        userRepository.delete(user);
+    }
+
 }
