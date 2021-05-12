@@ -99,4 +99,23 @@ public class UserRepository {
             return null;
         }
     }
+
+    public int addUser(User user){
+        int returnId = -1;
+        try(Connection connection = db.getConnection()){
+            String query = "INSERT INTO [User] ([username], [password], [isAdmin]) VALUES (?, ?, ?);";
+            PreparedStatement preparedStatement = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setBoolean(3, user.isAdmin());
+            preparedStatement.executeUpdate();
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if(generatedKeys.next()){
+                returnId = generatedKeys.getInt(1);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return returnId;
+    }
 }

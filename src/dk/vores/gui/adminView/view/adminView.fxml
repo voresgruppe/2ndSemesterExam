@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="mainPane" prefHeight="800.0" prefWidth="1172.0" styleClass="mainPane" stylesheets="@adminView.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.vores.gui.adminView.AdminViewController">
    <children>
@@ -28,12 +29,25 @@
                   <HBox prefHeight="100.0" prefWidth="308.0">
                      <children>
                         <BorderPane prefHeight="100.0" prefWidth="308.0">
-                           <right>
-                              <Button fx:id="btnAddView" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addViewToUser" text="Add view to user" BorderPane.alignment="CENTER" />
-                           </right>
                            <left>
-                              <Button mnemonicParsing="false" onAction="#remove" text="Remove window" BorderPane.alignment="CENTER" />
+                              <Button mnemonicParsing="false" onAction="#remove" text="Remove window" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font></Button>
                            </left>
+                           <center>
+                              <Button fx:id="btnAddView" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addViewToUser" text="Add view to user" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font></Button>
+                           </center>
+                           <right>
+                              <Button mnemonicParsing="false" onAction="#openCreateNewUser" text="Create new user" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </Button>
+                           </right>
                         </BorderPane>
                      </children>
                   </HBox>

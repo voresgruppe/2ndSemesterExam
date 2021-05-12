@@ -28,5 +28,8 @@ public class UserManager {
         return userRepository.loadUsersWithoutAdmins();
     }
 
+    public void addUser(User user){
+        user.setId(userRepository.addUser(user));
+    }
 
 }

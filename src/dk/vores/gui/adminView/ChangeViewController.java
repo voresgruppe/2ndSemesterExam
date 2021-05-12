@@ -86,6 +86,8 @@ public class ChangeViewController {
 
             uvMan.addViewToUser(currentUser,type,source);
             adminViewController.newUserView();
+            Stage stage = (Stage) btnClose.getScene().getWindow();
+            stage.close();
         }
     }
 
