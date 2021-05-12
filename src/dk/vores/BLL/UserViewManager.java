@@ -31,8 +31,8 @@ public class UserViewManager {
         return uvRepo.loadViewsFromUserID(userID);
     }
 
-    public void removeViewFromUser(User u, String type, String source) {
-        uvRepo.removeViewFromUser(u, type, source);
+    public void removeViewFromUser(int id) {
+        uvRepo.removeViewFromUser(id);
     }
 
     public void updatePositionFromID(int uvID, int newStartX, int newStartY, int newEndX, int newEndY){

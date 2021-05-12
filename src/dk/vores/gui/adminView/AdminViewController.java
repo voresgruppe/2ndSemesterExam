@@ -7,6 +7,7 @@ import dk.vores.be.DataExample;
 import dk.vores.be.DataType;
 import dk.vores.be.User;
 import dk.vores.be.UserView;
+import dk.vores.util.UserError;
 import dk.vores.util.ViewUtils;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseButton;
@@ -31,6 +33,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AdminViewController implements Initializable {
@@ -177,5 +180,19 @@ draws userView as the user with the given id would currently see it
 
     public void addViewToUser(ActionEvent actionEvent) {
         openChangeView(selectedUser);
+    }
+
+    public void remove(ActionEvent actionEvent) {
+        String header = "Are you sure you want remove this view from " + selectedUser.getUsername() + "?";
+        Optional<ButtonType> result = UserError.showWarning(header,"Click OK to continue").showAndWait();
+        if(result.get() == ButtonType.OK){
+            try{
+                int parseId = Integer.parseInt(selectedUserBlock.getId());
+                uvMan.removeViewFromUser(parseId);
+                paneUserView.getChildren().remove(selectedUserBlock);
+            } catch (NumberFormatException e) {
+                UserError.showError("Somethig went wrong", "ID of window is not a number");
+            }
+        }
     }
 }

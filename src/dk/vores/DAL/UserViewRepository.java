@@ -99,13 +99,11 @@ public class UserViewRepository {
         }
     }
 
-    public void removeViewFromUser(User u, String type, String source){
+    public void removeViewFromUser(int id){
         try(Connection connection = db.getConnection()){
-            String sql = "DELETE FROM [UserView] WHERE [type] = ? AND [source] = ? AND [userID] = ?;";
+            String sql = "DELETE FROM [UserView] WHERE [id] = ?;";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1,type);
-            ps.setString(2,source);
-            ps.setInt(3,u.getId());
+            ps.setInt(1,id);
             ps.executeQuery();
         }catch (SQLException throwables) {
 

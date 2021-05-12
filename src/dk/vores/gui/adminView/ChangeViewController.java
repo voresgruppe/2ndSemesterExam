@@ -79,14 +79,6 @@ public class ChangeViewController {
         }else return false;
     }
 
-
-
-    public void removeView(ActionEvent actionEvent) {
-        String type = choiceType.getSelectionModel().getSelectedItem().toString();
-        String source = txtfieldSourcePath.getText();
-        uvMan.removeViewFromUser(currentUser,type,source);
-    }
-
     public void addView(ActionEvent actionEvent) {
         if(!showErrorstoUser()){
             String type = choiceType.getSelectionModel().getSelectedItem().toString();
