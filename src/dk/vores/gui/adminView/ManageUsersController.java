@@ -4,13 +4,17 @@ import dk.vores.BLL.UserManager;
 import dk.vores.be.User;
 import dk.vores.util.UserError;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -52,8 +56,6 @@ public class ManageUsersController implements Initializable {
         tblUsername.cellValueFactoryProperty().setValue(cellData -> cellData.getValue().getUsernameProperty());
         tblPassword.cellValueFactoryProperty().setValue(cellData -> cellData.getValue().getPasswordProperty());
         tblAdmin.cellValueFactoryProperty().setValue(cellData -> cellData.getValue().getIsAdminProperty());
-
-
     }
 
     private void userListener() {
@@ -64,5 +66,21 @@ public class ManageUsersController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initTable();
         userListener();
+    }
+
+    public void createNewUser(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(ChangeViewController.class.getResource("view/createNewUserView.fxml"));
+            Parent mainLayout = loader.load();
+            createNewUserController cnuc = loader.getController();
+            cnuc.setAdminViewController(adminViewController);
+            cnuc.setManageUsersController(this);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(mainLayout));
+            stage.setTitle("Create a new user");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

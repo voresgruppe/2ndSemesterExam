@@ -119,14 +119,13 @@ public class UserRepository {
         return returnId;
     }
 
-
     public void delete(User user) {
+        removeViews(user);
         try (Connection connect = db.getConnection()){
             int id = user.getId();
             PreparedStatement preparedStatement = connect.prepareStatement("DELETE FROM [User] WHERE [id] = ?");
             preparedStatement.setInt(1,id);
             preparedStatement.executeUpdate();
-            removeViews(user);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

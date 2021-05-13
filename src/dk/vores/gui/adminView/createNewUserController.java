@@ -15,7 +15,12 @@ public class createNewUserController {
     public TextField txtfieldPassword;
     public Button btnCancel;
     private AdminViewController adminViewController;
+    private ManageUsersController manageUsersController;
     private UserManager uMan = new UserManager();
+
+    public void setManageUsersController(ManageUsersController manageUsersController) {
+        this.manageUsersController = manageUsersController;
+    }
 
     public void setAdminViewController(AdminViewController adminViewController) {
         this.adminViewController = adminViewController;
@@ -25,6 +30,7 @@ public class createNewUserController {
         User newUser = new User(txtfieldUsername.getText(),txtfieldPassword.getText(),checkMakeAdmin.isSelected());
         uMan.addUser(newUser);
         adminViewController.initTableview();
+        manageUsersController.initTable();
         closeWindow();
     }
 

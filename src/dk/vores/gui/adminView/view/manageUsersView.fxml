@@ -23,6 +23,11 @@
    <bottom>
       <HBox alignment="BOTTOM_RIGHT" prefHeight="25.0" prefWidth="580.0" BorderPane.alignment="CENTER">
          <children>
+            <Button mnemonicParsing="false" onAction="#createNewUser" text="Create new user">
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin>
+            </Button>
             <Button mnemonicParsing="false" onAction="#deleteUser" text="Delete user">
                <HBox.margin>
                   <Insets right="15.0" />

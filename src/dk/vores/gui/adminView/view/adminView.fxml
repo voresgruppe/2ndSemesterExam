@@ -30,31 +30,44 @@
                      <children>
                         <BorderPane prefHeight="100.0" prefWidth="308.0">
                            <left>
-                              <Button mnemonicParsing="false" onAction="#remove" text="Remove window" BorderPane.alignment="CENTER">
-                                 <font>
-                                    <Font size="11.0" />
-                                 </font></Button>
+                              <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Button fx:id="btnAddView" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addViewToUser" prefWidth="100.0" text="Add view to user">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#remove" prefWidth="100.0" text="Remove window">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets top="15.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                                 <BorderPane.margin>
+                                    <Insets top="20.0" />
+                                 </BorderPane.margin>
+                              </VBox>
                            </left>
-                           <center>
-                              <Button fx:id="btnAddView" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addViewToUser" text="Add view to user" BorderPane.alignment="CENTER">
-                                 <font>
-                                    <Font size="11.0" />
-                                 </font></Button>
-                           </center>
                            <right>
-                              <Button mnemonicParsing="false" onAction="#openCreateNewUser" text="Create new user" BorderPane.alignment="CENTER">
-                                 <font>
-                                    <Font size="11.0" />
-                                 </font>
-                              </Button>
+                              <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#manageUsers" prefWidth="100.0" text="Manage users">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                                 <BorderPane.margin>
+                                    <Insets right="10.0" top="20.0" />
+                                 </BorderPane.margin>
+                              </VBox>
                            </right>
-                           <bottom>
-                              <Button mnemonicParsing="false" onAction="#manageUsers" text="Manage users" BorderPane.alignment="CENTER">
-                                 <font>
-                                    <Font size="11.0" />
-                                 </font>
-                              </Button>
-                           </bottom>
                         </BorderPane>
                      </children>
                   </HBox>

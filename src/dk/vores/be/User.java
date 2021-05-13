@@ -1,6 +1,5 @@
 package dk.vores.be;
 
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class User {

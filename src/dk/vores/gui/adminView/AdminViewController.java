@@ -196,21 +196,6 @@ draws userView as the user with the given id would currently see it
         }
     }
 
-    public void openCreateNewUser(ActionEvent actionEvent) {
-        try {
-            FXMLLoader loader = new FXMLLoader(ChangeViewController.class.getResource("view/createNewUserView.fxml"));
-            Parent mainLayout = loader.load();
-            createNewUserController cnuc = loader.getController();
-            cnuc.setAdminViewController(this);
-            Stage stage = new Stage();
-            stage.setScene(new Scene(mainLayout));
-            stage.setTitle("Create a new user");
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void manageUsers(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(ChangeViewController.class.getResource("view/manageUsersView.fxml"));
