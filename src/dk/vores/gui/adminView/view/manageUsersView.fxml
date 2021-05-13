@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.vores.gui.adminView.ManageUsersController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.vores.gui.adminView.ManageUsersController" stylesheets="@adminView.css">
    <center>
-      <TableView fx:id="tableView" prefHeight="308.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tableView" prefHeight="308.0" prefWidth="600.0" BorderPane.alignment="CENTER" styleClass="userList" stylesheets="@adminView.css">
         <columns>
           <TableColumn fx:id="tblID" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="tblUsername" prefWidth="216.0" text="Username" />
