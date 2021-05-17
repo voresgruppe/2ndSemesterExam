@@ -1,5 +1,6 @@
 package dk.vores.util;
 
+import dk.vores.BLL.DataManager;
 import dk.vores.BLL.UserViewManager;
 import dk.vores.be.DataExample;
 import dk.vores.be.DataType;
@@ -16,6 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
+import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -298,7 +300,10 @@ public class ViewUtils {
 
 
 
-    public BarChart buildBarChart(List<DataExample> dataExamples) {
+    public BarChart buildBarChart_DataExample(String source) {
+        DataManager dMan = new DataManager();
+        List<DataExample> dataExamples = dMan.getAllData(source);
+
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Product");
 
@@ -320,6 +325,42 @@ public class ViewUtils {
 
         return barChart;
     }
+
+
+    public BarChart buildBarChart_CSV(String source) {
+
+        File file = new File(source);
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        XYChart.Series<String, Integer> data = new XYChart.Series<>();
+
+
+        try (LineNumberReader rdr = new LineNumberReader(new FileReader(file))) {
+            for (String line; (line = rdr.readLine()) != null;) {
+                if (rdr.getLineNumber() == 1) {
+                    String[] titles = line.split(",");
+                    xAxis.setLabel(titles[0]);
+                    yAxis.setLabel(titles[1]);
+                }
+                else{
+                    String[] lineData = line.split(",");
+                    data.getData().add(new XYChart.Data<>(lineData[0], Integer.parseInt(lineData[1])));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        BarChart barChart = new BarChart(xAxis, yAxis);
+
+        barChart.getData().add(data);
+        barChart.setLegendVisible(false);
+
+        return barChart;
+    }
+
+
+
 
     public String matchDatatypeToColor(DataType dataType){
         return switch (dataType) {

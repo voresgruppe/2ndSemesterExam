@@ -152,9 +152,7 @@ public class AdminViewController implements Initializable {
                 }
                 else{
                     if (current.getType().equals(DataType.BarChart)) {
-                        DataManager dMan = new DataManager();
-                        List<DataExample> data = dMan.getAllData(current.getSource());
-                        BarChart barChart = viewUtils.buildBarChart(data);
+                        BarChart barChart = viewUtils.buildBarChart_CSV(current.getSource());
                         barChart.setPrefHeight(userBlock.getPrefHeight());
                         barChart.setPrefWidth(userBlock.getPrefWidth());
                         userBlock.getChildren().add(barChart);

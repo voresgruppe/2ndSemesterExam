@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataRepository {
+public class DataExampleRepository {
 
     public List<DataExample> getAllData(String source){
         List<DataExample> allDates = new ArrayList<>();
