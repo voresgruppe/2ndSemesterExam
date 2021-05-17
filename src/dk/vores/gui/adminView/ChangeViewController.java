@@ -7,14 +7,18 @@ import dk.vores.util.UserError;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.net.URL;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class ChangeViewController {
+public class ChangeViewController{
+
 
     private User currentUser;
     private final UserViewManager uvMan = new UserViewManager();
@@ -28,8 +32,13 @@ public class ChangeViewController {
     private TextField txtfieldSourcePath;
     @FXML
     private ChoiceBox<DataType> choiceType;
+    @FXML
+    private TextField txtUpdateTime;
+
+
 
     public void setClickedUser(User currentUser){
+
         this.currentUser = currentUser;
         lblWhoToChange.setText("Add a view for: " + currentUser.getUsername());
         choiceType.setItems(FXCollections.observableArrayList(DataType.values()));
@@ -82,9 +91,19 @@ public class ChangeViewController {
     public void addView(ActionEvent actionEvent) {
         if(!showErrorstoUser()){
             String type = choiceType.getSelectionModel().getSelectedItem().toString();
-            String source = txtfieldSourcePath.getText();
+            String source = "test";
 
-            uvMan.addViewToUser(currentUser,type,source);
+            if(txtfieldSourcePath.getText()!= null &&!txtfieldSourcePath.getText().isEmpty()){
+                source = txtfieldSourcePath.getText();
+            }
+
+            int updateTime = 300;
+            if(txtUpdateTime.getText()!= null &&!txtUpdateTime.getText().isEmpty()){
+                updateTime = Integer.parseInt(txtUpdateTime.getText());
+            }
+
+
+            uvMan.addViewToUser(currentUser, 50, 50, 300, 300, type, source, updateTime);
             adminViewController.newUserView();
             Stage stage = (Stage) btnClose.getScene().getWindow();
             stage.close();

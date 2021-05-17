@@ -153,9 +153,7 @@ public class AdminViewController implements Initializable {
                 }
                 else{
                     if (current.getType().equals(DataType.BarChart)) {
-                        DataManager dMan = new DataManager();
-                        List<DataExample> data = dMan.getAllData(current.getSource());
-                        BarChart barChart = viewUtils.buildBarChart(data);
+                        BarChart barChart = viewUtils.buildBarChart_CSV(current.getSource());
                         barChart.setPrefHeight(userBlock.getPrefHeight());
                         barChart.setPrefWidth(userBlock.getPrefWidth());
                         userBlock.getChildren().add(barChart);
@@ -189,18 +187,15 @@ public class AdminViewController implements Initializable {
 
     public void newUserView(){
         paneUserView.getChildren().clear();
-
         if(isDataShowing){ drawUserView_dataMode(); }
         else {
             drawUserView_editMode();
         }
-
-
     }
 
     private void openChangeView(User selectedUser){
         try {
-            FXMLLoader loader = new FXMLLoader(ChangeViewController.class.getResource("view/changeView.fxml"));
+            FXMLLoader loader = new FXMLLoader(ChangeViewController.class.getResource("view/addBlockView.fxml"));
             Parent mainLayout = loader.load();
             ChangeViewController cvc = loader.getController();
             cvc.setClickedUser(selectedUser);
@@ -208,6 +203,7 @@ public class AdminViewController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));
             stage.setTitle("Design the view for: " + selectedUser.getUsername());
+            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -219,11 +215,11 @@ public class AdminViewController implements Initializable {
         init();
     }
 
-    public void addViewToUser(ActionEvent actionEvent) {
+    public void addBlockToUser(ActionEvent actionEvent) {
         openChangeView(selectedUser);
     }
 
-    public void remove(ActionEvent actionEvent) {
+    public void removeBlock(ActionEvent actionEvent) {
         String header = "Are you sure you want remove this view from " + selectedUser.getUsername() + "?";
         Optional<ButtonType> result = UserError.showWarning(header,"Click OK to continue").showAndWait();
         if(result.get() == ButtonType.OK){

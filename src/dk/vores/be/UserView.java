@@ -11,9 +11,10 @@ public class UserView {
     private int endY;
     private DataType type;
     private String source;
-    private DataUtils dataUtils = new DataUtils();
+    private int updateTime;
 
-    public UserView(int id, int userID, int startX, int startY, int endX, int endY, DataType type, String source) {
+
+    public UserView(int id, int userID, int startX, int startY, int endX, int endY, DataType type, String source, int updateTime) {
         this.id = id;
         this.userID = userID;
         this.startX = startX;
@@ -22,6 +23,7 @@ public class UserView {
         this.endY = endY;
         this.type = type;
         this.source = source;
+        this.updateTime = updateTime;
     }
 
     public int getId() {
@@ -86,5 +88,13 @@ public class UserView {
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public int getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(int updateTime) {
+        this.updateTime = updateTime;
     }
 }
