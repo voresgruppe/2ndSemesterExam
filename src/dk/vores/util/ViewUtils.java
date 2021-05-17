@@ -315,10 +315,6 @@ public class ViewUtils {
             data.getData().add(new XYChart.Data(dataExample.getDate().toString(),dataExample.getUnitsSold()));
         }
 
-        data.getData().add(new XYChart.Data("Product A", 3000));
-        data.getData().add(new XYChart.Data("Product B", 1500));
-        data.getData().add(new XYChart.Data("Product C", 100));
-
         barChart.getData().add(data);
         barChart.setLegendVisible(false);
 

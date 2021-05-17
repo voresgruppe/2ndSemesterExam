@@ -70,9 +70,9 @@ public class ManageUsersController implements Initializable {
 
     public void createNewUser(ActionEvent actionEvent) {
         try {
-            FXMLLoader loader = new FXMLLoader(ChangeViewController.class.getResource("view/createNewUserView.fxml"));
+            FXMLLoader loader = new FXMLLoader(ChangeViewController.class.getResource("view/createNewUser.fxml"));
             Parent mainLayout = loader.load();
-            createNewUserController cnuc = loader.getController();
+            CreateNewUserController cnuc = loader.getController();
             cnuc.setAdminViewController(adminViewController);
             cnuc.setManageUsersController(this);
             Stage stage = new Stage();

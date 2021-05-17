@@ -26,7 +26,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -183,18 +182,15 @@ public class AdminViewController implements Initializable {
 
     public void newUserView(){
         paneUserView.getChildren().clear();
-
         if(isDataShowing){ drawUserView_dataMode(); }
         else {
             drawUserView_editMode();
         }
-
-
     }
 
     private void openChangeView(User selectedUser){
         try {
-            FXMLLoader loader = new FXMLLoader(ChangeViewController.class.getResource("view/changeView.fxml"));
+            FXMLLoader loader = new FXMLLoader(ChangeViewController.class.getResource("view/addBlockView.fxml"));
             Parent mainLayout = loader.load();
             ChangeViewController cvc = loader.getController();
             cvc.setClickedUser(selectedUser);
@@ -202,6 +198,7 @@ public class AdminViewController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));
             stage.setTitle("Design the view for: " + selectedUser.getUsername());
+            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -213,11 +210,11 @@ public class AdminViewController implements Initializable {
         init();
     }
 
-    public void addViewToUser(ActionEvent actionEvent) {
+    public void addBlockToUser(ActionEvent actionEvent) {
         openChangeView(selectedUser);
     }
 
-    public void remove(ActionEvent actionEvent) {
+    public void removeBlock(ActionEvent actionEvent) {
         String header = "Are you sure you want remove this view from " + selectedUser.getUsername() + "?";
         Optional<ButtonType> result = UserError.showWarning(header,"Click OK to continue").showAndWait();
         if(result.get() == ButtonType.OK){

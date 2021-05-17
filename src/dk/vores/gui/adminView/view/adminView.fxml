@@ -32,12 +32,12 @@
                            <left>
                               <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button fx:id="btnAddView" alignment="CENTER" mnemonicParsing="false" onAction="#addViewToUser" prefHeight="25.0" prefWidth="85.0" text="Add block">
+                                    <Button fx:id="btnAddView" alignment="CENTER" mnemonicParsing="false" onAction="#addBlockToUser" prefHeight="25.0" prefWidth="85.0" text="Add block">
                                        <font>
                                           <Font size="11.0" />
                                        </font>
                                     </Button>
-                                    <Button mnemonicParsing="false" onAction="#remove" prefHeight="25.0" prefWidth="85.0" text="Remove block">
+                                    <Button mnemonicParsing="false" onAction="#removeBlock" prefHeight="25.0" prefWidth="85.0" text="Remove block">
                                        <font>
                                           <Font size="11.0" />
                                        </font>

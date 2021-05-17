@@ -8,7 +8,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class createNewUserController {
+public class CreateNewUserController {
 
     public TextField txtfieldUsername;
     public CheckBox checkMakeAdmin;

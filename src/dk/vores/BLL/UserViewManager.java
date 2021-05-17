@@ -15,12 +15,12 @@ public class UserViewManager {
         return uvRepo.loadViewFromID(id);
     }
 
-    public void addViewToUser(User u, String type, String source){
-        uvRepo.addViewToUser(u,type,source);
+    public void addViewToUser(User u, int startX, int startY, int endX, int endY, String type, String source, int updateTime){
+        uvRepo.addViewToUser(u.getId(),startX, startY, endX, endY, type,source, updateTime);
     }
 
     public void clearViewFromUser(User u){
-        uvRepo.clearViewFromUser(u);
+        uvRepo.clearViewFromUser(u.getId());
     }
 
     public void updateTypeFromID(int uvID, String newType){

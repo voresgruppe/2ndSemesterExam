@@ -27,7 +27,7 @@ public class UserViewRepository {
             ResultSet resultSet = statement.executeQuery(query);
             UserView uv = null;
             while(resultSet.next()) {
-                uv = new UserView(resultSet.getInt("id"), resultSet.getInt("userID"), resultSet.getInt("startx"), resultSet.getInt("starty"), resultSet.getInt("endx"), resultSet.getInt("endy"), dataUtils.typeFromString(resultSet.getString("type"), resultSet.getInt("id")), resultSet.getString("source"));
+                uv = new UserView(resultSet.getInt("id"), resultSet.getInt("userID"), resultSet.getInt("startx"), resultSet.getInt("starty"), resultSet.getInt("endx"), resultSet.getInt("endy"), dataUtils.typeFromString(resultSet.getString("type"), resultSet.getInt("id")), resultSet.getString("source"), resultSet.getInt("updateTime"));
             }
             return uv;
         } catch (SQLException throwables) {
@@ -45,7 +45,7 @@ public class UserViewRepository {
             while(resultSet.next()) {
                 boolean hasUserID = (resultSet.getInt("userID") == id);
                 if(hasUserID) {
-                    UserView uv = new UserView(resultSet.getInt("id"), resultSet.getInt("userID"), resultSet.getInt("startx"), resultSet.getInt("starty"), resultSet.getInt("endx"), resultSet.getInt("endy"), dataUtils.typeFromString(resultSet.getString("type"), resultSet.getInt("id")), resultSet.getString("source"));
+                    UserView uv = new UserView(resultSet.getInt("id"), resultSet.getInt("userID"), resultSet.getInt("startx"), resultSet.getInt("starty"), resultSet.getInt("endx"), resultSet.getInt("endy"), dataUtils.typeFromString(resultSet.getString("type"), resultSet.getInt("id")), resultSet.getString("source"), resultSet.getInt("updateTime"));
                     userViews.add(uv);
                 }
             }
@@ -56,29 +56,30 @@ public class UserViewRepository {
         }
     }
 
-    public void addViewToUser(User u, String type, String source){
+    public void addViewToUser(int userID, int startX, int startY, int endX, int endY, String type, String source, int updateTime){
         try(Connection connection = db.getConnection()){
-            String sql = "INSERT INTO [UserView] ([userID], [startX], [startY], [endX], [endY], [type], [source]) \n" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?);";
+            String sql = "INSERT INTO [UserView] ([userID], [startX], [startY], [endX], [endY], [type], [source], [updateTime]) \n" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1,u.getId());
-            preparedStatement.setInt(2,211);
-            preparedStatement.setInt(3,195);
-            preparedStatement.setInt(4,633);
-            preparedStatement.setInt(5,585);
+            preparedStatement.setInt(1,userID);
+            preparedStatement.setInt(2,startX);
+            preparedStatement.setInt(3,startY);
+            preparedStatement.setInt(4,endX);
+            preparedStatement.setInt(5,endY);
             preparedStatement.setString(6,type);
             preparedStatement.setString(7,source);
+            preparedStatement.setInt(8, updateTime);
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             showDBError(throwables);
         }
     }
 
-    public void clearViewFromUser(User u){
+    public void clearViewFromUser(int userId){
         try(Connection connection = db.getConnection()){
             String sql = "DELETE FROM [UserView] WHERE [userID] = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1,u.getId());
+            preparedStatement.setInt(1,userId);
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             showDBError(throwables);
