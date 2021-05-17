@@ -100,9 +100,9 @@ public class AdminViewController implements Initializable {
                 }
                 Rectangle userBlock = viewUtils.createDraggableRectangle(current.getId(), current.getStartX(), current.getStartY(), current.getEndX() - current.getStartX(), current.getEndY() - current.getStartY());
                 userBlock.setFill(Paint.valueOf(viewUtils.matchDatatypeToColor(current.getType())));
-                
+
                 userBlock.setOnMouseClicked(event->{
-                    String markedStyle = "-fx-border-color: blue; -fx-border-width: 4px 4px 4px 4px;";
+                    String markedStyle = "-fx-stroke: blue; -fx-stroke-width: 5;";
                     if(selectedUserBlock!= null && selectedUserBlock.getStyle().contains(markedStyle)){
                         selectedUserBlock.setStyle(selectedUserBlock.getStyle().replace(markedStyle, ""));
                     }
@@ -225,6 +225,7 @@ public class AdminViewController implements Initializable {
                 int parseId = Integer.parseInt(selectedUserBlock.getId());
                 uvMan.removeViewFromUser(parseId);
                 paneUserView.getChildren().remove(selectedUserBlock);
+                newUserView();
             } catch (NumberFormatException e) {
                 UserError.showError("Something went wrong", "ID of window is not a number");
             }
