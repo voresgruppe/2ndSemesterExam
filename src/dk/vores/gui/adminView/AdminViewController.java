@@ -24,9 +24,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -160,6 +160,12 @@ public class AdminViewController implements Initializable {
                         barChart.setPrefWidth(userBlock.getPrefWidth());
                         userBlock.getChildren().add(barChart);
 
+                    }else if(current.getType().equals(DataType.HTML)){
+                        WebView webView = viewUtils.showWeb("https://" + current.getSource());
+                        webView.setPrefHeight(userBlock.getPrefHeight());
+                        webView.setPrefWidth(userBlock.getPrefWidth());
+                        System.out.println("vis google");
+                        userBlock.getChildren().add(webView);
                     }
                 }
                 userBlock.setId(String.valueOf(current.getId()));
@@ -258,4 +264,5 @@ public class AdminViewController implements Initializable {
             btn_showData.setText("show data");
         }
     }
+
 }

@@ -15,6 +15,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -333,5 +336,12 @@ public class ViewUtils {
             case BarChart -> "red";
             case PieChart -> "yellow";
         };
+    }
+
+    public WebView showWeb(String url) {
+        WebView webView = new WebView();
+        WebEngine engine = webView.getEngine();
+        engine.load(url);
+        return webView;
     }
 }
