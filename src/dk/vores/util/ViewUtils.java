@@ -2,8 +2,10 @@ package dk.vores.util;
 
 import dk.vores.BLL.UserViewManager;
 import dk.vores.be.DataExample;
+import dk.vores.be.DataType;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -135,6 +137,16 @@ public class ViewUtils {
         return rect;
     }
 
+    public AnchorPane createAnchorPane(int uvID, double x, double y, double width, double height){
+        AnchorPane pane = new AnchorPane();
+        pane.setLayoutX(x);
+        pane.setLayoutY(y);
+        pane.setPrefWidth(width);
+        pane.setPrefHeight(height);
+        return pane;
+    }
+
+
     public AnchorPane createDraggableAnchorPane (int uvID, double x, double y, double width, double height){
         final double handleRadius = 7;
 
@@ -206,7 +218,7 @@ public class ViewUtils {
             }
         });
         resizeHandleNW.setOnMouseReleased(event -> {
-                uvMan.updatePositionFromID(uvID, (int) pane.getLayoutX(), (int) pane.getLayoutY(), (int) (pane.getLayoutX()+ pane.getWidth()), (int) (pane.getLayoutY()+pane.getHeight()));
+            updateBlockPosition(uvID, pane);
         });
 
         resizeHandleSE.setOnMouseDragged(event -> {
@@ -227,7 +239,7 @@ public class ViewUtils {
             }
         });
         resizeHandleSE.setOnMouseReleased(event -> {
-            uvMan.updatePositionFromID(uvID, (int) pane.getLayoutX(), (int) pane.getLayoutY(), (int) (pane.getLayoutX()+ pane.getWidth()), (int) (pane.getLayoutY()+pane.getHeight()));
+            updateBlockPosition(uvID, pane);
         });
 
 
@@ -253,10 +265,19 @@ public class ViewUtils {
         });
 
         moveHandle.setOnMouseReleased(event -> {
-            uvMan.updatePositionFromID(uvID, (int) pane.getLayoutX(), (int) pane.getLayoutY(), (int) (pane.getLayoutX()+ pane.getWidth()), (int) (pane.getLayoutY()+pane.getHeight()));
+            updateBlockPosition(uvID, pane);
         });
 
         return pane;
+    }
+
+    private void updateBlockPosition(int uvID, AnchorPane pane){
+        uvMan.updatePositionFromID(uvID, (int) pane.getLayoutX(), (int) pane.getLayoutY(), (int) (pane.getLayoutX()+ pane.getWidth()), (int) (pane.getLayoutY()+pane.getHeight()));
+
+        //todo skal måske fjernes
+        for(Node child: pane.getChildren()){
+            child.autosize();
+        }
     }
 
 
@@ -302,5 +323,15 @@ public class ViewUtils {
         barChart.setLegendVisible(false);
 
         return barChart;
+    }
+
+    public String matchDatatypeToColor(DataType dataType){
+        return switch (dataType) {
+            case Undetermined -> "white";
+            case HTML -> "green";
+            case Table -> "pink";
+            case BarChart -> "red";
+            case PieChart -> "yellow";
+        };
     }
 }

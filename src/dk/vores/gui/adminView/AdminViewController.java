@@ -14,30 +14,30 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.input.MouseButton;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AdminViewController implements Initializable {
-    public Button btnAddView;
+    @FXML
+    private Button btnAddView;
+    @FXML
+    private Button btn_showData;
     @FXML
     private AnchorPane paneUserView;
     @FXML
@@ -56,7 +56,9 @@ public class AdminViewController implements Initializable {
     private UserViewManager uvMan = new UserViewManager();
     private ViewUtils viewUtils = new ViewUtils();
 
-    private AnchorPane selectedUserBlock = null;
+    private boolean isDataShowing =false;
+
+    private Rectangle selectedUserBlock = null;
 
     public User getLoggedAdmin() {
         return loggedAdmin;
@@ -68,7 +70,7 @@ public class AdminViewController implements Initializable {
 
     public void init(){
         initTableview();
-        drawUserView();
+        newUserView();
     }
 
     public void initTableview(){
@@ -80,10 +82,10 @@ public class AdminViewController implements Initializable {
         tcUsername.cellValueFactoryProperty().setValue(cellData -> cellData.getValue().getUsernameProperty());
         tcPassword.cellValueFactoryProperty().setValue(cellData -> cellData.getValue().getPasswordProperty());
     }
-/*
-draws userView as the user with the given id would currently see it
- */
-    public void drawUserView() {
+
+
+
+    public void drawUserView_editMode() {
         ObservableList<UserView> usersViews = uvMan.loadViewsFromUserID(selectedUser.getId());
         if (!usersViews.isEmpty()) {
             double height = paneUserView.getHeight();
@@ -96,46 +98,73 @@ draws userView as the user with the given id would currently see it
                 if (width < current.getEndX()) {
                     width = current.getEndX();
                 }
-
-
-                AnchorPane userBlock = viewUtils.createDraggableAnchorPane(current.getId(), current.getStartX(), current.getStartY(), current.getEndX() - current.getStartX(), current.getEndY() - current.getStartY());
-                userBlock.setStyle("-fx-background-color: #f2c31d; -fx-border-color: black; -fx-border-width: 2px 2px 2px 2px; ");
+                Rectangle userBlock = viewUtils.createDraggableRectangle(current.getId(), current.getStartX(), current.getStartY(), current.getEndX() - current.getStartX(), current.getEndY() - current.getStartY());
+                userBlock.setFill(Paint.valueOf(viewUtils.matchDatatypeToColor(current.getType())));
+                
                 userBlock.setOnMouseClicked(event->{
-                    String markedStyle = "-fx-border-color: magenta; -fx-border-width: 4px 4px 4px 4px;";
+                    String markedStyle = "-fx-border-color: blue; -fx-border-width: 4px 4px 4px 4px;";
                     if(selectedUserBlock!= null && selectedUserBlock.getStyle().contains(markedStyle)){
-                        selectedUserBlock.setStyle(selectedUserBlock.getStyle().replace("-fx-border-color: magenta; -fx-border-width: 4px 4px 4px 4px;", ""));
+                        selectedUserBlock.setStyle(selectedUserBlock.getStyle().replace(markedStyle, ""));
                     }
                     selectedUserBlock = userBlock;
-                    selectedUserBlock.setStyle(selectedUserBlock.getStyle()+ "-fx-border-color: magenta; -fx-border-width: 4px 4px 4px 4px;");
+                    selectedUserBlock.setStyle(selectedUserBlock.getStyle()+ markedStyle);
                 });
 
 
-                if (current.getType().equals(DataType.BarChart)) {
-                    if(current.getSource().matches("test")) {
-                        userBlock.setStyle(userBlock.getStyle() + "-fx-background-color: red;");
-                    }
-                    else{
-                        DataManager dMan = new DataManager();
-                        List<DataExample> data = dMan.getAllData(current.getSource());
 
-                        userBlock.getChildren().add(viewUtils.buildBarChart(data));
-                    }
-                }
-                else if (current.getType().equals(DataType.PieChart)) {
-                    userBlock.setStyle(userBlock.getStyle() + "-fx-background-color: blue;");
-                }
-                else if (current.getType().equals(DataType.HTML)) {
-                    userBlock.setStyle(userBlock.getStyle() + "-fx-background-color: green;");
-                }
-                else if (current.getType().equals(DataType.Table)) {
-                    userBlock.setStyle(userBlock.getStyle() + "-fx-background-color: pink;");
-                }
                 userBlock.setId(String.valueOf(current.getId()));
                 paneUserView.getChildren().add(userBlock);
 
 
             }
 
+            paneUserView.setMinHeight(height);
+            paneUserView.setMinWidth(width);
+        }
+    }
+
+    public void drawUserView_dataMode() {
+        ObservableList<UserView> usersViews = uvMan.loadViewsFromUserID(selectedUser.getId());
+        if (!usersViews.isEmpty()) {
+            double height = paneUserView.getHeight();
+            double width = paneUserView.getWidth();
+            for (UserView current : usersViews) {
+                if (height < current.getEndY()) {
+                    height = current.getEndY();
+                }
+                if (width < current.getEndX()) {
+                    width = current.getEndX();
+                }
+
+                AnchorPane userBlock = viewUtils.createAnchorPane(current.getId(), current.getStartX(), current.getStartY(), current.getEndX() - current.getStartX(), current.getEndY() - current.getStartY());
+
+
+                userBlock.setStyle("-fx-background-color: #ffff; -fx-border-color: black; -fx-border-width: 2px 2px 2px 2px; ");
+                DataType currentType = current.getType();
+                userBlock.setStyle("-fx-background-color: " + viewUtils.matchDatatypeToColor(currentType) + ";");
+
+                if(current.getSource().matches("test")) {
+                    Label label = new Label();
+                    label.setText(currentType.name() + "  Block");
+                    label.setVisible(true);
+                    label.setStyle("-fx-background-color: white");
+                    label.setWrapText(true);
+                    userBlock.getChildren().add(label);
+                }
+                else{
+                    if (current.getType().equals(DataType.BarChart)) {
+                        DataManager dMan = new DataManager();
+                        List<DataExample> data = dMan.getAllData(current.getSource());
+                        BarChart barChart = viewUtils.buildBarChart(data);
+                        barChart.setPrefHeight(userBlock.getPrefHeight());
+                        barChart.setPrefWidth(userBlock.getPrefWidth());
+                        userBlock.getChildren().add(barChart);
+
+                    }
+                }
+                userBlock.setId(String.valueOf(current.getId()));
+                paneUserView.getChildren().add(userBlock);
+            }
             paneUserView.setMinHeight(height);
             paneUserView.setMinWidth(width);
         }
@@ -154,7 +183,13 @@ draws userView as the user with the given id would currently see it
 
     public void newUserView(){
         paneUserView.getChildren().clear();
-        drawUserView();
+
+        if(isDataShowing){ drawUserView_dataMode(); }
+        else {
+            drawUserView_editMode();
+        }
+
+
     }
 
     private void openChangeView(User selectedUser){
@@ -191,7 +226,7 @@ draws userView as the user with the given id would currently see it
                 uvMan.removeViewFromUser(parseId);
                 paneUserView.getChildren().remove(selectedUserBlock);
             } catch (NumberFormatException e) {
-                UserError.showError("Somethig went wrong", "ID of window is not a number");
+                UserError.showError("Something went wrong", "ID of window is not a number");
             }
         }
     }
@@ -210,5 +245,16 @@ draws userView as the user with the given id would currently see it
             e.printStackTrace();
         }
 
+    }
+
+    public void showData(ActionEvent actionEvent) {
+        isDataShowing = !isDataShowing;
+        newUserView();
+        if(isDataShowing){
+            btn_showData.setText("edit mode");
+        }
+        else{
+            btn_showData.setText("show data");
+        }
     }
 }
