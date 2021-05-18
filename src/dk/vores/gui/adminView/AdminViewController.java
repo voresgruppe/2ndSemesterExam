@@ -1,10 +1,7 @@
 package dk.vores.gui.adminView;
 
-import com.dansoftware.pdfdisplayer.PDFDisplayer;
-import dk.vores.BLL.DataManager;
 import dk.vores.BLL.UserManager;
 import dk.vores.BLL.UserViewManager;
-import dk.vores.be.DataExample;
 import dk.vores.be.DataType;
 import dk.vores.be.User;
 import dk.vores.be.UserView;
@@ -15,7 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
@@ -27,14 +23,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -185,17 +178,8 @@ public class AdminViewController implements Initializable {
                         case Undetermined:
                             break;
                         case PDF:
-                            try{
-                                System.out.println("pdf");
-                                PDFDisplayer displayer = new PDFDisplayer();
-                                //current.getSource()
-                                displayer.loadPDF(new File("resources/mockData/pdf.pdf"));
-                                userBlock.getChildren().add(displayer.toNode());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            } finally {
-                                break;
-                            }
+                            //fuck pdf
+                            break;
                         default:
                             break;
                     }

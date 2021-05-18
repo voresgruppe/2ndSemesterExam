@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Examproject.iml" filepath="$PROJECT_DIR$/Examproject.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../hax/PDFViewerFX-master/PDFViewerFX-master.iml" filepath="$PROJECT_DIR$/../../hax/PDFViewerFX-master/PDFViewerFX-master.iml" />
     </modules>
   </component>
 </project>

@@ -14,6 +14,5 @@
     <orderEntry type="library" name="javax.xml.bind:jaxb-api:2.4.0-b180830.0359" level="project" />
     <orderEntry type="library" name="mssql-jdbc-9.2.0.jre15" level="project" />
     <orderEntry type="library" name="lib" level="project" />
-    <orderEntry type="module" module-name="PDFViewerFX-master" />
   </component>
 </module>
