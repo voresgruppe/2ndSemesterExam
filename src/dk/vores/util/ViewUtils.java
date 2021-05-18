@@ -13,6 +13,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.chart.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -25,6 +26,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
 
+import java.awt.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -504,6 +506,20 @@ public class ViewUtils {
             e.printStackTrace();
         }
         return table;
+    }
+
+    public Button openPdf(String source){
+        File file = new File(source);
+        Button pdf = new Button();
+        pdf.setText("open: " + file.getName());
+        pdf.setOnAction(event -> {
+            try {
+                Desktop.getDesktop().open(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        return pdf;
     }
 
 
