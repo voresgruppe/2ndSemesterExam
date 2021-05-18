@@ -15,9 +15,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -25,6 +27,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
@@ -154,28 +157,47 @@ public class AdminViewController implements Initializable {
                     userBlock.getChildren().add(label);
                 }
                 else{
-                    if (current.getType().equals(DataType.BarChart)) {
-                        BarChart barChart = viewUtils.buildBarChart_CSV(current.getSource());
-                        barChart.setPrefHeight(userBlock.getPrefHeight());
-                        barChart.setPrefWidth(userBlock.getPrefWidth());
-                        userBlock.getChildren().add(barChart);
-
-                    }else if(current.getType().equals(DataType.HTML)){
-                        WebView webView = viewUtils.showWeb("https://" + current.getSource());
-                        webView.setPrefHeight(userBlock.getPrefHeight());
-                        webView.setPrefWidth(userBlock.getPrefWidth());
-                        userBlock.getChildren().add(webView);
-
-                    }else if(current.getType().equals(DataType.PDF)){
-                        try{
-                            System.out.println("pdf");
-                            PDFDisplayer displayer = new PDFDisplayer();
-                            //current.getSource()
-                            displayer.loadPDF(new File("resources/mockData/pdf.pdf"));
-                            userBlock.getChildren().add(displayer.toNode());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                    switch (currentType){
+                        case PieChart:
+                            PieChart pieChart = viewUtils.buildPieChart_CSV(current.getSource());
+                            pieChart.setPrefHeight(userBlock.getPrefHeight());
+                            pieChart.setPrefWidth(userBlock.getPrefWidth());
+                            userBlock.getChildren().add(pieChart);
+                            break;
+                        case BarChart:
+                            BarChart barChart = viewUtils.buildBarChart_CSV(current.getSource());
+                            barChart.setPrefHeight(userBlock.getPrefHeight());
+                            barChart.setPrefWidth(userBlock.getPrefWidth());
+                            userBlock.getChildren().add(barChart);
+                            break;
+                        case HTML:
+                            WebView webView = viewUtils.showWeb("https://" + current.getSource());
+                            webView.setPrefHeight(userBlock.getPrefHeight());
+                            webView.setPrefWidth(userBlock.getPrefWidth());
+                            userBlock.getChildren().add(webView);
+                            break;
+                        case Table:
+                            TableView tableView = viewUtils.buildTableView_CSV(current.getSource());
+                            tableView.setPrefHeight(userBlock.getPrefHeight());
+                            tableView.setPrefWidth(userBlock.getPrefWidth());
+                            userBlock.getChildren().add(tableView);
+                            break;
+                        case Undetermined:
+                            break;
+                        case PDF:
+                            try{
+                                System.out.println("pdf");
+                                PDFDisplayer displayer = new PDFDisplayer();
+                                //current.getSource()
+                                displayer.loadPDF(new File("resources/mockData/pdf.pdf"));
+                                userBlock.getChildren().add(displayer.toNode());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } finally {
+                                break;
+                            }
+                        default:
+                            break;
                     }
                 }
                 userBlock.setId(String.valueOf(current.getId()));

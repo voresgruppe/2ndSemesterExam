@@ -4,13 +4,15 @@ import dk.vores.BLL.DataManager;
 import dk.vores.BLL.UserViewManager;
 import dk.vores.be.DataExample;
 import dk.vores.be.DataType;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -21,6 +23,8 @@ import javafx.scene.web.WebView;
 
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
@@ -362,6 +366,81 @@ public class ViewUtils {
         return barChart;
     }
 
+    public PieChart buildPieChart_CSV(String source) {
+        File file = new File(source);
+
+
+        PieChart pieChart = new PieChart();
+
+        try (LineNumberReader rdr = new LineNumberReader(new FileReader(file))) {
+            for (String line; (line = rdr.readLine()) != null;) {
+                if (rdr.getLineNumber() == 1) {
+                    String[] titles = line.split(",");
+                    pieChart.setTitle(titles[1]);
+                }
+                else{
+                    String[] lineData = line.split(",");
+                    pieChart.getData().add(new PieChart.Data(lineData[0],Double.parseDouble(lineData[1])));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        pieChart.setClockwise(true);
+        pieChart.setLabelLineLength(50);
+        pieChart.setLabelsVisible(true);
+        pieChart.setStartAngle(180);
+
+        return pieChart;
+    }
+    public TableView buildTableView_CSV(String source) {
+        TableView<List<String>> table = new TableView<>();
+
+        File file = new File(source);
+        String[] titles = new String[1];
+        try (LineNumberReader rdr = new LineNumberReader(new FileReader(file))) {
+            for (String line; (line = rdr.readLine()) != null && rdr.getLineNumber() >=1;) {
+                if (rdr.getLineNumber() == 1) {
+                    titles = line.split(",");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            String[] finalTitles = titles;
+            Files.lines(Path.of(source)).map(line -> line.split(",")).forEach(values -> {
+                // Add extra columns if necessary:
+                for (int i = table.getColumns().size(); i < values.length; i++) {
+                    TableColumn<List<String>, String> col = new TableColumn<>(finalTitles[i]);
+                    col.setMinWidth(80);
+                    final int colIndex = i ;
+                    col.setCellValueFactory(data -> {
+                        List<String> rowValues = data.getValue();
+                        String cellValue ;
+                        if (colIndex < rowValues.size()) {
+                            cellValue = rowValues.get(colIndex);
+                        } else {
+                            cellValue = "" ;
+                        }
+                        return new ReadOnlyStringWrapper(cellValue);
+                    });
+                    table.getColumns().add(col);
+                }
+
+                // add row:
+                table.getItems().add(Arrays.asList(values));
+            });
+
+            table.getItems().remove(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return table ;
+    }
+
 
 
 
@@ -382,4 +461,6 @@ public class ViewUtils {
         engine.load(url);
         return webView;
     }
+
+
 }
