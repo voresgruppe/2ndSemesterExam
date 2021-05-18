@@ -372,6 +372,7 @@ public class ViewUtils {
             case Table -> "pink";
             case BarChart -> "red";
             case PieChart -> "yellow";
+            case PDF -> "cyan";
         };
     }
 

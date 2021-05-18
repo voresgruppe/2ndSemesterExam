@@ -164,18 +164,15 @@ public class AdminViewController implements Initializable {
                         WebView webView = viewUtils.showWeb("https://" + current.getSource());
                         webView.setPrefHeight(userBlock.getPrefHeight());
                         webView.setPrefWidth(userBlock.getPrefWidth());
-                        System.out.println("vis google");
                         userBlock.getChildren().add(webView);
 
                     }else if(current.getType().equals(DataType.PDF)){
                         try{
+                            System.out.println("pdf");
                             PDFDisplayer displayer = new PDFDisplayer();
-                            displayer.loadPDF(new File(current.getSource()));
-                            userBlock.getChildren().add(new Scene(displayer.toNode()));
-                            //Required type: javafx.scene.Parent     Provided: Parent  ??
-                            //.toNode() giver åbenbart en parent??
-                            //lorte library
-                            //https://github.com/Dansoftowner/PDFViewerFX
+                            //current.getSource()
+                            displayer.loadPDF(new File("resources/mockData/pdf.pdf"));
+                            userBlock.getChildren().add(displayer.toNode());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
