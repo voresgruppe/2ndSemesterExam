@@ -46,8 +46,7 @@ public class LoginViewController implements Initializable {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
-            else {
+            } else {
                 try {
                     FXMLLoader loader = new FXMLLoader(UserViewController.class.getResource("view/userView.fxml"));
                     Parent mainLayout = loader.load();

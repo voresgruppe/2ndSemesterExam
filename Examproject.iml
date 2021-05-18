@@ -14,5 +14,6 @@
     <orderEntry type="library" name="javax.xml.bind:jaxb-api:2.4.0-b180830.0359" level="project" />
     <orderEntry type="library" name="mssql-jdbc-9.2.0.jre15" level="project" />
     <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="org.openjfx:javafx-web:16-ea+4" level="project" />
   </component>
 </module>
