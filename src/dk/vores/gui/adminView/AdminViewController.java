@@ -1,5 +1,6 @@
 package dk.vores.gui.adminView;
 
+import com.dansoftware.pdfdisplayer.PDFDisplayer;
 import dk.vores.BLL.DataManager;
 import dk.vores.BLL.UserManager;
 import dk.vores.BLL.UserViewManager;
@@ -27,6 +28,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -164,6 +166,19 @@ public class AdminViewController implements Initializable {
                         webView.setPrefWidth(userBlock.getPrefWidth());
                         System.out.println("vis google");
                         userBlock.getChildren().add(webView);
+
+                    }else if(current.getType().equals(DataType.PDF)){
+                        try{
+                            PDFDisplayer displayer = new PDFDisplayer();
+                            displayer.loadPDF(new File(current.getSource()));
+                            userBlock.getChildren().add(new Scene(displayer.toNode()));
+                            //Required type: javafx.scene.Parent     Provided: Parent  ??
+                            //.toNode() giver åbenbart en parent??
+                            //lorte library
+                            //https://github.com/Dansoftowner/PDFViewerFX
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
                 userBlock.setId(String.valueOf(current.getId()));
