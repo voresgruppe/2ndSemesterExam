@@ -25,6 +25,9 @@ public class UserViewController implements Initializable {
 
     private User loggedUser;
 
+    private double userViewWidth = 0;
+    private double userViewHeight = 0;
+
     public User getLoggedUser() {
         return loggedUser;
     }
@@ -50,7 +53,8 @@ public class UserViewController implements Initializable {
         double posX = uv.getStartX();
         double posY = uv.getStartY();
 
-        Node element = null;
+        userViewWidth = (userViewWidth > uv.getEndX()) ? userViewWidth : uv.getEndX() + 5;
+        userViewHeight = (userViewHeight > uv.getEndY()) ? userViewHeight : uv.getEndY() + 15;
 
         switch (uv.getType()) {
             case PDF:
@@ -79,6 +83,7 @@ public class UserViewController implements Initializable {
                 root.getChildren().add(p);
                 break;
         }
+        root.setPrefSize(userViewWidth, userViewHeight);
     }
 
     private void loadViews() {
