@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
@@ -174,6 +175,10 @@ public class AdminViewController implements Initializable {
                             userBlock.getChildren().add(webView);
                             break;
                         case Table:
+                            TableView tableView = viewUtils.buildTableView_CSV(current.getSource());
+                            tableView.setPrefHeight(userBlock.getPrefHeight());
+                            tableView.setPrefWidth(userBlock.getPrefWidth());
+                            userBlock.getChildren().add(tableView);
                             break;
                         case Undetermined:
                             break;
