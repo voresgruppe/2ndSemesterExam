@@ -154,23 +154,31 @@ public class AdminViewController implements Initializable {
                     userBlock.getChildren().add(label);
                 }
                 else{
-                    if (current.getType().equals(DataType.BarChart)) {
-                        BarChart barChart = viewUtils.buildBarChart_CSV(current.getSource());
-                        barChart.setPrefHeight(userBlock.getPrefHeight());
-                        barChart.setPrefWidth(userBlock.getPrefWidth());
-                        userBlock.getChildren().add(barChart);
-
-                    }else if(current.getType().equals(DataType.HTML)){
-                        WebView webView = viewUtils.showWeb("https://" + current.getSource());
-                        webView.setPrefHeight(userBlock.getPrefHeight());
-                        webView.setPrefWidth(userBlock.getPrefWidth());
-                        userBlock.getChildren().add(webView);
-                    }
-                    else if(currentType.equals(DataType.PieChart)){
-                        PieChart pieChart = viewUtils.buildPieChart_CSV(current.getSource());
-                        pieChart.setPrefHeight(userBlock.getPrefHeight());
-                        pieChart.setPrefWidth(userBlock.getPrefWidth());
-                        userBlock.getChildren().add(pieChart);
+                    switch (currentType){
+                        case PieChart:
+                            PieChart pieChart = viewUtils.buildPieChart_CSV(current.getSource());
+                            pieChart.setPrefHeight(userBlock.getPrefHeight());
+                            pieChart.setPrefWidth(userBlock.getPrefWidth());
+                            userBlock.getChildren().add(pieChart);
+                            break;
+                        case BarChart:
+                            BarChart barChart = viewUtils.buildBarChart_CSV(current.getSource());
+                            barChart.setPrefHeight(userBlock.getPrefHeight());
+                            barChart.setPrefWidth(userBlock.getPrefWidth());
+                            userBlock.getChildren().add(barChart);
+                            break;
+                        case HTML:
+                            WebView webView = viewUtils.showWeb("https://" + current.getSource());
+                            webView.setPrefHeight(userBlock.getPrefHeight());
+                            webView.setPrefWidth(userBlock.getPrefWidth());
+                            userBlock.getChildren().add(webView);
+                            break;
+                        case Table:
+                            break;
+                        case Undetermined:
+                            break;
+                        default:
+                            break;
                     }
                 }
                 userBlock.setId(String.valueOf(current.getId()));
