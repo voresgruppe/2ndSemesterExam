@@ -1,5 +1,6 @@
 package dk.vores.gui.adminView;
 
+import com.gembox.spreadsheet.SpreadsheetInfo;
 import dk.vores.BLL.UserManager;
 import dk.vores.BLL.UserViewManager;
 import dk.vores.be.DataType;
@@ -7,11 +8,13 @@ import dk.vores.be.User;
 import dk.vores.be.UserView;
 import dk.vores.util.UserError;
 import dk.vores.util.ViewUtils;
+import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
@@ -26,6 +29,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -69,6 +74,8 @@ public class AdminViewController implements Initializable {
     public void init(){
         initTableview();
         newUserView();
+
+        SpreadsheetInfo.setLicense("FREE-LIMITED-KEY");
     }
 
     public void initTableview(){
@@ -170,7 +177,13 @@ public class AdminViewController implements Initializable {
                             userBlock.getChildren().add(webView);
                             break;
                         case Table:
-                            TableView tableView = viewUtils.buildTableView_CSV(current.getSource());
+                            TableView tableView;
+                            if(current.getSource().endsWith(".xlsx")){
+                                tableView = viewUtils.showExcel(current.getSource());
+                            }
+                            else {
+                                tableView = viewUtils.buildTableView_CSV(current.getSource());
+                            }
                             tableView.setPrefHeight(userBlock.getPrefHeight());
                             tableView.setPrefWidth(userBlock.getPrefWidth());
                             userBlock.getChildren().add(tableView);
@@ -178,7 +191,13 @@ public class AdminViewController implements Initializable {
                         case Undetermined:
                             break;
                         case PDF:
-                            //fuck pdf
+                            Button pdf = viewUtils.openPdf(current.getSource());
+
+                            //TODO få knappen ind i midten
+                            pdf.setLayoutX((userBlock.getPrefWidth()/2)-(pdf.getWidth()/2));
+                            pdf.setLayoutY((userBlock.getPrefHeight()/2)-(pdf.getHeight()/2));
+                            
+                            userBlock.getChildren().add(pdf);
                             break;
                         default:
                             break;
