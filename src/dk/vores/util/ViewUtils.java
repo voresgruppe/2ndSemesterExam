@@ -1,9 +1,11 @@
 package dk.vores.util;
 
+import com.gembox.spreadsheet.*;
 import dk.vores.BLL.DataManager;
 import dk.vores.BLL.UserViewManager;
 import dk.vores.be.DataExample;
 import dk.vores.be.DataType;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.chart.*;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -461,6 +464,49 @@ public class ViewUtils {
         engine.load(url);
         return webView;
     }
+
+    public TableView showExcel(String source){
+
+        TableView table = new TableView();
+
+        File file = new File(source);
+        try {
+            ExcelFile workbook  = ExcelFile.load(file.getAbsolutePath());
+            ExcelWorksheet worksheet = workbook.getWorksheet(0);
+            String[][] sourceData = new String[100][26];
+            for (int row = 0; row < sourceData.length; row++) {
+                for (int column = 0; column < sourceData[row].length; column++) {
+                    ExcelCell cell = worksheet.getCell(row, column);
+                    if (cell.getValueType() != CellValueType.NULL)
+                        sourceData[row][column] = cell.getValue().toString();
+                }
+            }
+            table.getColumns().clear();
+
+            ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
+            for (String[] row : sourceData)
+                data.add(FXCollections.observableArrayList(row));
+            table.setItems(data);
+
+            for (int i = 0; i < sourceData[0].length; i++) {
+                final int currentColumn = i;
+                TableColumn<ObservableList<String>, String> column = new TableColumn<>(ExcelColumnCollection.columnIndexToName(currentColumn));
+                column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(currentColumn)));
+                column.setEditable(true);
+                column.setCellFactory(TextFieldTableCell.forTableColumn());
+                column.setOnEditCommit(
+                        (TableColumn.CellEditEvent<ObservableList<String>, String> t) -> {
+                            t.getTableView().getItems().get(t.getTablePosition().getRow()).set(t.getTablePosition().getColumn(), t.getNewValue());
+                        });
+                table.getColumns().add(column);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return table;
+    }
+
+
 
 
 }

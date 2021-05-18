@@ -1,5 +1,6 @@
 package dk.vores.gui.adminView;
 
+import com.gembox.spreadsheet.SpreadsheetInfo;
 import dk.vores.BLL.UserManager;
 import dk.vores.BLL.UserViewManager;
 import dk.vores.be.DataType;
@@ -69,6 +70,8 @@ public class AdminViewController implements Initializable {
     public void init(){
         initTableview();
         newUserView();
+
+        SpreadsheetInfo.setLicense("FREE-LIMITED-KEY");
     }
 
     public void initTableview(){
@@ -170,7 +173,13 @@ public class AdminViewController implements Initializable {
                             userBlock.getChildren().add(webView);
                             break;
                         case Table:
-                            TableView tableView = viewUtils.buildTableView_CSV(current.getSource());
+                            TableView tableView;
+                            if(current.getSource().endsWith(".xlsx")){
+                                tableView = viewUtils.showExcel(current.getSource());
+                            }
+                            else {
+                                tableView = viewUtils.buildTableView_CSV(current.getSource());
+                            }
                             tableView.setPrefHeight(userBlock.getPrefHeight());
                             tableView.setPrefWidth(userBlock.getPrefWidth());
                             userBlock.getChildren().add(tableView);
