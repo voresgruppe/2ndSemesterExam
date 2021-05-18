@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,6 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
@@ -162,8 +164,13 @@ public class AdminViewController implements Initializable {
                         WebView webView = viewUtils.showWeb("https://" + current.getSource());
                         webView.setPrefHeight(userBlock.getPrefHeight());
                         webView.setPrefWidth(userBlock.getPrefWidth());
-                        System.out.println("vis google");
                         userBlock.getChildren().add(webView);
+                    }
+                    else if(currentType.equals(DataType.PieChart)){
+                        PieChart pieChart = viewUtils.buildPieChart_CSV(current.getSource());
+                        pieChart.setPrefHeight(userBlock.getPrefHeight());
+                        pieChart.setPrefWidth(userBlock.getPrefWidth());
+                        userBlock.getChildren().add(pieChart);
                     }
                 }
                 userBlock.setId(String.valueOf(current.getId()));

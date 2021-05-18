@@ -364,17 +364,24 @@ public class ViewUtils {
     public PieChart buildPieChart_CSV(String source) {
         File file = new File(source);
 
-        //Create data
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data("Product A", 3000),
-                new PieChart.Data("Product B", 1500),
-                new PieChart.Data("Product C", 100)
-        );
 
+        PieChart pieChart = new PieChart();
 
-        //Create PieChart object
-        PieChart pieChart = new PieChart(pieChartData);
-        pieChart.setTitle("Products sold");
+        try (LineNumberReader rdr = new LineNumberReader(new FileReader(file))) {
+            for (String line; (line = rdr.readLine()) != null;) {
+                if (rdr.getLineNumber() == 1) {
+                    String[] titles = line.split(",");
+                    pieChart.setTitle(titles[1]);
+                }
+                else{
+                    String[] lineData = line.split(",");
+                    pieChart.getData().add(new PieChart.Data(lineData[0],Double.parseDouble(lineData[1])));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         pieChart.setClockwise(true);
         pieChart.setLabelLineLength(50);
         pieChart.setLabelsVisible(true);
