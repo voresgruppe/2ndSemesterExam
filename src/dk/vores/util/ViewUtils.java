@@ -4,13 +4,12 @@ import dk.vores.BLL.DataManager;
 import dk.vores.BLL.UserViewManager;
 import dk.vores.be.DataExample;
 import dk.vores.be.DataType;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -360,6 +359,28 @@ public class ViewUtils {
         barChart.setLegendVisible(false);
 
         return barChart;
+    }
+
+    public PieChart buildPieChart_CSV(String source) {
+        File file = new File(source);
+
+        //Create data
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+                new PieChart.Data("Product A", 3000),
+                new PieChart.Data("Product B", 1500),
+                new PieChart.Data("Product C", 100)
+        );
+
+
+        //Create PieChart object
+        PieChart pieChart = new PieChart(pieChartData);
+        pieChart.setTitle("Products sold");
+        pieChart.setClockwise(true);
+        pieChart.setLabelLineLength(50);
+        pieChart.setLabelsVisible(true);
+        pieChart.setStartAngle(180);
+
+        return pieChart;
     }
 
 
