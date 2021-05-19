@@ -24,12 +24,20 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -447,6 +455,45 @@ public class ViewUtils {
     }
 
 
+    public PieChart buildPieChart_XML(String source){
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        File file = new File(source);
+        PieChart pieChart = new PieChart();
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(file);
+            NodeList recordList = doc.getElementsByTagName("record");
+            for(int i = 0; i < recordList.getLength() ; i++){
+                org.w3c.dom.Node r = recordList.item(i);
+                if(r.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE){
+                    Element record = (Element) r;
+                    NodeList productList = record.getChildNodes();
+                    ArrayList<String> data = new ArrayList<>();
+                    for(int j = 0 ; j < productList.getLength() ; j++){
+                        org.w3c.dom.Node n = productList.item(j);
+                        if(n.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE){
+                            Element product = (Element) n;
+                            data.add(product.getTextContent());
+                            pieChart.setTitle(product.getTagName());
+                        }
+                    }
+                    pieChart.getData().add(new PieChart.Data(data.get(0),Integer.parseInt(data.get(1))));
+                }
+            }
+        } catch(ParserConfigurationException e){
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        pieChart.setClockwise(true);
+        pieChart.setLabelLineLength(50);
+        pieChart.setLabelsVisible(true);
+        pieChart.setStartAngle(180);
+
+        return pieChart;
+    }
 
 
     public String matchDatatypeToColor(DataType dataType){

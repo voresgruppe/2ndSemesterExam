@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<record>
+		<PruductName>CocioClassic</PruductName>
+		<QuantityProduced>23000</QuantityProduced>
+	</record>
+	<record>
+		<PruductName>CocioOrange</PruductName>
+		<QuantityProduced>13000</QuantityProduced>
+	</record>
+	<record>
+		<PruductName>CocioOne</PruductName>
+		<QuantityProduced>16000</QuantityProduced>
+	</record>
+	<record>
+		<PruductName>CocioDark</PruductName>
+		<QuantityProduced>20000</QuantityProduced>
+	</record>
+	<record>
+		<PruductName>CocioSaltedCaramel</PruductName>
+		<QuantityProduced>13000</QuantityProduced>
+	</record>
+	<record>
+		<PruductName>StarbucksDoubleshotVanilla</PruductName>
+		<QuantityProduced>18000</QuantityProduced>
+	</record>
+	<record>
+		<PruductName>StarbucksDoubleshotMocha</PruductName>
+		<QuantityProduced>18000</QuantityProduced>
+	</record>
+	<record>
+		<PruductName>StarbucksDoubleshotEspresso&amp;CreamLight</PruductName>
+		<QuantityProduced>17000</QuantityProduced>
+	</record>
+</data-set>
