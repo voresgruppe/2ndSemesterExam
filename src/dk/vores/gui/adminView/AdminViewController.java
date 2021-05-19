@@ -223,12 +223,12 @@ public class AdminViewController implements Initializable {
                     switch (currentType){
                         case PieChart:
                             String source = current.getSource();
-                            if (getLastThree(source).matches("csv")) {
+                            if (source.endsWith(".csv")) {
                                 PieChart pieChart = viewUtils.buildPieChart_CSV(current.getSource());
                                 pieChart.setPrefHeight(userBlock.getPrefHeight());
                                 pieChart.setPrefWidth(userBlock.getPrefWidth());
                                 userBlock.getChildren().add(pieChart);
-                            }else if (getLastThree(source).matches("xml")){
+                            }else if (source.endsWith(".xml")){
                                 PieChart pieChart = viewUtils.buildPieChart_XML(source);
                                 pieChart.setPrefHeight(userBlock.getPrefHeight());
                                 pieChart.setPrefWidth(userBlock.getPrefWidth());
