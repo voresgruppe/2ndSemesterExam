@@ -9,8 +9,10 @@ import dk.vores.be.UserView;
 import dk.vores.util.UserError;
 import dk.vores.util.ViewUtils;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,6 +24,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
@@ -38,6 +41,18 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AdminViewController implements Initializable {
+    @FXML
+    private Label lblEditError;
+    @FXML
+    private Button btnSaveEdit;
+    @FXML
+    private AnchorPane paneEdit;
+    @FXML
+    private TextField txtEditSource;
+    @FXML
+    private ComboBox<DataType> comboEditType;
+    @FXML
+    private ComboBox<Integer> comboEditUpdateTime;
     @FXML
     private Button btnAddView;
     @FXML
@@ -77,6 +92,8 @@ public class AdminViewController implements Initializable {
         newUserView();
 
         SpreadsheetInfo.setLicense("FREE-LIMITED-KEY");
+
+
     }
 
     public void initTableview(){
@@ -113,6 +130,7 @@ public class AdminViewController implements Initializable {
                         selectedUserBlock.setStyle(selectedUserBlock.getStyle().replace(markedStyle, ""));
                     }
                     selectedUserBlock = userBlock;
+                    initEditBlock(Integer.parseInt(userBlock.getId()));
                     selectedUserBlock.setStyle(selectedUserBlock.getStyle()+ markedStyle);
                 });
 
@@ -127,6 +145,50 @@ public class AdminViewController implements Initializable {
             paneUserView.setMinHeight(height);
             paneUserView.setMinWidth(width);
         }
+    }
+
+    public void initEditBlock(int id){
+        UserView uv = uvMan.getViewFromID(id);
+
+        lblEditError.setVisible(false);
+        lblEditError.setTextFill(Paint.valueOf("red"));
+        txtEditSource.setText(uv.getSource());
+        comboEditType.setItems(FXCollections.observableArrayList(DataType.values()));
+        comboEditType.setValue(uv.getType());
+
+        //TODO updateTime
+        //comboEditUpdateTime.setItems();
+
+        EventHandler<ActionEvent> event = e -> {
+            Boolean errorMade = false;
+            if(txtEditSource.getText()!= null){
+                String source = txtEditSource.getText();
+                if(source.isEmpty()){
+                    uvMan.updateSourceFromID(id, "test");
+                }
+                else if(comboEditType.getValue() == DataType.Table && (source.endsWith(".csv") || source.endsWith(".xlsx"))){
+                    uvMan.updateSourceFromID(id,source);
+                }
+                else if(source.endsWith(".csv")){
+                    uvMan.updateSourceFromID(id,source);
+                }
+                else {
+                    lblEditError.setText("Invalid Source-filetype");
+                    errorMade = true;
+                }
+            }
+            if (comboEditType.getValue() != null) {
+                uvMan.updateTypeFromID(id, comboEditType.getValue().name());
+            }
+            if(comboEditUpdateTime.getValue() != null){
+                uvMan.updateUpdateTimeFromID(id, comboEditUpdateTime.getValue());
+            }
+            if(!errorMade) {
+                newUserView();
+            }
+        };
+        btnSaveEdit.setOnAction(event);
+        paneEdit.setVisible(true);
     }
 
     public void drawUserView_dataMode() {
@@ -161,12 +223,12 @@ public class AdminViewController implements Initializable {
                     switch (currentType){
                         case PieChart:
                             String source = current.getSource();
-                            if (getLastThree(source).matches("csv")) {
+                            if (source.endsWith(".csv")) {
                                 PieChart pieChart = viewUtils.buildPieChart_CSV(current.getSource());
                                 pieChart.setPrefHeight(userBlock.getPrefHeight());
                                 pieChart.setPrefWidth(userBlock.getPrefWidth());
                                 userBlock.getChildren().add(pieChart);
-                            }else if (getLastThree(source).matches("xml")){
+                            }else if (source.endsWith(".xml")){
                                 PieChart pieChart = viewUtils.buildPieChart_XML(source);
                                 pieChart.setPrefHeight(userBlock.getPrefHeight());
                                 pieChart.setPrefWidth(userBlock.getPrefWidth());
@@ -248,6 +310,7 @@ public class AdminViewController implements Initializable {
     }
 
     public void newUserView(){
+        paneEdit.setVisible(false);
         paneUserView.getChildren().clear();
         if(isDataShowing){ drawUserView_dataMode(); }
         else {
@@ -322,5 +385,4 @@ public class AdminViewController implements Initializable {
             btn_showData.setText("show data");
         }
     }
-
 }

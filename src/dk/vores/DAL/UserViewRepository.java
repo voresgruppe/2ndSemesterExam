@@ -99,6 +99,33 @@ public class UserViewRepository {
             showDBError(throwables);
         }
     }
+    public void updateUpdateTimeFromID(int uvID, int newTime){
+        try(Connection connection = db.getConnection()){
+            String sql = "UPDATE [UserView] \n" +
+                    "SET [updateTime] = ? \n" +
+                    "WHERE [id] = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,newTime);
+            preparedStatement.setInt(2,uvID);
+            preparedStatement.executeUpdate();
+        }catch (SQLException throwables) {
+            showDBError(throwables);
+        }
+    }
+
+    public void updateSourceFromID(int uvID, String source){
+        try(Connection connection = db.getConnection()){
+            String sql = "UPDATE [UserView] \n" +
+                    "SET [source] = ? \n" +
+                    "WHERE [id] = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,source);
+            preparedStatement.setInt(2,uvID);
+            preparedStatement.executeUpdate();
+        }catch (SQLException throwables) {
+            showDBError(throwables);
+        }
+    }
 
     public void removeViewFromUser(int id){
         try(Connection connection = db.getConnection()){
