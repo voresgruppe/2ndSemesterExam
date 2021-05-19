@@ -174,10 +174,18 @@ public class AdminViewController implements Initializable {
                             }
                             break;
                         case BarChart:
-                            BarChart barChart = viewUtils.buildBarChart_CSV(current.getSource());
-                            barChart.setPrefHeight(userBlock.getPrefHeight());
-                            barChart.setPrefWidth(userBlock.getPrefWidth());
-                            userBlock.getChildren().add(barChart);
+                            String source2 = current.getSource();
+                            if(getLastThree(source2).matches("csv")){
+                                BarChart barChart = viewUtils.buildBarChart_CSV(source2);
+                                barChart.setPrefHeight(userBlock.getPrefHeight());
+                                barChart.setPrefWidth(userBlock.getPrefWidth());
+                                userBlock.getChildren().add(barChart);
+                            }else if(getLastThree(source2).matches("xml")){
+                                BarChart barChart = viewUtils.buildBarChart_XML(source2);
+                                barChart.setPrefHeight(userBlock.getPrefHeight());
+                                barChart.setPrefWidth(userBlock.getPrefWidth());
+                                userBlock.getChildren().add(barChart);
+                            }
                             break;
                         case HTML:
                             WebView webView = viewUtils.showWeb("https://" + current.getSource());

@@ -495,6 +495,50 @@ public class ViewUtils {
         return pieChart;
     }
 
+    public BarChart buildBarChart_XML(String source){
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        File file = new File(source);
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        XYChart.Series<String, Integer> data = new XYChart.Series<>();
+
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(file);
+            NodeList recordList = doc.getElementsByTagName("record");
+            for(int i = 0; i < recordList.getLength() ; i++){
+                org.w3c.dom.Node r = recordList.item(i);
+                if(r.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE){
+                    Element record = (Element) r;
+                    NodeList productList = record.getChildNodes();
+                    ArrayList<String> data2 = new ArrayList<>();
+                    for(int j = 0 ; j < productList.getLength() ; j++){
+                        org.w3c.dom.Node n = productList.item(j);
+                        if(n.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE){
+                            Element product = (Element) n;
+                            data2.add(product.getTextContent());
+                            xAxis.setLabel(record.getTagName());
+                            yAxis.setLabel(product.getTagName());
+                        }
+                    }
+                    data.getData().add(new XYChart.Data<>(data2.get(0),Integer.parseInt(data2.get(1))));
+                }
+            }
+        } catch(ParserConfigurationException e){
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        BarChart barChart = new BarChart(xAxis,yAxis);
+        barChart.getData().add(data);
+        barChart.setLegendVisible(false);
+
+        return barChart;
+    }
 
     public String matchDatatypeToColor(DataType dataType){
         return switch (dataType) {
