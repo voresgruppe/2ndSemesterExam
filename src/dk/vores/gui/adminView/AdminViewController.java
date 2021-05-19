@@ -28,6 +28,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import org.shaded.apache.commons.codec.binary.StringUtils;
 
 import java.awt.*;
 import java.io.File;
@@ -159,10 +160,18 @@ public class AdminViewController implements Initializable {
                 else{
                     switch (currentType){
                         case PieChart:
-                            PieChart pieChart = viewUtils.buildPieChart_CSV(current.getSource());
-                            pieChart.setPrefHeight(userBlock.getPrefHeight());
-                            pieChart.setPrefWidth(userBlock.getPrefWidth());
-                            userBlock.getChildren().add(pieChart);
+                            String source = current.getSource();
+                            if (getLastThree(source).matches("csv")) {
+                                PieChart pieChart = viewUtils.buildPieChart_CSV(current.getSource());
+                                pieChart.setPrefHeight(userBlock.getPrefHeight());
+                                pieChart.setPrefWidth(userBlock.getPrefWidth());
+                                userBlock.getChildren().add(pieChart);
+                            }else if (getLastThree(source).matches("xml")){
+                                PieChart pieChart = viewUtils.buildPieChart_XML(source);
+                                pieChart.setPrefHeight(userBlock.getPrefHeight());
+                                pieChart.setPrefWidth(userBlock.getPrefWidth());
+                                userBlock.getChildren().add(pieChart);
+                            }
                             break;
                         case BarChart:
                             BarChart barChart = viewUtils.buildBarChart_CSV(current.getSource());
@@ -210,6 +219,14 @@ public class AdminViewController implements Initializable {
             paneUserView.setMinWidth(width);
         }
     }
+
+    private String getLastThree(String myString) {
+        if(myString.length() > 3)
+            return myString.substring(myString.length()-3);
+        else
+            return myString;
+    }
+
 
     private void UserListener() {
         tblUsers.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> selectedUser = newValue);
