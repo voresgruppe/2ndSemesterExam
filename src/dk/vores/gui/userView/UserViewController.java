@@ -2,7 +2,7 @@ package dk.vores.gui.userView;
 
 import dk.vores.BLL.DataManager;
 import dk.vores.BLL.UserViewManager;
-import dk.vores.be.DataExample;
+import dk.vores.be.DataType;
 import dk.vores.be.User;
 import dk.vores.be.UserView;
 import dk.vores.util.ViewUtils;
@@ -10,17 +10,16 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
 import java.net.URL;
-import java.nio.channels.NotYetBoundException;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class UserViewController implements Initializable {
@@ -35,8 +34,10 @@ public class UserViewController implements Initializable {
 
     private double userViewWidth = 0;
     private double userViewHeight = 0;
+    private UserViewManager uvMan = new UserViewManager();
+    private ViewUtils viewUtils = new ViewUtils();
 
-    @FXML private AnchorPane root;
+    @FXML private AnchorPane paneUserView;
 
     public User getLoggedUser() {
         return loggedUser;
@@ -49,9 +50,116 @@ public class UserViewController implements Initializable {
 
     private void initViews() {
         loadViews();
-
+        /*
         for (UserView uv : views) {
             addView(uv);
+        }
+
+         */
+
+        drawUserView_dataMode();
+    }
+
+    public void drawUserView_dataMode() {
+        ObservableList<UserView> usersViews = uvMan.loadViewsFromUserID(loggedUser.getId());
+        if (!usersViews.isEmpty()) {
+            double height = paneUserView.getHeight();
+            double width = paneUserView.getWidth();
+            for (UserView current : usersViews) {
+                if (height < current.getEndY()) {
+                    height = current.getEndY();
+                }
+                if (width < current.getEndX()) {
+                    width = current.getEndX();
+                }
+
+                AnchorPane userBlock = viewUtils.createAnchorPane(current.getId(), current.getStartX(), current.getStartY(), current.getEndX() - current.getStartX(), current.getEndY() - current.getStartY());
+
+
+                //userBlock.setStyle("-fx-background-color: #ffff; -fx-border-color: black; -fx-border-width: 2px 2px 2px 2px; ");
+                userBlock.setStyle("-fx-background-color: #ffff;");
+
+                DataType currentType = current.getType();
+                //userBlock.setStyle("-fx-background-color: " + viewUtils.matchDatatypeToColor(currentType) + ";");
+                String currentSource = current.getSource();
+
+
+                if(current.getSource().matches("test")) {
+                    Label label = new Label();
+                    label.setText(currentType.name() + "  Block");
+                    label.setVisible(true);
+                    label.setStyle("-fx-background-color: white");
+                    label.setWrapText(true);
+                    userBlock.getChildren().add(label);
+                }
+                else{
+                    switch (currentType){
+                        case PieChart:
+                            String source = current.getSource();
+                            if (source.endsWith(".csv")) {
+                                PieChart pieChart = viewUtils.buildPieChart_CSV(current.getSource());
+                                pieChart.setPrefHeight(userBlock.getPrefHeight());
+                                pieChart.setPrefWidth(userBlock.getPrefWidth());
+                                userBlock.getChildren().add(pieChart);
+                            }else if (source.endsWith(".xml")){
+                                PieChart pieChart = viewUtils.buildPieChart_XML(source);
+                                pieChart.setPrefHeight(userBlock.getPrefHeight());
+                                pieChart.setPrefWidth(userBlock.getPrefWidth());
+                                userBlock.getChildren().add(pieChart);
+                            }
+                            break;
+                        case BarChart:
+                            String source2 = current.getSource();
+                            if(currentSource.endsWith(".csv")){
+                                BarChart barChart = viewUtils.buildBarChart_CSV(source2);
+                                barChart.setPrefHeight(userBlock.getPrefHeight());
+                                barChart.setPrefWidth(userBlock.getPrefWidth());
+                                userBlock.getChildren().add(barChart);
+                            }else if(currentSource.endsWith(".xml")){
+                                BarChart barChart = viewUtils.buildBarChart_XML(source2);
+                                barChart.setPrefHeight(userBlock.getPrefHeight());
+                                barChart.setPrefWidth(userBlock.getPrefWidth());
+                                userBlock.getChildren().add(barChart);
+                            }
+                            break;
+                        case HTML:
+                            WebView webView = viewUtils.showWeb("https://" + current.getSource());
+                            webView.setPrefHeight(userBlock.getPrefHeight());
+                            webView.setPrefWidth(userBlock.getPrefWidth());
+                            userBlock.getChildren().add(webView);
+                            break;
+                        case Table:
+                            TableView tableView;
+                            if(current.getSource().endsWith(".xlsx")){
+                                tableView = viewUtils.showExcel(current.getSource());
+                            }
+                            else {
+                                tableView = viewUtils.buildTableView_CSV(current.getSource());
+                            }
+                            tableView.setPrefHeight(userBlock.getPrefHeight());
+                            tableView.setPrefWidth(userBlock.getPrefWidth());
+                            userBlock.getChildren().add(tableView);
+                            break;
+                        case Undetermined:
+                            break;
+                        case PDF:
+                            Button pdf = viewUtils.openPdf(current.getSource());
+
+                            //TODO få knappen ind i midten
+                            pdf.setLayoutX((userBlock.getPrefWidth()/2)-(pdf.getWidth()/2));
+                            pdf.setLayoutY((userBlock.getPrefHeight()/2)-(pdf.getHeight()/2));
+
+                            userBlock.getChildren().add(pdf);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                userBlock.setId(String.valueOf(current.getId()));
+                paneUserView.getChildren().add(userBlock);
+            }
+            paneUserView.setMinHeight(height);
+            paneUserView.setMinWidth(width);
         }
     }
 
@@ -90,7 +198,7 @@ public class UserViewController implements Initializable {
                 webView.setTranslateY(posY);
 
                 //Add to root
-                root.getChildren().add(webView);
+                paneUserView.getChildren().add(webView);
                 break;
             case Table:
                 break;
@@ -100,7 +208,7 @@ public class UserViewController implements Initializable {
                 barChart.setPrefWidth(sizeY);
                 barChart.setTranslateX(posX);
                 barChart.setTranslateY(posY);
-                root.getChildren().add(barChart);
+                paneUserView.getChildren().add(barChart);
                 break;
             case PieChart:
                 PieChart pieChart = vu.buildPieChart_CSV(uv.getSource());
@@ -108,7 +216,7 @@ public class UserViewController implements Initializable {
                 pieChart.setPrefWidth(sizeY);
                 pieChart.setTranslateX(posX);
                 pieChart.setTranslateY(posY);
-                root.getChildren().add(pieChart);
+                paneUserView.getChildren().add(pieChart);
                 break;
             case Undetermined:
             default:
@@ -122,11 +230,11 @@ public class UserViewController implements Initializable {
                 p.setStyle("-fx-background-color: #ffffff;");
 
                 //Add pane to root
-                root.getChildren().add(p);
+                paneUserView.getChildren().add(p);
                 break;
         }
 
-        root.setPrefSize(userViewWidth, userViewHeight);
+        paneUserView.setPrefSize(userViewWidth, userViewHeight);
     }
 
     /**
