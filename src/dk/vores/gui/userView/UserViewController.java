@@ -7,17 +7,24 @@ import dk.vores.be.User;
 import dk.vores.be.UserView;
 import dk.vores.util.ViewUtils;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -156,6 +163,7 @@ public class UserViewController implements Initializable {
                     }
                 }
                 userBlock.setId(String.valueOf(current.getId()));
+                addListener(userBlock, currentSource);
                 paneUserView.getChildren().add(userBlock);
             }
             paneUserView.setMinHeight(height);
@@ -244,6 +252,114 @@ public class UserViewController implements Initializable {
         views = uvm.loadViewsFromUserID(loggedUser.getId());
     }
 
+    private void addListener(AnchorPane root, String source){
+        ObservableList views = root.getChildren();
+        for(Object view : views){
+            if(view instanceof BarChart){
+                BarChart barChart = (BarChart) view;
+                barChart.setOnMouseClicked(mouseEvent -> {
+                    if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                        if(mouseEvent.getClickCount() == 2){
+                            BarChart chart;
+                            if(source.endsWith("xml")){
+                                chart = viewUtils.buildBarChart_XML(source);
+                            }else chart = viewUtils.buildBarChart_CSV(source);
+
+                            AnchorPane anch = new AnchorPane();
+                            Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+                            chart.setPrefWidth(screenBounds.getWidth());
+                            chart.setPrefHeight(screenBounds.getHeight() - 75);
+                            anch.getChildren().add(chart);
+
+                            Scene secondScene = new Scene(anch);
+
+                            Stage stage = new Stage();
+                            stage.setTitle("Fullscreen bar chart");
+                            stage.setScene(secondScene);
+                            stage.setMaximized(true);
+                            stage.show();
+                        }
+                    }
+                });
+            }else if(view instanceof PieChart){
+                PieChart pieChart = (PieChart) view;
+                pieChart.setOnMouseClicked(mouseEvent -> {
+                    if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                        if(mouseEvent.getClickCount() == 2){
+                            PieChart chart;
+                            if(source.endsWith("xml")) chart = viewUtils.buildPieChart_XML(source);
+                            else chart = viewUtils.buildPieChart_CSV(source);
+
+                            AnchorPane anch = new AnchorPane();
+                            Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+                            chart.setPrefWidth(screenBounds.getWidth());
+                            chart.setPrefHeight(screenBounds.getHeight() - 75);
+                            anch.getChildren().add(chart);
+
+                            Scene secondScene = new Scene(anch);
+
+                            Stage stage = new Stage();
+                            stage.setTitle("Fullscreen pie chart");
+                            stage.setScene(secondScene);
+                            stage.setMaximized(true);
+                            stage.show();
+
+                            //TODO
+                            // lav piechart fuld skærm
+                        }
+                    }
+                });
+            }else if(view instanceof WebView){
+                WebView webView = (WebView) view;
+                webView.setOnMouseClicked(mouseEvent -> {
+                    if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                        if(mouseEvent.getClickCount() == 2){
+                            WebView web = viewUtils.showWeb("https://" + source);
+
+                            AnchorPane anch = new AnchorPane();
+                            Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+                            web.setPrefWidth(screenBounds.getWidth());
+                            web.setPrefHeight(screenBounds.getHeight() - 75);
+                            anch.getChildren().add(web);
+
+                            Scene secondScene = new Scene(anch);
+
+                            Stage stage = new Stage();
+                            stage.setTitle("Fullscreen web");
+                            stage.setScene(secondScene);
+                            stage.setMaximized(true);
+                            stage.show();
+                        }
+                    }
+                });
+            }else if(view instanceof TableView){
+                TableView tableView = (TableView) view;
+                tableView.setOnMouseClicked(mouseEvent -> {
+                    if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                        if(mouseEvent.getClickCount() == 2){
+                            TableView tbl;
+                                if(source.endsWith(".xlsx")) tbl = viewUtils.showExcel(source);
+                                else tbl = viewUtils.buildTableView_CSV(source);
+
+                            AnchorPane anch = new AnchorPane();
+                            Rectangle2D screenBounds = Screen.getPrimary().getBounds();
+                            tbl.setPrefWidth(screenBounds.getWidth());
+                            tbl.setPrefHeight(screenBounds.getHeight() - 75);
+                            anch.getChildren().add(tbl);
+
+                            Scene secondScene = new Scene(anch);
+
+                            Stage stage = new Stage();
+                            stage.setTitle("Fullscreen table");
+                            stage.setScene(secondScene);
+                            stage.setMaximized(true);
+                            stage.show();
+                        }
+                    }
+                });
+            }
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
