@@ -75,7 +75,7 @@ public class LoginViewController implements Initializable {
     }
 
     private void setTestLogin(){
-        usernameField.setText("testAdmin");
-        passwordField.setText("testAdmin");
+        usernameField.setText("test2");
+        passwordField.setText("test2");
     }
 }

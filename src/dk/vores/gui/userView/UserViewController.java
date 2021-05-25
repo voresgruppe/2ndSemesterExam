@@ -28,6 +28,8 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class UserViewController implements Initializable {
 
@@ -45,6 +47,7 @@ public class UserViewController implements Initializable {
     private ViewUtils viewUtils = new ViewUtils();
 
     @FXML private AnchorPane paneUserView;
+
 
     public User getLoggedUser() {
         return loggedUser;
@@ -69,106 +72,22 @@ public class UserViewController implements Initializable {
 
     public void drawUserView_dataMode() {
         ObservableList<UserView> usersViews = uvMan.loadViewsFromUserID(loggedUser.getId());
-        if (!usersViews.isEmpty()) {
-            double height = paneUserView.getHeight();
-            double width = paneUserView.getWidth();
-            for (UserView current : usersViews) {
-                if (height < current.getEndY()) {
-                    height = current.getEndY();
-                }
-                if (width < current.getEndX()) {
-                    width = current.getEndX();
-                }
+        double height = paneUserView.getHeight();
+        double width = paneUserView.getWidth();
+        for (UserView current : usersViews) {
 
-                AnchorPane userBlock = viewUtils.createAnchorPane(current.getId(), current.getStartX(), current.getStartY(), current.getEndX() - current.getStartX(), current.getEndY() - current.getStartY());
-
-
-                //userBlock.setStyle("-fx-background-color: #ffff; -fx-border-color: black; -fx-border-width: 2px 2px 2px 2px; ");
-                userBlock.setStyle("-fx-background-color: #ffff;");
-
-                DataType currentType = current.getType();
-                //userBlock.setStyle("-fx-background-color: " + viewUtils.matchDatatypeToColor(currentType) + ";");
-                String currentSource = current.getSource();
-
-
-                if(current.getSource().matches("test")) {
-                    Label label = new Label();
-                    label.setText(currentType.name() + "  Block");
-                    label.setVisible(true);
-                    label.setStyle("-fx-background-color: white");
-                    label.setWrapText(true);
-                    userBlock.getChildren().add(label);
-                }
-                else{
-                    switch (currentType){
-                        case PieChart:
-                            String source = current.getSource();
-                            if (source.endsWith(".csv")) {
-                                PieChart pieChart = viewUtils.buildPieChart_CSV(current.getSource());
-                                pieChart.setPrefHeight(userBlock.getPrefHeight());
-                                pieChart.setPrefWidth(userBlock.getPrefWidth());
-                                userBlock.getChildren().add(pieChart);
-                            }else if (source.endsWith(".xml")){
-                                PieChart pieChart = viewUtils.buildPieChart_XML(source);
-                                pieChart.setPrefHeight(userBlock.getPrefHeight());
-                                pieChart.setPrefWidth(userBlock.getPrefWidth());
-                                userBlock.getChildren().add(pieChart);
-                            }
-                            break;
-                        case BarChart:
-                            String source2 = current.getSource();
-                            if(currentSource.endsWith(".csv")){
-                                BarChart barChart = viewUtils.buildBarChart_CSV(source2);
-                                barChart.setPrefHeight(userBlock.getPrefHeight());
-                                barChart.setPrefWidth(userBlock.getPrefWidth());
-                                userBlock.getChildren().add(barChart);
-                            }else if(currentSource.endsWith(".xml")){
-                                BarChart barChart = viewUtils.buildBarChart_XML(source2);
-                                barChart.setPrefHeight(userBlock.getPrefHeight());
-                                barChart.setPrefWidth(userBlock.getPrefWidth());
-                                userBlock.getChildren().add(barChart);
-                            }
-                            break;
-                        case HTML:
-                            WebView webView = viewUtils.showWeb("https://" + current.getSource());
-                            webView.setPrefHeight(userBlock.getPrefHeight());
-                            webView.setPrefWidth(userBlock.getPrefWidth());
-                            userBlock.getChildren().add(webView);
-                            break;
-                        case Table:
-                            TableView tableView;
-                            if(current.getSource().endsWith(".xlsx")){
-                                tableView = viewUtils.showExcel(current.getSource());
-                            }
-                            else {
-                                tableView = viewUtils.buildTableView_CSV(current.getSource());
-                            }
-                            tableView.setPrefHeight(userBlock.getPrefHeight());
-                            tableView.setPrefWidth(userBlock.getPrefWidth());
-                            userBlock.getChildren().add(tableView);
-                            break;
-                        case Undetermined:
-                            break;
-                        case PDF:
-                            Button pdf = viewUtils.openPdf(current.getSource());
-
-                            //TODO få knappen ind i midten
-                            pdf.setLayoutX((userBlock.getPrefWidth()/2)-(pdf.getWidth()/2));
-                            pdf.setLayoutY((userBlock.getPrefHeight()/2)-(pdf.getHeight()/2));
-
-                            userBlock.getChildren().add(pdf);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                userBlock.setId(String.valueOf(current.getId()));
-                addListener(userBlock, currentSource);
-                paneUserView.getChildren().add(userBlock);
+            if (height < current.getEndY()) {
+                height = current.getEndY();
+            }
+            if (width < current.getEndX()) {
+                width = current.getEndX();
             }
             paneUserView.setMinHeight(height);
             paneUserView.setMinWidth(width);
         }
+        UpdateUserView updater = new UpdateUserView(paneUserView,loggedUser,300_000);
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(updater);
     }
 
     /**
@@ -252,114 +171,7 @@ public class UserViewController implements Initializable {
         views = uvm.loadViewsFromUserID(loggedUser.getId());
     }
 
-    private void addListener(AnchorPane root, String source){
-        ObservableList views = root.getChildren();
-        for(Object view : views){
-            if(view instanceof BarChart){
-                BarChart barChart = (BarChart) view;
-                barChart.setOnMouseClicked(mouseEvent -> {
-                    if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                        if(mouseEvent.getClickCount() == 2){
-                            BarChart chart;
-                            if(source.endsWith("xml")){
-                                chart = viewUtils.buildBarChart_XML(source);
-                            }else chart = viewUtils.buildBarChart_CSV(source);
 
-                            AnchorPane anch = new AnchorPane();
-                            Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-                            chart.setPrefWidth(screenBounds.getWidth());
-                            chart.setPrefHeight(screenBounds.getHeight() - 75);
-                            anch.getChildren().add(chart);
-
-                            Scene secondScene = new Scene(anch);
-
-                            Stage stage = new Stage();
-                            stage.setTitle("Fullscreen bar chart");
-                            stage.setScene(secondScene);
-                            stage.setMaximized(true);
-                            stage.show();
-                        }
-                    }
-                });
-            }else if(view instanceof PieChart){
-                PieChart pieChart = (PieChart) view;
-                pieChart.setOnMouseClicked(mouseEvent -> {
-                    if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                        if(mouseEvent.getClickCount() == 2){
-                            PieChart chart;
-                            if(source.endsWith("xml")) chart = viewUtils.buildPieChart_XML(source);
-                            else chart = viewUtils.buildPieChart_CSV(source);
-
-                            AnchorPane anch = new AnchorPane();
-                            Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-                            chart.setPrefWidth(screenBounds.getWidth());
-                            chart.setPrefHeight(screenBounds.getHeight() - 75);
-                            anch.getChildren().add(chart);
-
-                            Scene secondScene = new Scene(anch);
-
-                            Stage stage = new Stage();
-                            stage.setTitle("Fullscreen pie chart");
-                            stage.setScene(secondScene);
-                            stage.setMaximized(true);
-                            stage.show();
-
-                            //TODO
-                            // lav piechart fuld skærm
-                        }
-                    }
-                });
-            }else if(view instanceof WebView){
-                WebView webView = (WebView) view;
-                webView.setOnMouseClicked(mouseEvent -> {
-                    if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                        if(mouseEvent.getClickCount() == 2){
-                            WebView web = viewUtils.showWeb("https://" + source);
-
-                            AnchorPane anch = new AnchorPane();
-                            Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-                            web.setPrefWidth(screenBounds.getWidth());
-                            web.setPrefHeight(screenBounds.getHeight() - 75);
-                            anch.getChildren().add(web);
-
-                            Scene secondScene = new Scene(anch);
-
-                            Stage stage = new Stage();
-                            stage.setTitle("Fullscreen web");
-                            stage.setScene(secondScene);
-                            stage.setMaximized(true);
-                            stage.show();
-                        }
-                    }
-                });
-            }else if(view instanceof TableView){
-                TableView tableView = (TableView) view;
-                tableView.setOnMouseClicked(mouseEvent -> {
-                    if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                        if(mouseEvent.getClickCount() == 2){
-                            TableView tbl;
-                                if(source.endsWith(".xlsx")) tbl = viewUtils.showExcel(source);
-                                else tbl = viewUtils.buildTableView_CSV(source);
-
-                            AnchorPane anch = new AnchorPane();
-                            Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-                            tbl.setPrefWidth(screenBounds.getWidth());
-                            tbl.setPrefHeight(screenBounds.getHeight() - 75);
-                            anch.getChildren().add(tbl);
-
-                            Scene secondScene = new Scene(anch);
-
-                            Stage stage = new Stage();
-                            stage.setTitle("Fullscreen table");
-                            stage.setScene(secondScene);
-                            stage.setMaximized(true);
-                            stage.show();
-                        }
-                    }
-                });
-            }
-        }
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
