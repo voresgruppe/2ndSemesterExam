@@ -37,7 +37,9 @@ public class UserViewController implements Initializable {
 
     @FXML private AnchorPane paneUserView;
 
+    private final int MILISECMULTIPLIER = 1000;
 
+    
     public User getLoggedUser() {
         return loggedUser;
     }
@@ -63,6 +65,7 @@ public class UserViewController implements Initializable {
         ObservableList<UserView> usersViews = uvMan.loadViewsFromUserID(loggedUser.getId());
         double height = paneUserView.getHeight();
         double width = paneUserView.getWidth();
+        int updateTime = 300_000;
         for (UserView current : usersViews) {
 
             if (height < current.getEndY()) {
@@ -73,8 +76,12 @@ public class UserViewController implements Initializable {
             }
             paneUserView.setMinHeight(height);
             paneUserView.setMinWidth(width);
+
+            if(current.getUpdateTime() < (updateTime / MILISECMULTIPLIER)){
+                updateTime = current.getUpdateTime() * MILISECMULTIPLIER;
+            }
         }
-        UpdateUserView updater = new UpdateUserView(paneUserView,loggedUser,300_000);
+        UpdateUserView updater = new UpdateUserView(paneUserView,loggedUser,updateTime);
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.submit(updater);
     }

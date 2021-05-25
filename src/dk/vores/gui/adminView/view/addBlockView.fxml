@@ -63,7 +63,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="52.0" prefHeight="35.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="75.0" text="update time:" textAlignment="RIGHT">
+                  <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="75.0" text="Update time:" textAlignment="RIGHT">
                      <HBox.margin>
                         <Insets left="25.0" />
                      </HBox.margin>
@@ -73,6 +73,11 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </TextField>
+                  <Label text="(seconds)">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
                <padding>
                   <Insets top="10.0" />
