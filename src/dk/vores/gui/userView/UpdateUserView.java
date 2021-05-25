@@ -25,28 +25,9 @@ public class UpdateUserView extends Task<AnchorPane> {
     private ViewUtils viewUtils = new ViewUtils();
     private UserViewManager uvMan = new UserViewManager();
 
-    public void setMainPane(AnchorPane mainPane) {
-        this.mainPane = mainPane;
-    }
-
-    public void setLoggedUser(User loggedUser) {
-        this.loggedUser = loggedUser;
-    }
-
-    public UpdateUserView(AnchorPane mainPane, User loggedUser, int updateTime) {
-        this.mainPane = mainPane;
-        this.loggedUser = loggedUser;
-        this.updateTime = updateTime;
-    }
-
+    private int updateTime;
     private AnchorPane mainPane;
     private User loggedUser;
-
-    public void setUpdateTime(int updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    private int updateTime;
 
     @Override
     protected AnchorPane call() throws Exception {
@@ -55,6 +36,24 @@ public class UpdateUserView extends Task<AnchorPane> {
             createPanes();
             Thread.sleep(updateTime);
         }
+    }
+
+    public UpdateUserView(AnchorPane mainPane, User loggedUser, int updateTime) {
+        this.mainPane = mainPane;
+        this.loggedUser = loggedUser;
+        this.updateTime = updateTime;
+    }
+
+    public void setMainPane(AnchorPane mainPane) {
+        this.mainPane = mainPane;
+    }
+
+    public void setLoggedUser(User loggedUser) {
+        this.loggedUser = loggedUser;
+    }
+
+    public void setUpdateTime(int updateTime) {
+        this.updateTime = updateTime;
     }
 
     private void createPanes(){
@@ -144,7 +143,6 @@ public class UpdateUserView extends Task<AnchorPane> {
                             break;
                     }
                 }
-                System.out.println(current.getSource());
                 userBlock.setId(String.valueOf(current.getId()));
                 addListener(userBlock, currentSource);
 
