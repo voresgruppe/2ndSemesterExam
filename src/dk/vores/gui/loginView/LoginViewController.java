@@ -14,6 +14,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,6 +25,8 @@ import java.util.ResourceBundle;
 
 public class LoginViewController implements Initializable {
 
+    @FXML private AnchorPane mainPane;
+    @FXML private AnchorPane logoPane;
     @FXML private Button submitLogin;
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
@@ -72,7 +77,10 @@ public class LoginViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         setTestLogin();
+        logoPane.getStyleClass().add("LogoPane");
+
     }
 
     private void setTestLogin(){

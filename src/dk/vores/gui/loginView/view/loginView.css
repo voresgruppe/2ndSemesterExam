@@ -1,35 +1,36 @@
+
+
 .MainPane{
-    -fx-background-color: #96a496;
-    -fx-border-color: #66a274; -fx-border-width: 3px 3px 3px 3px;
+    -fx-background-color: #ffff;
+    -fx-background-image: url('images/CowPattern.PNG');
+    -fx-border-color: #f1e15a; -fx-border-width: 0px 3px 3px 3px;
 }
 
-
-
-.separator.line{
-    -fx-fill: #66a274;
-    -fx-border-style: solid;
-    -fx-border-color: #66a274;
-    -fx-padding: -1 -5 -1 -1;
-    -fx-background-position: center;
-    -fx-background-color: #f2c31d;
+.LogoPane{
+    -fx-background-radius: 5px 5px 0 0;
+    -fx-background-color: #5c5e5c;
+    -fx-opacity: 0.8;
 }
 
 
 
 .label{
-    -fx-background-color: #f6f5f5;
-    color: #d5d7d4;
-    -fx-text-fill: #d5d7d4;
+    -fx-fill: #f2c31d;
+    -fx-font-family: Arial;
+
 }
 
 #submit{
-    -fx-background-color: #66a274;
+    position: relative;
+    -fx-color: #004e1b;
     -fx-border-color: #f2c31d; -fx-border-width: 1px 1px 1px 1px;
+    -fx-effect: dropshadow(gaussian, #ebdb62, 10, 0.5, 0.0, 0.0);
 }
 
 .text-field{
-    -fx-background-color: #66a274;
+    -fx-effect: dropshadow(gaussian, #ebdb62, 13, 0.5, 0.0, 0.0);
+    -fx-background-color: #00aa14;
     -fx-border-color: #f2c31d;
-    -fx-text-fill: #f2c31d;
+    -fx-text-fill: #ffff;
 }
 
