@@ -22,9 +22,9 @@
             <String fx:value="line" />
             <String fx:value="separator" />
          </styleClass></Separator>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="313.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+      <ImageView fitHeight="134.0" fitWidth="150.0" layoutX="313.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="66.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="15.0">
          <image>
-            <Image url="@images/ArlaLogo.jpg" />
+            <Image url="@images/Arla-logo-png.png" />
          </image>
       </ImageView>
    </children>
