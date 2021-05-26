@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -22,7 +23,7 @@
          <right>
             <VBox alignment="TOP_RIGHT" prefHeight="790.0" prefWidth="308.0" BorderPane.alignment="CENTER">
                <children>
-                  <TableView fx:id="tblUsers" styleClass="userList" stylesheets="@adminView.css">
+                  <TableView fx:id="tblUsers" prefHeight="446.0" prefWidth="306.0" styleClass="userList" stylesheets="@adminView.css">
                     <columns>
                       <TableColumn fx:id="tcID" prefWidth="50.0" styleClass="userList" text="ID" />
                       <TableColumn fx:id="tcUsername" prefWidth="125.0" text="Username" />
@@ -90,29 +91,41 @@
                         <Insets bottom="10.0" right="10.0" top="25.0" />
                      </VBox.margin>
                      <children>
+                        <AnchorPane layoutX="-1.0" layoutY="5.0" prefHeight="185.0" prefWidth="307.0" styleClass="backPane" stylesheets="@adminView.css" />
                         <Label layoutX="57.0" layoutY="14.0" prefHeight="21.0" prefWidth="175.0" text="Tools for editing block">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
+                           <styleClass>
+                              <String fx:value="edit" />
+                              <String fx:value="Header" />
+                           </styleClass>
                         </Label>
                         <VBox layoutX="10.0" layoutY="52.0" prefHeight="121.0" prefWidth="273.0">
                            <children>
                               <HBox prefHeight="30.0" prefWidth="273.0">
                                  <children>
-                                    <Label prefHeight="25.0" prefWidth="90.0" text="DataSource:">
+                                    <Label prefHeight="25.0" prefWidth="100.0" text="DataSource:">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                        <font>
-                                          <Font size="13.0" />
+                                          <Font name="System Bold" size="13.0" />
                                        </font>
+                                       <styleClass>
+                                          <String fx:value="label" />
+                                          <String fx:value="edit" />
+                                       </styleClass>
                                     </Label>
-                                    <TextField fx:id="txtEditSource" prefHeight="25.0" prefWidth="150.0" />
+                                    <TextField fx:id="txtEditSource" prefHeight="25.0" prefWidth="150.0">
+                                       <HBox.margin>
+                                          <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                       </HBox.margin></TextField>
                                  </children>
                               </HBox>
                               <HBox layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0">
                                  <children>
-                                    <Label prefHeight="25.0" prefWidth="90.0" text="DataType:">
+                                    <Label prefHeight="25.0" prefWidth="100.0" styleClass="edit" text="DataType:">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
@@ -120,12 +133,15 @@
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox fx:id="comboEditType" prefHeight="25.0" prefWidth="150.0" />
+                                    <ComboBox fx:id="comboEditType" prefHeight="25.0" prefWidth="150.0">
+                                       <HBox.margin>
+                                          <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                       </HBox.margin></ComboBox>
                                  </children>
                               </HBox>
                               <HBox layoutX="10.0" layoutY="40.0" prefHeight="30.0" prefWidth="200.0">
                                  <children>
-                                    <Label prefHeight="25.0" prefWidth="90.0" text="UpdateTime(s):">
+                                    <Label prefHeight="25.0" prefWidth="100.0" styleClass="edit" text="UpdateTime(s):">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
@@ -133,7 +149,10 @@
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox fx:id="comboEditUpdateTime" prefHeight="25.0" prefWidth="150.0" />
+                                    <ComboBox fx:id="comboEditUpdateTime" prefHeight="25.0" prefWidth="150.0">
+                                       <HBox.margin>
+                                          <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                       </HBox.margin></ComboBox>
                                  </children>
                               </HBox>
                               <HBox prefHeight="100.0" prefWidth="200.0">

@@ -2,6 +2,8 @@
 
 .borderPane{
     -fx-background-image: url('images/CowPattern.PNG');
+    -fx-border-radius: 5px;
+    -fx-border-color: #d7ebd1;
 }
 
 .anchorPane{
