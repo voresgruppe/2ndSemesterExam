@@ -8,6 +8,7 @@ import dk.vores.util.ViewUtils;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
@@ -17,6 +18,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -132,11 +136,14 @@ public class UpdateUserView extends Task<AnchorPane> {
                             break;
                         case PDF:
                             Button pdf = viewUtils.openPdf(current.getSource());
+                            Label label = new Label("press the button to open the pdf");
+                            label.setLayoutX(15);
+                            label.setLayoutY(15);
 
-                            //TODO få knappen ind i midten
-                            pdf.setLayoutX((userBlock.getPrefWidth()/2)-(pdf.getWidth()/2));
-                            pdf.setLayoutY((userBlock.getPrefHeight()/2)-(pdf.getHeight()/2));
+                            pdf.setLayoutX(((current.getEndX()-current.getStartX())-pdf.getWidth())/2.0);
+                            pdf.setLayoutY((userBlock.getPrefHeight()/2.0)-(pdf.getHeight()/2.0));
 
+                            userBlock.getChildren().add(label);
                             userBlock.getChildren().add(pdf);
                             break;
                         default:

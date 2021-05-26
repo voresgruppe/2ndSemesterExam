@@ -273,8 +273,8 @@ public class AdminViewController implements Initializable {
                         case PDF:
                             Button pdf = viewUtils.openPdf(current.getSource());
 
-                            //TODO få knappen ind i midten
-                            pdf.setLayoutX((userBlock.getPrefWidth()/2)-(pdf.getWidth()/2));
+
+                            pdf.setLayoutX(((current.getEndX()-current.getStartX())-pdf.getWidth())/2.0);
                             pdf.setLayoutY((userBlock.getPrefHeight()/2)-(pdf.getHeight()/2));
                             
                             userBlock.getChildren().add(pdf);

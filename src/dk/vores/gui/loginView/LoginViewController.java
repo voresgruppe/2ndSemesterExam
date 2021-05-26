@@ -54,6 +54,7 @@ public class LoginViewController implements Initializable {
                     tvc.setLoggedUser(user);
                     Stage stage = new Stage();
                     stage.setScene(new Scene(mainLayout));
+                    stage.setResizable(false);
                     stage.show();
                 } catch (IOException e) {
                     e.printStackTrace();
