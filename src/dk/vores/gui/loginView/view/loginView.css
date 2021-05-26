@@ -2,7 +2,7 @@
 
 .MainPane{
     -fx-background-color: #ffff;
-    -fx-background-image: url('images/CowPattern.PNG');
+    -fx-background-image: url('../../userView/view/images/CowPattern.PNG');
     -fx-border-color: #f1e15a; -fx-border-width: 0px 3px 3px 3px;
 }
 

@@ -1,0 +1,23 @@
+
+
+.borderPane{
+    -fx-background-image: url('images/CowPattern.PNG');
+}
+
+.anchorPane{
+    -fx-background-color: #d7ebd1;
+
+}
+
+.label.Welcome{
+    -fx-fill: #efdc52;
+    -fx-font-family: Arial;
+    -fx-effect: dropshadow(gaussian, #004e1b, 4, 0.5, 0.0, 0.0);
+
+}
+
+.button{
+    -fx-color: #d7ebd1;
+    -fx-effect: dropshadow(gaussian, #efdc52, 5, 0.5, 0.0, 0.0);
+    -fx-text-fill: #004e1b;
+}
