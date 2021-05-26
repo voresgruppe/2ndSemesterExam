@@ -125,7 +125,7 @@
                               </HBox>
                               <HBox layoutX="10.0" layoutY="40.0" prefHeight="30.0" prefWidth="200.0">
                                  <children>
-                                    <Label prefHeight="25.0" prefWidth="90.0" text="UpdateTime:">
+                                    <Label prefHeight="25.0" prefWidth="90.0" text="UpdateTime(s):">
                                        <HBox.margin>
                                           <Insets right="10.0" />
                                        </HBox.margin>
