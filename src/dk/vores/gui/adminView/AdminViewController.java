@@ -155,9 +155,10 @@ public class AdminViewController implements Initializable {
         txtEditSource.setText(uv.getSource());
         comboEditType.setItems(FXCollections.observableArrayList(DataType.values()));
         comboEditType.setValue(uv.getType());
+        comboEditUpdateTime.setValue(uv.getUpdateTime());
 
-        //TODO updateTime
-        //comboEditUpdateTime.setItems();
+
+        comboEditUpdateTime.setItems(FXCollections.observableArrayList(150, 300, 600));
 
         EventHandler<ActionEvent> event = e -> {
             Boolean errorMade = false;

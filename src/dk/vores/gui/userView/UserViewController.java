@@ -6,6 +6,7 @@ import dk.vores.be.User;
 import dk.vores.be.UserView;
 import dk.vores.util.ViewUtils;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
@@ -174,5 +175,9 @@ public class UserViewController implements Initializable {
         this.uvm = new UserViewManager();
         this.dm = new DataManager();
         this.vu = new ViewUtils();
+    }
+
+    public void updateView(ActionEvent actionEvent) {
+        drawUserView_dataMode();
     }
 }
