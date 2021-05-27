@@ -120,6 +120,7 @@ public class UpdateUserView extends Task<AnchorPane> {
                                 webView.setPrefHeight(userBlock.getPrefHeight());
                                 webView.setPrefWidth(userBlock.getPrefWidth());
                                 userBlock.getChildren().add(webView);
+                                addListener(userBlock,current.getSource());
                             });
                             break;
                         case Table:
