@@ -318,35 +318,6 @@ public class ViewUtils {
 
     static class Wrapper<T> { T value ; }
 
-
-
-    public BarChart buildBarChart_DataExample(String source) {
-        DataManager dMan = new DataManager();
-        List<DataExample> dataExamples = dMan.getAllData(source);
-
-        CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel("Product");
-
-        NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel("quantity Sold");
-
-        BarChart barChart = new BarChart(xAxis, yAxis);
-
-        XYChart.Series data = new XYChart.Series();
-        data.setName("Products Sold");
-
-        //provide data
-        for(DataExample dataExample: dataExamples){
-            data.getData().add(new XYChart.Data(dataExample.getDate().toString(),dataExample.getUnitsSold()));
-        }
-
-        barChart.getData().add(data);
-        barChart.setLegendVisible(false);
-
-        return barChart;
-    }
-
-
     public BarChart buildBarChart_CSV(String source) {
 
         File file = new File(source);

@@ -115,10 +115,12 @@ public class UpdateUserView extends Task<AnchorPane> {
                             }
                             break;
                         case HTML:
-                            WebView webView = viewUtils.showWeb("https://" + current.getSource());
-                            webView.setPrefHeight(userBlock.getPrefHeight());
-                            webView.setPrefWidth(userBlock.getPrefWidth());
-                            userBlock.getChildren().add(webView);
+                            Platform.runLater(()->{
+                                WebView webView = viewUtils.showWeb("https://" + current.getSource());
+                                webView.setPrefHeight(userBlock.getPrefHeight());
+                                webView.setPrefWidth(userBlock.getPrefWidth());
+                                userBlock.getChildren().add(webView);
+                            });
                             break;
                         case Table:
                             TableView tableView;

@@ -168,8 +168,6 @@ public class UserViewController implements Initializable {
         views = uvm.loadViewsFromUserID(loggedUser.getId());
     }
 
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.uvm = new UserViewManager();
