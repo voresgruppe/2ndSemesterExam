@@ -56,7 +56,7 @@ public class UserViewController implements Initializable {
         ObservableList<UserView> usersViews = uvMan.loadViewsFromUserID(loggedUser.getId());
         double height = paneUserView.getHeight();
         double width = paneUserView.getWidth();
-        int updateTime = 300_000;
+        int updateTime = 600_000;
         for (UserView current : usersViews) {
 
             if (height < current.getEndY()) {

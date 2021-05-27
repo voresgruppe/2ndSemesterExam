@@ -36,7 +36,9 @@ public class UpdateUserView extends Task<AnchorPane> {
     @Override
     protected AnchorPane call() throws Exception {
         while(true){
-            mainPane.getChildren().removeAll();
+            Platform.runLater(()->{
+                mainPane.getChildren().clear();
+            });
             createPanes();
             Thread.sleep(updateTime);
         }
