@@ -34,8 +34,6 @@ public class LoginViewController implements Initializable {
     private final UserManager userManager;
     private final UserViewManager userViewManager;
 
-
-
     public void TryLogin(ActionEvent actionEvent) {
         User user = userManager.login1(usernameField.getText(), passwordField.getText());
         if(user != null){
@@ -47,6 +45,7 @@ public class LoginViewController implements Initializable {
                     tvc.setLoggedAdmin(user);
                     Stage stage = new Stage();
                     stage.setScene(new Scene(mainLayout));
+                    stage.setTitle(user.getUsername());
                     stage.show();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -60,6 +59,7 @@ public class LoginViewController implements Initializable {
                     Stage stage = new Stage();
                     stage.setScene(new Scene(mainLayout));
                     stage.setResizable(false);
+                    stage.setTitle(user.getUsername());
                     stage.show();
                 } catch (IOException e) {
                     e.printStackTrace();
