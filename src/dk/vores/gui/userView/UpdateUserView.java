@@ -68,11 +68,9 @@ public class UpdateUserView extends Task<AnchorPane> {
                 AnchorPane userBlock = viewUtils.createAnchorPane(current.getId(), current.getStartX(), current.getStartY(), current.getEndX() - current.getStartX(), current.getEndY() - current.getStartY());
 
 
-                //userBlock.setStyle("-fx-background-color: #ffff; -fx-border-color: black; -fx-border-width: 2px 2px 2px 2px; ");
                 userBlock.setStyle("-fx-background-color: #ffff;");
 
                 DataType currentType = current.getType();
-                //userBlock.setStyle("-fx-background-color: " + viewUtils.matchDatatypeToColor(currentType) + ";");
                 String currentSource = current.getSource();
 
 
