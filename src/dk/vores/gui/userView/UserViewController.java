@@ -49,8 +49,6 @@ public class UserViewController implements Initializable {
     }
 
     private void initViews() {
-        loadViews();
-
         drawUserView_dataMode();
     }
 
