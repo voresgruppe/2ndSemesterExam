@@ -42,6 +42,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ViewUtils {
+
+    private static ViewUtils single_instance = null;
+    private ViewUtils(){}
+
+    public static ViewUtils getInstance(){
+        if(single_instance == null){
+            single_instance = new ViewUtils();
+        }
+        return single_instance;
+    }
+
     UserViewManager uvMan = new UserViewManager();
 
     public Rectangle createDraggableRectangle (int uvID, double x, double y, double width, double height){

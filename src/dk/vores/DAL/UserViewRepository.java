@@ -14,7 +14,7 @@ import java.sql.*;
 public class UserViewRepository {
     private UserError userError = UserError.getInstance();
     DatabaseConnector db;
-    private DataUtils dataUtils = new DataUtils();
+    private DataUtils dataUtils = DataUtils.getInstance();
 
     public UserViewRepository() {
         this.db = DatabaseConnector.getInstance();

@@ -26,7 +26,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class UpdateUserView extends Task<AnchorPane> {
-    private ViewUtils viewUtils = new ViewUtils();
+    private ViewUtils viewUtils = ViewUtils.getInstance();
     private UserViewManager uvMan = new UserViewManager();
 
     private int updateTime;

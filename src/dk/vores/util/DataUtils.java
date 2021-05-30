@@ -11,6 +11,15 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 
 public class DataUtils {
+    private static DataUtils single_instance = null;
+    private DataUtils(){}
+
+    public static DataUtils getInstance(){
+        if(single_instance == null){
+            single_instance = new DataUtils();
+        }
+        return single_instance;
+    }
 
 
 

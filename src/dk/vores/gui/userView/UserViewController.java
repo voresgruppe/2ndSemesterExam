@@ -25,7 +25,7 @@ public class UserViewController implements Initializable {
     private double userViewWidth = 0;
     private double userViewHeight = 0;
     private UserViewManager uvMan = new UserViewManager();
-    private ViewUtils viewUtils = new ViewUtils();
+    private ViewUtils viewUtils = ViewUtils.getInstance();
 
     @FXML private AnchorPane paneUserView;
 
@@ -73,7 +73,7 @@ public class UserViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.uvm = new UserViewManager();
-        this.vu = new ViewUtils();
+        this.vu = ViewUtils.getInstance();
     }
 
     public void updateView(ActionEvent actionEvent) {

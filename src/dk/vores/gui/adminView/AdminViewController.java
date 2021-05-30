@@ -73,7 +73,7 @@ public class AdminViewController implements Initializable {
     private User selectedUser;
     private UserManager uMan = new UserManager();
     private UserViewManager uvMan = new UserViewManager();
-    private ViewUtils viewUtils = new ViewUtils();
+    private ViewUtils viewUtils = ViewUtils.getInstance();
 
     private boolean isDataShowing =false;
 

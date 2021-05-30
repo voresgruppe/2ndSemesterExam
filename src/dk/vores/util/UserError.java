@@ -3,12 +3,10 @@ package dk.vores.util;
 import javafx.scene.control.Alert;
 
 public class UserError {
-    private static UserError single_instance = null;
     private boolean connectionError = false;
 
-    private UserError(){
-
-    }
+    private static UserError single_instance = null;
+    private UserError(){}
 
     public static UserError getInstance(){
         if(single_instance == null){
