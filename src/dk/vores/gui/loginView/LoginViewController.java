@@ -29,8 +29,8 @@ public class LoginViewController implements Initializable {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
 
-    private final UserManager userManager;
-    private final UserViewManager userViewManager;
+    private final UserManager userManager = new UserManager();
+    private final UserViewManager userViewManager = new UserViewManager();
 
     public User tryLogin(String username, String password, boolean isTest) {
         User user = userManager.login(username, password);
@@ -78,10 +78,6 @@ public class LoginViewController implements Initializable {
         tryLogin(usernameField.getText(), passwordField.getText(), false);
     }
 
-    public LoginViewController(){
-        userManager = new UserManager();
-        userViewManager = new UserViewManager();
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

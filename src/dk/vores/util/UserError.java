@@ -3,6 +3,38 @@ package dk.vores.util;
 import javafx.scene.control.Alert;
 
 public class UserError {
+    private static UserError single_instance = null;
+    private boolean connectionError = false;
+
+    private UserError(){
+
+    }
+
+    public static UserError getInstance(){
+        if(single_instance == null){
+            single_instance = new UserError();
+        }
+        return single_instance;
+    }
+
+    public Alert fileNotFound(String title, String content){
+        Alert a = new Alert(Alert.AlertType.WARNING);
+        a.setHeaderText("There was an error regarding a file");
+        a.setTitle(title);
+        a.setContentText(content);
+        a.show();
+        return a;
+    }
+
+    public Alert databaseError(String title, String content){
+        Alert a = new Alert(Alert.AlertType.WARNING);
+        a.setHeaderText("There was an error regarding the database");
+        a.setTitle(title);
+        a.setContentText(content);
+        a.show();
+        return a;
+    }
+
     public static void showError(String header, String error) {
         Alert a = new Alert(Alert.AlertType.WARNING);
         a.setHeaderText(header);
@@ -19,5 +51,11 @@ public class UserError {
         return a;
     }
 
+    public boolean isConnectionError() {
+        return connectionError;
+    }
 
+    public void setConnectionError(boolean connectionError) {
+        this.connectionError = connectionError;
+    }
 }

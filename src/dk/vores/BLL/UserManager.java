@@ -12,8 +12,6 @@ public class UserManager {
         userRepository = new UserRepository();
     }
 
-    //public User getUserFromID(int id){ return userRepository.getUserFromID(id); }
-
     public User login(String username, String password){
         return userRepository.login(username,password);
     }

@@ -1,5 +1,7 @@
 package dk.vores;
 
+import dk.vores.be.User;
+import dk.vores.util.UserError;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    private final UserError error = UserError.getInstance();
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -18,6 +22,8 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setTitle("Login");
-        stage.show();
+        if(!error.isConnectionError()) {
+            stage.show();
+        }
     }
 }
