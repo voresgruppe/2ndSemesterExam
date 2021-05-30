@@ -14,9 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -34,8 +32,11 @@ public class LoginViewController implements Initializable {
     private final UserManager userManager;
     private final UserViewManager userViewManager;
 
-    public void TryLogin(ActionEvent actionEvent) {
-        User user = userManager.login1(usernameField.getText(), passwordField.getText());
+    public User tryLogin(String username, String password, boolean isTest) {
+        User user = userManager.login(username, password);
+        if(isTest){
+            return user;
+        }
         if(user != null){
             if(user.isAdmin()){
                 try {
@@ -65,9 +66,16 @@ public class LoginViewController implements Initializable {
                     e.printStackTrace();
                 }
             }
+            return user;
         }else{
             System.out.println("no user found");
+            return null;
         }
+    }
+
+    @FXML
+    private void handleLogin (ActionEvent actionEvent){
+        tryLogin(usernameField.getText(), passwordField.getText(), false);
     }
 
     public LoginViewController(){

@@ -22,8 +22,27 @@ public class UserRepository {
             e.printStackTrace();
         }
     }
+/*
+    public User getUserFromID(int id){
+        try {
+            String query = "SELECT [username], [password], [isAdmin] FROM [User] AS u WHERE [id]=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                User returnUser = new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getBoolean("isAdmin"));
+                return returnUser;
+            }
+            return null;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-    public User login1(String username, String password){
+ */
+
+    public User login(String username, String password){
         try {
             String query = "SELECT [id], [password], [isAdmin] FROM [User] AS u WHERE username=?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -41,25 +60,6 @@ public class UserRepository {
             e.printStackTrace();
             return null;
         }
-    }
-
-    public int login(String username, String password){
-        try(Connection connection = db.getConnection()){
-            String query = "SELECT [id], [password] FROM [User] AS u WHERE username=?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, username);
-            ResultSet rs = preparedStatement.executeQuery();
-
-            while(rs.next()){
-                String pass = rs.getString("password");
-                if(pass.equals(password))
-                    return rs.getInt("id");
-            }
-            return -1;
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return -1;
     }
 
     public ObservableList<User> loadUsers(){
@@ -140,5 +140,7 @@ public class UserRepository {
             throwables.printStackTrace();
         }
     }
+
+
 
 }

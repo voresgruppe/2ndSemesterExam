@@ -1,6 +1,5 @@
 package dk.vores.gui.userView;
 
-import dk.vores.BLL.DataManager;
 import dk.vores.BLL.UserViewManager;
 import dk.vores.be.User;
 import dk.vores.be.UserView;
@@ -9,12 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.PieChart;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,7 +18,6 @@ import java.util.concurrent.Executors;
 public class UserViewController implements Initializable {
 
     private UserViewManager uvm;
-    private DataManager dm;
     private ViewUtils vu;
 
     private User loggedUser;
@@ -80,7 +73,6 @@ public class UserViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.uvm = new UserViewManager();
-        this.dm = new DataManager();
         this.vu = new ViewUtils();
     }
 

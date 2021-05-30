@@ -12,12 +12,10 @@ public class UserManager {
         userRepository = new UserRepository();
     }
 
-    public int login(String username, String password){
-        return userRepository.login(username,password);
-    }
+    //public User getUserFromID(int id){ return userRepository.getUserFromID(id); }
 
-    public User login1(String username, String password){
-        return userRepository.login1(username,password);
+    public User login(String username, String password){
+        return userRepository.login(username,password);
     }
 
     public ObservableList<User> getAllUsers(){
