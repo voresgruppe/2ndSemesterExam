@@ -170,6 +170,9 @@ public class AdminViewController implements Initializable {
                 else if(comboEditType.getValue() == DataType.Table && (source.endsWith(".csv") || source.endsWith(".xlsx"))){
                     uvMan.updateSourceFromID(id,source);
                 }
+                else if((comboEditType.getValue() == DataType.BarChart || comboEditType.getValue() == DataType.PieChart) && source.endsWith(".xml")){
+                    uvMan.updateSourceFromID(id,source);
+                }
                 else if(source.endsWith(".csv")){
                     uvMan.updateSourceFromID(id,source);
                 }
