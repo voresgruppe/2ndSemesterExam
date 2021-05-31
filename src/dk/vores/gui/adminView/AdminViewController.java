@@ -8,7 +8,6 @@ import dk.vores.be.User;
 import dk.vores.be.UserView;
 import dk.vores.util.UserError;
 import dk.vores.util.ViewUtils;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,7 +15,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
@@ -31,10 +29,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import org.shaded.apache.commons.codec.binary.StringUtils;
 
-import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -62,12 +57,7 @@ public class AdminViewController implements Initializable {
     @FXML
     private TableView<User> tblUsers;
     @FXML
-    private TableColumn<User, String> tcID;
-    @FXML
     private TableColumn<User, String> tcUsername;
-    @FXML
-    private TableColumn<User, String> tcPassword;
-
 
     private User loggedAdmin;
     private User selectedUser;
@@ -101,9 +91,7 @@ public class AdminViewController implements Initializable {
 
         tblUsers.setItems(uMan.getUsersWithoutAdmins());
         selectedUser = tblUsers.getItems().get(0);
-        tcID.cellValueFactoryProperty().setValue(cellData -> cellData.getValue().getIdProperty());
         tcUsername.cellValueFactoryProperty().setValue(cellData -> cellData.getValue().getUsernameProperty());
-        tcPassword.cellValueFactoryProperty().setValue(cellData -> cellData.getValue().getPasswordProperty());
     }
 
 
@@ -346,16 +334,18 @@ public class AdminViewController implements Initializable {
     }
 
     public void removeBlock(ActionEvent actionEvent) {
-        String header = "Are you sure you want remove this view from " + selectedUser.getUsername() + "?";
-        Optional<ButtonType> result = UserError.showWarning(header,"Click OK to continue").showAndWait();
-        if(result.get() == ButtonType.OK){
-            try{
-                int parseId = Integer.parseInt(selectedUserBlock.getId());
-                uvMan.removeViewFromUser(parseId);
-                paneUserView.getChildren().remove(selectedUserBlock);
-                newUserView();
-            } catch (NumberFormatException e) {
-                UserError.showError("Something went wrong", "ID of window is not a number");
+        if(selectedUserBlock != null){
+            String header = "Are you sure you want remove this view from " + selectedUser.getUsername() + "?";
+            Optional<ButtonType> result = UserError.showWarning(header,"Click OK to continue").showAndWait();
+            if(result.get() == ButtonType.OK){
+                try{
+                    int parseId = Integer.parseInt(selectedUserBlock.getId());
+                    uvMan.removeViewFromUser(parseId);
+                    paneUserView.getChildren().remove(selectedUserBlock);
+                    newUserView();
+                } catch (NumberFormatException e) {
+                    UserError.showError("Something went wrong", "ID of window is not a number");
+                }
             }
         }
     }

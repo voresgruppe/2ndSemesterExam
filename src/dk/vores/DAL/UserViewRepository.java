@@ -165,7 +165,7 @@ public class UserViewRepository {
             String sql = "DELETE FROM [UserView] WHERE [id] = ?;";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1,id);
-            ps.executeQuery();
+            ps.executeUpdate();
         }catch (SQLException e) {
             userError.databaseError("an error occurred while trying to remowe an userview block from a user", e.getMessage());
         }

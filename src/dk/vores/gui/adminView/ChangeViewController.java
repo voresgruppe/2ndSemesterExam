@@ -7,19 +7,17 @@ import dk.vores.util.UserError;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.net.URL;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 public class ChangeViewController{
 
 
+    public ComboBox comboUpdateTime;
     private User currentUser;
     private final UserViewManager uvMan = new UserViewManager();
     private AdminViewController adminViewController;
@@ -44,6 +42,8 @@ public class ChangeViewController{
         choiceType.setItems(FXCollections.observableArrayList(DataType.values()));
         choiceType.getSelectionModel().selectFirst();
         txtfieldSourcePath.setText("test");
+        comboUpdateTime.setItems(FXCollections.observableArrayList(150, 300, 600));
+        comboUpdateTime.getSelectionModel().select(1);
     }
 
     public void chooseSource(ActionEvent actionEvent) {
@@ -98,8 +98,8 @@ public class ChangeViewController{
             }
 
             int updateTime = 300;
-            if(txtUpdateTime.getText()!= null &&!txtUpdateTime.getText().isEmpty()){
-                updateTime = Integer.parseInt(txtUpdateTime.getText());
+            if(comboUpdateTime.getValue()!= null &&!comboUpdateTime.getValue().toString().isEmpty()){
+                updateTime = Integer.parseInt(comboUpdateTime.getValue().toString());
             }
 
 

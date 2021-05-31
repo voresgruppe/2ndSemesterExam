@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
@@ -68,11 +69,11 @@
                         <Insets left="25.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="txtUpdateTime" prefHeight="25.0" prefWidth="74.0">
+                  <ComboBox fx:id="comboUpdateTime" prefWidth="150.0">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
-                  </TextField>
+                  </ComboBox>
                   <Label text="(seconds)">
                      <HBox.margin>
                         <Insets left="10.0" />
