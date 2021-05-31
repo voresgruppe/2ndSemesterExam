@@ -312,7 +312,7 @@ public class AdminViewController implements Initializable {
             FXMLLoader loader = new FXMLLoader(ChangeViewController.class.getResource("view/addBlockView.fxml"));
             Parent mainLayout = loader.load();
             ChangeViewController cvc = loader.getController();
-            cvc.setClickedUser(selectedUser);
+            cvc.setClickedUser(selectedUser, paneUserView);
             cvc.setAdminViewController(this);
             Stage stage = new Stage();
             stage.setScene(new Scene(mainLayout));

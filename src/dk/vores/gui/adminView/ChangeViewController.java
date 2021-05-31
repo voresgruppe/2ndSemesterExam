@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -33,10 +34,12 @@ public class ChangeViewController{
     @FXML
     private TextField txtUpdateTime;
 
+    private AnchorPane anchorPane;
 
 
-    public void setClickedUser(User currentUser){
 
+    public void setClickedUser(User currentUser, AnchorPane pane){
+        this.anchorPane = pane;
         this.currentUser = currentUser;
         lblWhoToChange.setText("Add a view for: " + currentUser.getUsername());
         choiceType.setItems(FXCollections.observableArrayList(DataType.values()));
@@ -73,6 +76,7 @@ public class ChangeViewController{
         String header = "Are you sure you want to clear " + currentUser.getUsername() + "'s current view?";
         Optional<ButtonType> result = UserError.showWarning(header,"Click OK to continue").showAndWait();
         if(result.get() == ButtonType.OK){
+            anchorPane.getChildren().clear();
             uvMan.clearViewFromUser(currentUser);
         }
     }
