@@ -12,9 +12,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,6 +25,7 @@ import java.util.ResourceBundle;
 
 public class LoginViewController implements Initializable {
 
+    @FXML private Text lblError;
     @FXML private AnchorPane mainPane;
     @FXML private AnchorPane logoPane;
     @FXML private Button submitLogin;
@@ -37,7 +40,11 @@ public class LoginViewController implements Initializable {
         if(isTest){
             return user;
         }
+        if(user == null) {
+            lblError.setText("User doesnt exist");
+        }
         if(user != null){
+            lblError.setText("");
             if(user.isAdmin()){
                 try {
                     FXMLLoader loader = new FXMLLoader(AdminViewController.class.getResource("view/adminView.fxml"));
@@ -66,6 +73,7 @@ public class LoginViewController implements Initializable {
                     e.printStackTrace();
                 }
             }
+
             return user;
         }else{
             System.out.println("no user found");
@@ -81,14 +89,6 @@ public class LoginViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        setTestLogin();
         logoPane.getStyleClass().add("LogoPane");
-
-    }
-
-    private void setTestLogin(){
-        usernameField.setText("test2");
-        passwordField.setText("test2");
     }
 }

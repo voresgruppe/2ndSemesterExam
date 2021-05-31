@@ -10,10 +10,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class LoginViewControllerTest {
 
     @Test
-    void tryLogin() {
+    void tryLogin1() {
         //Arrange
         LoginViewController loginViewController = new LoginViewController();
-        UserManager uMan = new UserManager();
 
         //Act
         User actual = loginViewController.tryLogin("test", "test", true);
@@ -21,5 +20,30 @@ class LoginViewControllerTest {
 
         //Assert
         Assertions.assertEquals(actual.getId(),expected);
+    }
+
+    @Test
+    void tryLogin2() {
+        //Arrange
+        LoginViewController loginViewController = new LoginViewController();
+
+        //Act
+        User actual = loginViewController.tryLogin("test2", "test2", true);
+        String expected =  "test2";
+
+        //Assert
+        Assertions.assertEquals(actual.getUsername(),expected);
+    }
+
+    @Test
+    void tryLogin3() {
+        //Arrange
+        LoginViewController loginViewController = new LoginViewController();
+
+        //Act
+        User actual = loginViewController.tryLogin("antitest", "antitest", true);
+
+        //Assert
+        assertNull(actual);
     }
 }

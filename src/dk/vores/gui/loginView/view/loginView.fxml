@@ -11,7 +11,10 @@
 
 <AnchorPane fx:id="mainPane" prefHeight="175.0" prefWidth="500.0" styleClass="MainPane" stylesheets="@loginView.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.vores.gui.loginView.LoginViewController">
    <children>
-      <AnchorPane fx:id="logoPane" layoutX="14.0" layoutY="15.0" prefHeight="146.0" prefWidth="258.0" styleClass="LogoPane" stylesheets="@loginView.css" AnchorPane.rightAnchor="244.0" AnchorPane.topAnchor="15.0" />
+      <AnchorPane fx:id="logoPane" layoutX="14.0" layoutY="15.0" prefHeight="146.0" prefWidth="258.0" styleClass="LogoPane" stylesheets="@loginView.css" AnchorPane.rightAnchor="244.0" AnchorPane.topAnchor="15.0">
+         <children>
+            <Text fx:id="lblError" layoutX="14.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" wrappingWidth="151.0" />
+         </children></AnchorPane>
       <ImageView fitHeight="173.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="28.060867309570312" AnchorPane.leftAnchor="296.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
          <image>
             <Image url="@images/Arla-logo-png.png" />
