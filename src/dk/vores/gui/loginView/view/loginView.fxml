@@ -21,8 +21,8 @@
          </image>
       </ImageView>
       <TextField fx:id="usernameField" layoutX="81.0" layoutY="38.0" styleClass="text-field" stylesheets="@loginView.css" />
-      <Button id="submit" fx:id="submitLogin" layoutX="203.0" layoutY="118.0" mnemonicParsing="false" onAction="#handleLogin" stylesheets="@loginView.css" text="Submit" />
       <PasswordField fx:id="passwordField" layoutX="81.0" layoutY="78.0" styleClass="text-field" stylesheets="@loginView.css" />
+      <Button id="submit" fx:id="submitLogin" layoutX="203.0" layoutY="118.0" mnemonicParsing="false" onAction="#handleLogin" stylesheets="@loginView.css" text="Submit" />
       <Text layoutX="14.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Username">
          <font>
             <Font name="System Bold" size="13.0" />

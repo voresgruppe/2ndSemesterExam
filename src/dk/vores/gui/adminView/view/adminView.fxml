@@ -25,9 +25,7 @@
                <children>
                   <TableView fx:id="tblUsers" prefHeight="446.0" prefWidth="306.0" styleClass="userList" stylesheets="@adminView.css">
                     <columns>
-                      <TableColumn fx:id="tcID" prefWidth="50.0" styleClass="userList" text="ID" />
-                      <TableColumn fx:id="tcUsername" prefWidth="125.0" text="Username" />
-                        <TableColumn fx:id="tcPassword" prefWidth="125.0" text="Password" />
+                      <TableColumn fx:id="tcUsername" prefWidth="291.0" text="Username" />
                     </columns>
                      <VBox.margin>
                         <Insets bottom="10.0" right="10.0" top="10.0" />
