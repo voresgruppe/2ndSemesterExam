@@ -112,6 +112,8 @@ public class AdminViewController implements Initializable {
                 Rectangle userBlock = viewUtils.createDraggableRectangle(current.getId(), current.getStartX(), current.getStartY(), current.getEndX() - current.getStartX(), current.getEndY() - current.getStartY());
                 userBlock.setFill(Paint.valueOf(viewUtils.matchDatatypeToColor(current.getType())));
 
+
+
                 userBlock.setOnMouseClicked(event->{
                     String markedStyle = "-fx-stroke: blue; -fx-stroke-width: 5;";
                     if(selectedUserBlock!= null && selectedUserBlock.getStyle().contains(markedStyle)){

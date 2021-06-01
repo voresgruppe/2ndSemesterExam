@@ -12,6 +12,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.chart.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -74,6 +75,7 @@ public class ViewUtils {
 
         // move handle:
         Circle moveHandle = new Circle(handleRadius, Color.GOLD);
+
         // bind to bottom center of Rectangle:
         moveHandle.centerXProperty().bind(rect.xProperty().add(rect.widthProperty().divide(2)));
         moveHandle.centerYProperty().bind(rect.yProperty().add(rect.heightProperty()));
@@ -88,6 +90,7 @@ public class ViewUtils {
                     }
                     ((Pane)newParent).getChildren().add(c);
                 }
+
             }
         });
 

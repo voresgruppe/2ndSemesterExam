@@ -17,6 +17,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        printTestLogin();
         Parent root = FXMLLoader.load(getClass().getResource("gui/loginView/view/loginView.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -25,5 +26,10 @@ public class Main extends Application {
         if(!error.isConnectionError()) {
             stage.show();
         }
+    }
+
+    private void printTestLogin(){
+        System.out.println("test Admin: username = testAdmin password= testAdmin");
+        System.out.println("test user: username = test password= test");
     }
 }
